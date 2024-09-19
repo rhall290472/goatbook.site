@@ -121,7 +121,7 @@ if (!session_id()) {
             <div class="col-lg-10 col-xxl-10 mb-5">
               <h2>Reviews</h2>
               <div class="reviews"></div>
-              <script src="reviews.js"></script>
+              <script src="assets/js/reviews.js"></script>
               <script>
                 var site_idx = <?php echo json_encode($Site['IDX'], JSON_HEX_TAG); ?>;
                 new Reviews({

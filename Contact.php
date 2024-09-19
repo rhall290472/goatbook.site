@@ -6,7 +6,7 @@ if (!session_id()) {
   $cGOAT = cGOAT::getInstance();
 }
 ?>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
 
 <!DOCTYPE html>
 <html lang="en">
