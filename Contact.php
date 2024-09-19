@@ -47,13 +47,16 @@ if (!session_id()) {
             </div>
 
             <div class="col-md-12">
-              <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+              <textarea class="form-control" name="message" rows="6" placeholder="Message" required="" style="height:100%;"></textarea>
             </div>
 
             <div class="col-md-12 text-center">
-              <div class="loading">Loading</div>
+              <!-- <div class="loading">Loading</div>
               <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank you!</div>
+              <div class="sent-message">Your message has been sent. Thank you!</div> -->
+              <div class="loading"></div>
+              <div class="error-message"></div>
+              <div class="sent-message"></div>
 
               <button type="submit">Send Message</button>
             </div>
