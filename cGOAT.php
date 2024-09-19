@@ -350,9 +350,9 @@ class cGOAT
     // Fill up the drop down with merit badge names
 ?>
     <form method=post>
-      <div class="form-row px-5">
+      <div class="form-row px-3">
 
-        <div class="col-3">
+        <div class="col-auto">
 
           <label for='Unit'>&nbsp;</label>
           <select class='form-control' id='Area' name='Area'>
@@ -364,11 +364,10 @@ class cGOAT
             ?>
           </select>
         </div>
-        <div class="col-3 py-4">
+        <div class="col-auto py-4">
           <input class='btn btn-primary btn-sm' type='submit' name='SubmitArea' placeholder='Area' value='Sort By Area' />
         </div>
-        <div class="col-3">
-
+        <div class="col-auto">
           <label for='Unit'>&nbsp;</label>
           <select class='form-control' id='Type' name='Type'>
             <option value="0"> </option>
@@ -379,7 +378,7 @@ class cGOAT
             ?>
           </select>
         </div>
-        <div class="col-3 py-4">
+        <div class="col-auto py-4">
           <input class='btn btn-primary btn-sm' type='submit' name='SubmitActivityType' placeholder='Type' value='Sort By Activity Type' />
         </div>
       </div>

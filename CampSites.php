@@ -59,7 +59,7 @@ if (!session_id()) {
 
 
 
-    <div class="px-5">
+    <div class="px-3">
       <table class="fixed_header table table-striped">
         <thead>
           <tr>

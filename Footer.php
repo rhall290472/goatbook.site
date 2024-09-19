@@ -23,7 +23,9 @@
       <!-- Footer-->
       <footer class="py-3 bg-dark">
         <div class="container  d-print-none">
-          <p class="m-0 text-center text-white">Copyright &copy; goatbook.site 2024</p>
+          <p class="m-0 text-center text-white">
+            <?php echo "Copyright &copy; " . date('Y') . " " . $_SERVER['HTTP_HOST']; ?>
+          </p>
         </div>
       </footer>
       <!-- Bootstrap core JS-->

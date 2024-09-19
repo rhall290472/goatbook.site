@@ -35,7 +35,7 @@ if (!session_id()) {
   }
   ?>
 
-<div class="container-fluid">
+  <div class="container-fluid">
     <div class="row flex-nowrap">
       <div class="col-auto col-md-3 col-xl-auto px-sm-2 px-0 bg-dark d-print-none">
         <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
@@ -74,10 +74,10 @@ if (!session_id()) {
       </div>
       <div class="col py-3">
         <!-- Page content Here -->
-        <div class="container px-lg-5">
-          <div class="row gx-lg-5">
+        <div class="container px-3">
+          <div class="row gx-lg-3">
 
-            <div class="col-lg-10 col-xxl-10 mb-5">
+            <div class="col-lg-10 col-xxl-10 mb-3">
               <h1><?php echo isset($Site['area']) ? $cGOAT->GetAreaText($Site['area']) : "" ?></h1>
               <h2><?php
                   echo $Site['name'] . " - ";
@@ -88,9 +88,9 @@ if (!session_id()) {
                   ?></h2>
 
               <p><?php echo "Facilities: " . $Site['facilities']; ?></p>
-              <?php if(!empty($Site['map'])){  ?>
+              <?php if (!empty($Site['map'])) {  ?>
                 <p><?php echo "Link: "; ?><?php echo "<a href=" . $Site['map'] . " target='_blank'>More Information" ?></a></p>
-                <?php } ?>
+              <?php } ?>
 
               <p><?php echo $Site['directions']; ?></p>
 
