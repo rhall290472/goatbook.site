@@ -4,6 +4,11 @@ if (!session_id()) {
 
   include('cGOAT.php');
   $cGOAT = cGOAT::getInstance();
+
+  require 'assets/vendor/php-email-form/Exception.php';
+  require 'assets/vendor/php-email-form/PHPMailer.php';
+  require 'assets/vendor/php-email-form/SMTP.php';
+
 }
 ?>
   <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
@@ -22,7 +27,7 @@ if (!session_id()) {
 
   <div class="container section-title" data-aos="fade-up">
     <h2>Contact</h2>
-    <p>The GOAT Site webmaster</p>
+    <p>The GOAT Site <a href='mailto:webmaster@goatbook.site'>Webmaster</a></p>
   </div><!-- End Section Title -->
 
   <div class="container">
