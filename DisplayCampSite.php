@@ -87,6 +87,9 @@ if (!session_id()) {
                   }
                   ?></h2>
 
+              <?php if (!empty($Site['facilities']) )
+                echo "<p> Facilities: " . $Site['facilities']. "</p>";
+              ?>
               <p><?php echo "Facilities: " . $Site['facilities']; ?></p>
               <?php if (!empty($Site['map'])) {  ?>
                 <p><?php echo "Link: "; ?><?php echo "<a href=" . $Site['map'] . " target='_blank'>More Information" ?></a></p>
