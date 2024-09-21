@@ -9,10 +9,10 @@ order allow,deny
 deny from all
 </Files>
 
-# Begin EnforceSSL gccgsc.org
+# Begin EnforceSSL goatbook.site
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^(www.)?gccgsc.org$
+RewriteCond %{HTTP_HOST} ^(www.)?goatbook.site$
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L]
 </IfModule>
