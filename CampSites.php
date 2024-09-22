@@ -43,7 +43,10 @@ if (!session_id()) {
       $sql = "SELECT * FROM `site` WHERE (`type1` = '" . $type . "' OR `type2` = '" . $type . "') AND (`IsDeleted` IS NULL OR `IsDeleted` <> '1') ORDER BY area ASC, name ASC";
   } else if (isset($_SESSION["campselectionArea"])){
     $area =$_SESSION["campselectionArea"];
-    $sql = "SELECT * FROM `site` WHERE area = '" . $area . "' AND (`IsDeleted` IS NULL OR `IsDeleted` <> '1')";
+    if($area == 0)
+      $sql = "SELECT * FROM `site` WHERE (`IsDeleted` IS NULL OR `IsDeleted` <> '1') ORDER BY name ASC";
+    else
+      $sql = "SELECT * FROM `site` WHERE area = '" . $area . "' AND (`IsDeleted` IS NULL OR `IsDeleted` <> '1') ORDER BY name ASC";
   }else if (isset($_SESSION["campselectionActivity"])){
     $type = $_SESSION["campselectionActivity"];
     $sql = "SELECT * FROM `site` WHERE (`type1` = '" . $type . "' OR `type2` = '" . $type . "') AND (`IsDeleted` IS NULL OR `IsDeleted` <> '1') ORDER BY area ASC, name ASC";
