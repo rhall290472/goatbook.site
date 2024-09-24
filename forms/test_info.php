@@ -7,7 +7,6 @@
   */
 
   // Replace contact@example.com with your real receiving email address
-  //$receiving_email_address = 'webmaster@goatbook.site';
   $receiving_email_address = 'webmaster@goatbook.site';
 
   if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
@@ -27,9 +26,9 @@
   // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
   /*
   $contact->smtp = array(
-    'host' => 'smtp.ipage.com',
-    'username' => 'webmaster@goatbook.site',
-    'password' => 'Rlh$80016',
+    'host' => 'example.com',
+    'username' => 'example',
+    'password' => 'pass',
     'port' => '587'
   );
   */
