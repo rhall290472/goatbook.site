@@ -1,12 +1,9 @@
 <?php
 if (!session_id()) {
   session_start();
-
-  include('cGOAT.php');
-  $cGOAT = cGOAT::getInstance();
 }
 ?>
-  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
+<!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +19,7 @@ if (!session_id()) {
 
   <div class="container section-title" data-aos="fade-up">
     <h2>Contact</h2>
-    <p>The GOAT Site webmaster</p>
+    <p>The Centennial District webmaster</p>
   </div><!-- End Section Title -->
 
   <div class="container">
@@ -64,9 +61,7 @@ if (!session_id()) {
           </div>
         </form>
       </div><!-- End info Form -->
-
     </div>
-
   </div>
 
 
