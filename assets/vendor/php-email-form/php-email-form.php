@@ -5616,7 +5616,7 @@ class SMTP
      *
      * @var string|callable|\Psr\Log\LoggerInterface
      */
-    public $Debugoutput = 'echo';
+    public $Debugoutput = 'error_log';
 
     /**
      * Whether to use VERP.
