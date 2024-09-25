@@ -73,6 +73,8 @@ if (!session_id()) {
             <th>rating</th>
             <th>Last Reviewed</th>
             <th>Scout Skill Level</th>
+            <th>Has Info</th>
+            <th>Has Map</th>
             <th>facilities</th>
           </tr>
         </thead>
@@ -91,8 +93,10 @@ if (!session_id()) {
           $cGOAT->GetActivityText($row["type1"]) . "</td><td>" .
           $cGOAT->GetActivityText($row["type2"]) . "</td><td>" .
           $cGOAT->GetRating($row["IDX"])."</td><td>" .
-          $cGOAT-> GetLastReviewd($row["IDX"])."</td><td>" .
-          $cGOAT-> GetSkillLevel($row["IDX"])."</td><td>" .
+          $cGOAT->GetLastReviewd($row["IDX"])."</td><td>" .
+          $cGOAT->GetSkillLevel($row["IDX"])."</td><td>" .
+          $cGOAT->HasInfo($row["map"])."</td><td>" .
+          $cGOAT->HasMap($row["embedmap"])."</td><td>" .
           $row["facilities"] . "</td></tr>";
       }
       echo "</tbody>";
