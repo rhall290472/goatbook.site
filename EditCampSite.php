@@ -41,7 +41,7 @@ if (!session_id()) {
     $FormData = array();
     $FormData['IDX'] = $_POST['Siteid'];
     $FormData['area'] =  $cGOAT->GetFormData('element_1_1');
-    $FormData['name'] =  $cGOAT->GetFormData('element_1_2') == "" ? 0 : $cGOAT->GetFormData('element_1_2');;
+    $FormData['name'] =  $cGOAT->GetFormData('element_1_2') == "" ? 0 : ucwords(strtolower($cGOAT->GetFormData('element_1_2')));
     $FormData['type1'] =  $cGOAT->GetFormData('element_1_3') == "" ? 0 : $cGOAT->GetFormData('element_1_3');
     $FormData['type2'] =  $cGOAT->GetFormData('element_1_4') == "" ? 0 : $cGOAT->GetFormData('element_1_4');;
     $FormData['map'] =  $cGOAT->GetFormData('element_2_1');
@@ -103,7 +103,7 @@ if (!session_id()) {
               </div>
               <div class="col-2">
                 <label for=element_1_2>Name</label>
-                <input type="text" name="element_1_2" class="form-control" <?php echo "value='" . $Site['name'] . "'";    ?> />
+                <input type="text" name="element_1_2" class="form-control" <?php echo "value='" . ucwords($Site['name']) . "'";    ?> />
               </div>
               <div class="col-3">
                 <label for=element_1_3>Primary Activity</label>

@@ -89,7 +89,7 @@ if (!session_id()) {
       while ($row = $CampSite->fetch_assoc()) {
         echo "<tr><td>" .
           $cGOAT->GetAreaText($row["area"]) . "</td><td>" .
-          "<a href=./DisplayCampSite.php?Siteid=" . $row['IDX'] . ">" . $row["name"] . "</a> </td><td>" .
+          "<a href=./DisplayCampSite.php?Siteid=" . $row['IDX'] . ">" . ucwords(strtolower($row["name"])) . "</a> </td><td>" .
           $cGOAT->GetActivityText($row["type1"]) . "</td><td>" .
           $cGOAT->GetActivityText($row["type2"]) . "</td><td>" .
           $cGOAT->GetRating($row["IDX"])."</td><td>" .

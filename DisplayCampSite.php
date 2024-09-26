@@ -80,7 +80,7 @@ if (!session_id()) {
             <div class="col-lg-10 col-xxl-10 mb-3">
               <h1><?php echo isset($Site['area']) ? $cGOAT->GetAreaText($Site['area']) : "" ?></h1>
               <h2><?php
-                  echo $Site['name'] . " - ";
+                  echo ucwords(strtolower($Site["name"])) . " - ";
                   echo $cGOAT->GetActivityText($Site['type1']);
                   if ($Site['type2'] != 0) {
                     echo " / " . $cGOAT->GetActivityText($Site['type2']);
