@@ -10,20 +10,8 @@ if (!session_id()) {
 !  #         This is Proprietary Software of Richard Hall                   #  !
 !  ##########################################################################  !
 !  #                                                                        #  !
-!  #  FILE NAME   :  index.php                                              #  !
 !  #                                                                        #  !
-!  #  DESCRIPTION :  Website to Support Centennial District Advacncement    #  !
-!  #                 Data                                                   #  !
-!  #                                                                        #  !
-!  #  REFERENCES  :                                                         #  !
-!  #                                                                        #  !
-!  #                                                                        #  !
-!  #  CHANGE HISTORY ;                                                      #  !
-!  #                                                                        #  !
-!  ##########################################################################  !
-!  #                                                                        #  !
-!  #                                                                        #  !
-!  #   Copyright 2017-2024 - Richard Hall                                   #  !
+!  #   Copyright 2024 - Richard Hall                                        #  !
 !  #                                                                        #  !
 !  #   The information contained herein is the property of Richard          #  !
 !  #   Hall, and shall not be copied, in whole or in part, or               #  !
@@ -89,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Check if username exists, if yes then verify password
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $enabled);
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $enabled, $type);
                     if (mysqli_stmt_fetch($stmt)) {
                         //if (password_verify($password, $hashed_password) && $enabled == true) {
                         if (password_verify($password, $hashed_password)) {
@@ -102,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
                             $_SESSION["enabled"] = $enabled;
+                            $_SESSION["type"] = $type;
 
                             $datetime = new DateTime();
                             $Last = $datetime->format('Y-m-d H:i:s');
