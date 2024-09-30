@@ -9,17 +9,6 @@ session_start();
 ! \##########################################################################/ !
 !  #         This is Proprietary Software of Richard Hall                   #  !
 !  ##########################################################################  !
-!  #                                                                        #  !
-!  #  FILE NAME   :  index.php                                              #  !
-!  #                                                                        #  !
-!  #  DESCRIPTION :  Website to Support Centennial District Advacncement    #  !
-!  #                 Data                                                   #  !
-!  #                                                                        #  !
-!  #  REFERENCES  :                                                         #  !
-!  #                                                                        #  !
-!  #                                                                        #  !
-!  #  CHANGE HISTORY ;                                                      #  !
-!  #                                                                        #  !
 !  ##########################################################################  !
 !  #                                                                        #  !
 !  #                                                                        #  !

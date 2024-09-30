@@ -74,7 +74,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
     //
     //#####################################################
     if (isset($_POST['SubmitSite'])) {
-      $SelectedSite = $_POST['SiteName']; 
+      $SelectedSite = $_POST['SiteName'];
 
       $querySite = "SELECT * FROM `site_audit_trail` WHERE IDX='$SelectedSite'";
 
@@ -101,12 +101,12 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
         <?php
         while ($rowSite = $Site->fetch_assoc()) {
           echo "<tr><td>" .
-          $rowSite["IDX"] . "</td><td>" .
-          $rowSite["column_name"] . "</td><td>" .
-          $rowSite["old_value"] . "</td><td>" .
-          $rowSite["new_value"] . "</td><td>" .
-          $rowSite["done_by"] . "</td><td>" .
-          $rowSite["done_at"] . "</td></tr>";
+            $rowSite["IDX"] . "</td><td>" .
+            $rowSite["column_name"] . "</td><td>" .
+            $rowSite["old_value"] . "</td><td>" .
+            $rowSite["new_value"] . "</td><td>" .
+            $rowSite["done_by"] . "</td><td>" .
+            $rowSite["done_at"] . "</td></tr>";
         }
       }
         ?>

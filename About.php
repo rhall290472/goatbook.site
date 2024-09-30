@@ -58,11 +58,11 @@ if (!session_id()) {
             and Scouters in order to share campsites, hiking trails, and other activities that have been successfully tried by other units. This site is
             designed to be used by both new Scouters and the experienced Scouter; hopefully providing new experiences and locations to better enjoy the
             Colorado outdoors.</p>
-          </p> The site has been designed to be printed out on standard 8 1/2 x 11 paper, copies of particular pages can be made and taken on your adventure.
-          The GOAT Site has been grouped into areas covering a geographic region or area of the state such as the Guanella Pass Area and also by activitiy
-          types. Each having one or more maps merged into the text. In many cases information is provided on campsite facilities and known restrictions. The majority of
-          the GOAT Site activities reference the National Forest Service Maps; these maps show a large land area with access roads to campgrounds and
-          trailheads. In addition, land ownership is color coded, and hiking/backpacking trails are shown and designated with Forest Service trail numbers. </p>
+          <p> The site has been designed to be printed out on standard 8 1/2 x 11 paper, copies of particular pages can be made and taken on your adventure.
+            The GOAT Site has been grouped into areas covering a geographic region or area of the state such as the Guanella Pass Area and also by activitiy
+            types. Each having one or more maps merged into the text. In many cases information is provided on campsite facilities and known restrictions. The majority of
+            the GOAT Site activities reference the National Forest Service Maps; these maps show a large land area with access roads to campgrounds and
+            trailheads. In addition, land ownership is color coded, and hiking/backpacking trails are shown and designated with Forest Service trail numbers. </p>
           <p>A number of Forest Service maps have been changed when new editions were printed between 1989 -1995. Road numbers have been changed from Forest
             Service to County Road numbers; at least that portion of the road before the National Forest boundary. Some road numbers have been removed with
             no replacement number on the new edition. Many of the Forest Service road numbers are still posted along with the county signs on these roads.
@@ -73,7 +73,7 @@ if (!session_id()) {
   </section>
 
 
-  <?php include('Footer.php'); ?>
+  <?php include 'Footer.php'; ?>
 
 </body>
 

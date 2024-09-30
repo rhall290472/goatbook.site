@@ -13780,10 +13780,10 @@ textarea.form-control-lg {
   opacity: 1;
 }
 
-.bi-bookmark-tent::before{
-  content:"assests/icon/tent.ico";
+.bi-bookmark-tent::before {
+  content: "assests/icon/tent.ico";
 }
 
-.bi-bookmark-goat::before{
-  content:"assests/icon/goat.ico";
+.bi-bookmark-goat::before {
+  content: "assests/icon/goat.ico";
 }

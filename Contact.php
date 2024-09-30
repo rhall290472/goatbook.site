@@ -2,15 +2,15 @@
 if (!session_id()) {
   session_start();
 }
-  include('cGOAT.php');
-  $cGOAT = cGOAT::getInstance();
+include('cGOAT.php');
+$cGOAT = cGOAT::getInstance();
 
-  require 'assets/vendor/php-email-form/Exception.php';
-  require 'assets/vendor/php-email-form/PHPMailer.php';
-  require 'assets/vendor/php-email-form/SMTP.php';
+require 'assets/vendor/php-email-form/Exception.php';
+require 'assets/vendor/php-email-form/PHPMailer.php';
+require 'assets/vendor/php-email-form/SMTP.php';
 
 ?>
-  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
+<!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
 
 <!DOCTYPE html>
 <html lang="en">

@@ -54,7 +54,7 @@ if (!session_id()) {
       // Record has been updated in database now create a audit trail
       $cGOAT->CreateAudit($SiteOldData, $FormData, 'SiteOld');
       //$cGOAT->GoToURL('./index.php');
-      $cGOAT->GoToURL("./DisplayCampSite.php?Siteid=" .$FormData['IDX']);
+      $cGOAT->GoToURL("./DisplayCampSite.php?Siteid=" . $FormData['IDX']);
     }
   }
 

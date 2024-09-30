@@ -9,22 +9,10 @@ if (!session_id()) {
 ! \##########################################################################/ !
 !  #         This is Proprietary Software of Richard Hall                   #  !
 !  ##########################################################################  !
-!  #                                                                        #  !
-!  #  FILE NAME   :  cGOAT.php                                              #  !
-!  #                                                                        #  !
-!  #  DESCRIPTION :  This class will handle all access funtions to the      #  !
-!  #     adult_leaders database and the two tables trained and YPT.         #  !
-!  #                                                                        #  !
-!  #                                                                        #  !
-!  #  REFERENCES  :                                                         #  !
-!  #                                                                        #  !
-!  #                                                                        #  !
-!  #  CHANGE HISTORY ;                                                      #  !
-!  #                                                                        #  !
 !  ##########################################################################  !
 !  #                                                                        #  !
 !  #                                                                        #  !
-!  #   Copyright 2017-2024 - Richard Hall                                   #  !
+!  #   Copyright 2024 - Richard Hall                                        #  !
 !  #                                                                        #  !
 !  #   The information contained herein is the property of Richard          #  !
 !  #   Hall, and shall not be copied, in whole or in part, or               #  !
@@ -569,17 +557,19 @@ class cGOAT
   /******************************************************************************
    **
    *****************************************************************************/
-  public static function HasInfo($map) {
-    if(!empty($map))
+  public static function HasInfo($map)
+  {
+    if (!empty($map))
       return "&#x2714";
     else
-      return "";   
+      return "";
   }
   /******************************************************************************
    **
    *****************************************************************************/
-  public static function HasMap($embedmap) {
-    if(!empty($embedmap))
+  public static function HasMap($embedmap)
+  {
+    if (!empty($embedmap))
       return "&#x2714";
     else
       return "";
