@@ -1,0 +1,30 @@
+Use this site key in the HTML code your site serves to users.
+
+6Lf78lMqAAAAAFjrzUyu7I0UVidpbZ0uBoquOJ5H
+
+Use this secret key for communication between your site and reCAPTCHA.
+
+6Lf78lMqAAAAAOuwJCZ62SMDR976cOiBm5etXhEB
+
+https://developers.google.com/recaptcha/docs/v3
+
+
+
+ <script src="https://www.google.com/recaptcha/api.js"></script>
+
+
+  <script>
+   function onSubmit(token) {
+     document.getElementById("demo-form").submit();
+   }
+ </script>
+
+
+
+ <script>
+   function onSubmit(token) {
+     document.getElementById("demo-form").submit();
+   }
+ </script>
+ 
+
