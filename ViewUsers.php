@@ -97,7 +97,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
         <?php
         while ($row = $result->fetch_assoc()) {
           echo "<tr><td>" .
-            "<a href='../forms/EditUsers.php?IDX=" . $row["id"] . "'>" . $row["id"] . "</a>" . "</td><td>" .
+            "<a href='#'?IDX=" . $row["id"] . "'>" . $row["id"] . "</a>" . "</td><td>" .
             $row["username"] . "</td><td>" .
             $row["email"] . "</td><td>" .
             $row["password"] . "</td><td>" .

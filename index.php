@@ -57,13 +57,13 @@ if (!session_id()) {
                   <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Admin</span></a>
                 <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                   <li class="w-100">
-                    <a href="./ViewUsers.php" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">View Users</span></a>
+                    <a href="./ViewUsers.php" class="nav-link px-0"> <span class="d-none d-sm-inline">View Users</span></a>
                   </li>
                   <li>
-                    <a href="#" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">View Error Log</span></a>
+                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">View Error Log</span></a>
                   </li>
                   <li>
-                    <a href="#" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">View Audit Log</span></a>
+                    <a href="./AuditSite.php"  class="nav-link px-0"> <span class="d-none d-sm-inline">View Audit Log</span></a>
                   </li>
                 </ul>
               </li>
