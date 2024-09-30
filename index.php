@@ -50,6 +50,24 @@ if (!session_id()) {
                   <a href="./Book/GoatBook_1995_OCR.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">1995</span></a>
                 </li>
               </ul>
+            </li>
+            <?php if (isset($_SESSION["type"]) && $_SESSION["type"] == "Admin") { ?>
+              <li class="nav-item">
+                <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                  <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Admin</span></a>
+                <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
+                  <li class="w-100">
+                    <a href="./ViewUsers.php" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">View Users</span></a>
+                  </li>
+                  <li>
+                    <a href="#" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">View Error Log</span></a>
+                  </li>
+                  <li>
+                    <a href="#" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">View Audit Log</span></a>
+                  </li>
+                </ul>
+              </li>
+            <?php } ?>
           </ul>
         </div>
       </div>

@@ -1,10 +1,9 @@
 <?php
 if (!session_id()) {
   session_start();
-
+}
   include('cGOAT.php');
   $cGOAT = cGOAT::getInstance();
-}
 ?>
 
 <!DOCTYPE html>
