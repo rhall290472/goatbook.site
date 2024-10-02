@@ -95,7 +95,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 
     $cGOAT->doQuery($sql);
 
-    $cGOAT->GotoURL('./index.php');
+    $cGOAT->GotoURL('./ViewUsers.php');
     exit;
   }
 

