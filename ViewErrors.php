@@ -51,7 +51,6 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
     echo nl2br($errorlog);
   }
   ?>
-  </section>
   <?php include("./Footer.php"); ?>
 </body>
 
