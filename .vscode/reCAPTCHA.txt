@@ -1,31 +1,17 @@
-Use this site key in the HTML code your site serves to users.
 
-6Lf78lMqAAAAAFjrzUyu7I0UVidpbZ0uBoquOJ5H
+Does this need to be verified ????
+
+https://www.google.com/recaptcha/admin/site/710256196/setup
+
+We're still setting up reCAPTCHA settings in Google Cloud, but you can get started using the key details below.
+It should take around 1 minute to completely setup. Once completed, you'll have unlimited assessments and the ability to use advanced features like MFA and Account Defender.
+
+Use this site key in the HTML code your site serves to users.
+6LdEplUqAAAAAN3lg1N-52Ym_5UBPHbYfYw28ik9
 
 Use this secret key for communication between your site and reCAPTCHA.
-
-6Lf78lMqAAAAAOuwJCZ62SMDR976cOiBm5etXhEB
-
-https://developers.google.com/recaptcha/docs/v3
+6LdEplUqAAAAAGiXJWLFnkSpTLmcWBW39Elt5Tm_
 
 
-
- <script src="https://www.google.com/recaptcha/api.js"></script>
-
-
-  <script>
-   function onSubmit(token) {
-     document.getElementById("demo-form").submit();
-   }
- </script>
-
-
-
- <script>
-   function onSubmit(token) {
-     document.getElementById("demo-form").submit();
-   }
- </script>
- 
-
-https://phpkishan.blogspot.com/2018/11/recaptcha-v3-example-in-php.html
+example
+https://code.tutsplus.com/example-of-how-to-add-google-recaptcha-v3-to-a-php-form--cms-33752t
