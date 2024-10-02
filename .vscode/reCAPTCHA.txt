@@ -28,3 +28,4 @@ https://developers.google.com/recaptcha/docs/v3
  </script>
  
 
+https://phpkishan.blogspot.com/2018/11/recaptcha-v3-example-in-php.html

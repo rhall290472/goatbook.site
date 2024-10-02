@@ -24,7 +24,6 @@ if (!session_id()) {
 !/                                                                            \!
 !==============================================================================!
 */
-
 include('cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 
@@ -33,7 +32,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
   cGOAT::GotoURL("./index.php");
   exit;
 }
-
 
 /* Define variables and initialize with empty values */
 $username = $password = "";
@@ -135,9 +133,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
       <?php
-      if (!empty($login_err)) {
-        echo '<div class="alert alert-danger">' . $login_err . '</div>';
-      }
+      // if (!empty($login_err)) {
+        // echo '<div class="alert alert-danger">' . $login_err . '</div>';
+      // }
       ?>
 
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -157,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
       </form>
     </div>
-  </center>
+  </center> -->
 
   <?php include('Footer.php'); ?>
 </body>

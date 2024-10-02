@@ -53,7 +53,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
         <div class="m-4 m-lg-5">
           <h1 class="display-5 fw-bold">Users for the GoatBook</h1>
           <p class="fs-4">Below is a list of Users</p>
-          <a class=" btn btn-primary btn-lg" href="./AddUsers.php">Add User</a>
+          <!-- <a class=" btn btn-primary btn-lg" href="./AddUsers.php">Add User</a> -->
         </div>
       </div>
     </div>
@@ -72,7 +72,6 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
           <th>id</th>
           <th>Username</th>
           <th>Email</th>
-          <th>Password</th>
           <th>Enabled</th>
           <th>Last login</th>
           <th>Role</th>
@@ -86,7 +85,6 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
             "<a href='#'?IDX=" . $row["id"] . "'>" . $row["id"] . "</a>" . "</td><td>" .
             $row["username"] . "</td><td>" .
             $row["email"] . "</td><td>" .
-            $row["password"] . "</td><td>" .
             $row["enabled"] . "</td><td>" .
             $row["LastLogin"] . "</td><td>" .
             $row["Type"] . "</td><td>" .
