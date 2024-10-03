@@ -39,14 +39,22 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
   <center>
     <?php
 
-    // Get a life of active life scouts..
+    // Get a list of sites
     $querySite = "SELECT * FROM site ORDER BY name";
+    $queryUser = "SELECT * FROM users ORDER BY username";
 
     $result_Site = $cGoat->doQuery($querySite);
     if (!$result_Site) {
       // Error should be reported by doQuery
-      $cGOAT->GoToURL('./index.php');
+      $cGOAT->GotoURL('./index.php');
     }
+
+    $result_User = $cGoat->doQuery($queryUser);
+    if (!$result_User) {
+      // Error should be reported by doQuery
+      $cGOAT->GotoURL('./index.php');
+    }
+
     ?>
     <form method=post>
       <div class="form-row px-5">
@@ -64,13 +72,31 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
         <div class="col-2 py-4">
           <input class='btn btn-primary btn-sm' type='submit' name='SubmitSite' value='Select Site' />
         </div>
+        <div class="col-2">
+          <label for='UserName'>Choose a User: </label>
+          <select class='form-control' id='UserName' name='UserName'>
+            <option value=\"\" </option>
+              <?php
+              while ($rowUser = $result_User->fetch_assoc()) {
+                echo "<option value=" . $rowUser['username'] . ">" . $rowUser['username'] . "</option>";
+              }
+              ?>
+          </select>
+        </div>
+        <div class="col-2 py-4">
+          <input class='btn btn-primary btn-sm' type='submit' name='SubmitUser' value='Select User' />
+        </div>
       </div>
       </div>
     </form>
+
+
+
+
     <?php
     //#####################################################
     //
-    // Check to see if user as Submitted the form.
+    // Check to see if user as Submitted the SITE form.
     //
     //#####################################################
     if (isset($_POST['SubmitSite'])) {
@@ -82,14 +108,32 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
         $msg = "Error: doQuery()";
         $cEagle->function_alert($msg);
       }
+    }
 
+    //#####################################################
+    //
+    // Check to see if user as Submitted the USER form.
+    //
+    //#####################################################
+    else if (isset($_POST['SubmitUser'])) {
+      $SelectedUser = $_POST['UserName'];
+
+      $queryUser = "SELECT * FROM `site_audit_trail` WHERE done_by='$SelectedUser'";
+
+      if (!$Site = $cGoat->doQuery($queryUser)) {
+        $msg = "Error: doQuery()";
+        $cEagle->function_alert($msg);
+      }
+    }
+
+    if($Site){
     ?>
       <div class="px-5">
 
         <table class="fixed_header table table-striped">
           <thead>
             <tr>
-              <th> ScoutID </th>
+              <th> SiteID </th>
               <th> Column_name </th>
               <th> old_value </th>
               <th> new_value </th>
