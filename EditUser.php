@@ -15,12 +15,12 @@ $cGOAT = cGOAT::getInstance();
 !  ##########################################################################  !
 !  #                                                                        #  !
 !  #                                                                        #  !
-!  #   Copyright 2017-2024 - Richard Hall                                   #  !
+!  #   Copyright 2024 - Richard Hall                                        #  !
 !  #                                                                        #  !
 !  #   The information contained herein is the property of Richard          #  !
 !  #   Hall, and shall not be copied, in whole or in part, or               #  !
 !  #   disclosed to others in any manner without the express written        #  !
-!  #   authorization of Richard Hall.                     a                  #  !
+!  #   authorization of Richard Hall.                                       #  !
 !  #                                                                        #  !
 !  #                                                                        #  !
 ! /##########################################################################\ !
@@ -90,7 +90,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 
     $sql = "UPDATE `users` SET `username`='$FormData[username]',
     `password`='$FormData[password]',`is_deleted`='$FormData[is_deleted]',`email`='$FormData[email]',
-    `Type`='$FormData[Type]',`enabled`='$FormData[enabled]',`Notes`='$FormData[Notes]',
+    `Type`='$FormData[Type]',`enabled`='$FormData[enabled]',`Notes`='$FormData[Notes]'
     WHERE `id`='$_POST[ID]'";
 
     $cGOAT->doQuery($sql);

@@ -36,6 +36,13 @@ $username_err = $password_err = $confirm_password_err = $email_err = "";
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+  // Get users IP address
+  $ip = isset($_SERVER['HTTP_CLIENT_IP']) 
+    ? $_SERVER['HTTP_CLIENT_IP'] 
+    : (isset($_SERVER['HTTP_X_FORWARDED_FOR']) 
+      ? $_SERVER['HTTP_X_FORWARDED_FOR'] 
+      : $_SERVER['REMOTE_ADDR']);
+
   // Validate username
   if (empty(trim($_POST["username"]))) {
     $username_err = "Please enter a username.";
@@ -109,16 +116,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)) {
 
     // Prepare an insert statement
-    $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO users (username, password, email, ip) VALUES (?, ?, ?, ?)";
 
     if ($stmt = mysqli_prepare($cGOAT->getDbConn(), $sql)) {
       // Bind variables to the prepared statement as parameters
-      mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_email);
+      mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_password, $param_email, $param_ip);
 
       // Set parameters
       $param_username = $username;
       $param_email = $email;
       $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+      $param_ip = $ip;
 
       // Attempt to execute the prepared statement
       if (mysqli_stmt_execute($stmt)) {
