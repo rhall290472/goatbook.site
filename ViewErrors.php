@@ -45,16 +45,19 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 <body class="body" style="padding:20px">
 
   <div class="my_div">
-    <div>
-      <h2>Below is a list of recorded errors found.</h2>
-    </div>
     <?php
-    $errorlog = file_get_contents('https://goatbook.site/php_errors.log');
-    if (false == $errorlog) {
-      $cGOAT->function_alert("Unable to read php_errors.log".$errorlog);
-    } else {
-      echo nl2br($errorlog);
+    if (file_exists('./php_errors.log')) {
+      echo "<h2>Below is a list of recorded errors found.</h2>";
+
+      $errorlog = file_get_contents('./php_errors.log');
+      if (false == $errorlog) {
+        $cGOAT->function_alert("Unable to read php_errors.log" . $errorlog);
+      } else {
+        echo nl2br($errorlog);
+      }
     }
+    else
+    echo "<h2>NO recorded errors found.</h2>";
     ?>
   </div>
 
