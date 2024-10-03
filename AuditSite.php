@@ -126,7 +126,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
       }
     }
 
-    if($Site){
+    if(isset($Site)){
     ?>
       <div class="px-5">
 

@@ -2,8 +2,8 @@
 if (!session_id()) {
   session_start();
 }
-  include('cGOAT.php');
-  $cGOAT = cGOAT::getInstance();
+include('cGOAT.php');
+$cGOAT = cGOAT::getInstance();
 
 ?>
 
@@ -37,43 +37,10 @@ if (!session_id()) {
 
   <div class="container-fluid">
     <div class="row flex-nowrap">
-      <div class="col-auto col-md-3 col-xl-auto px-sm-2 px-0 bg-dark d-print-none">
-        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-          <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-5 d-none d-sm-inline">Menu</span>
-          </a>
-          <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-            <li class="nav-item">
-              <a href="./index.php" class="nav-link align-middle px-0">
-                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./CampSites.php" class="nav-link align-middle px-0">
-                <i class="fs-4 bi-eye"></i> <span class="ms-1 d-none d-sm-inline">Activites</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./AddCampSite.php" class="nav-link align-middle px-0">
-                <i class="fs-4 bi-bookmark-check"></i> <span class="ms-1 d-none d-sm-inline">Add a Activites</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">The GOAT Book</span></a>
-              <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                <li class="w-100">
-                  <a href="./Book/GoatBook_2000_OCR.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">2000</span></a>
-                </li>
-                <li>
-                  <a href="./Book/GoatBook_1995_OCR.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">1995</span></a>
-                </li>
-              </ul>
-          </ul>
-        </div>
-      </div>
+      <!-- Include common side bar nav
+      <?php include 'navbar.php'; ?>
       <div class="col py-3">
-        <!-- Page content Here -->
+        <!- Page content Here -->
         <div class="container px-3">
           <div class="row gx-lg-3">
 
