@@ -43,14 +43,21 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 <?php include_once('header.php'); ?>
 
 <body class="body" style="padding:20px">
-  <?php
-  $errorlog = file_get_contents('https://goatbook.site/php_errors.log');
-  if (false == $errorlog) {
-    $cGOAT->function_alert("Unable to read php_errors.log");
-  } else {
-    echo nl2br($errorlog);
-  }
-  ?>
+
+  <div class="my_div">
+    <div>
+      <h2>Below is a list of recorded errors found.</h2>
+    </div>
+    <?php
+    $errorlog = file_get_contents('https://goatbook.site/php_errors.log');
+    if (false == $errorlog) {
+      $cGOAT->function_alert("Unable to read php_errors.log".$errorlog);
+    } else {
+      echo nl2br($errorlog);
+    }
+    ?>
+  </div>
+
   <?php include("./Footer.php"); ?>
 </body>
 
