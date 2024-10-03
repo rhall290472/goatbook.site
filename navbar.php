@@ -45,6 +45,12 @@
                   <li>
                     <a href="./AuditSite.php" class="nav-link px-0"> <span class="d-none d-sm-inline">View Audit Log</span></a>
                   </li>
+                  <li>
+                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Add new Area</span></a>
+                  </li>
+                  <li>
+                    <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Add new Activity</span></a>
+                  </li>
                 </ul>
               </li>
             <?php } ?>
