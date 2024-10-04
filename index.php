@@ -37,8 +37,10 @@ if (!session_id()) {
       </div>
     </div>
   </div>
+  <!-- Main JS File -->
+  <script src="./assets/js/main.js"></script>
 
-  <?php include('Footer.php'); ?>
+  <?php include 'Footer.php' ; ?>
 
 </body>
 
