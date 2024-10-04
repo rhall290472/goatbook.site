@@ -37,7 +37,7 @@ $cGOAT = cGOAT::getInstance();
 
   <div class="container-fluid">
     <div class="row flex-nowrap">
-      <!-- Include common side bar nav
+      <!-- Include common side bar nav -->
       <?php include 'navbar.php'; ?>
       <div class="col py-3">
         <!- Page content Here -->
