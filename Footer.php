@@ -12,8 +12,6 @@
     <!-- <script src="https://centennialdistrict.co/assets/vendor/purecounter/purecounter_vanilla.js"></script> -->
     <!--<script src="https://centennialdistrict.co/assets/vendor/swiper/swiper-bundle.js"></script>-->
 
-    <!-- Main JS File -->
-    <script src="./assets/js/main.js"></script>
 
     <!-- Calendar JS files -->
     <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script> -->

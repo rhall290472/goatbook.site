@@ -377,20 +377,8 @@ th {
   text-align: -webkit-match-parent;
 }
 
-thead, tbody {
-  display: block;
-}
-
-tbody {
-  height: 80vw;
-  overflow-y: auto;
-  /* Trigger vertical scroll    */
-  /* overflow-x: hidden; */
-  /* Hide the horizontal scroll */
-}
-
-/*thread,
-tbody, */
+thread,
+tbody,
 tfoot,
 tr,
 td,

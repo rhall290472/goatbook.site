@@ -30,8 +30,8 @@ include('cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $email = "";
-$username_err = $password_err = $confirm_password_err = $email_err = "";
+$username = $password = $confirm_password = $email = $confirm_relationship = "";
+$username_err = $password_err = $confirm_password_err = $email_err = $confirm_relationship_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -112,8 +112,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
+    // Validate confirm relatiosnhip to Scouting
+    if (empty(trim($_POST["confirm_relationship"]))) {
+      $confirm_relationship_err = "Please enter relationship.";
+    } else {
+      $confirm_relationship = trim($_POST["confirm_relationship"]);
+      }
+  
   // Check input errors before inserting in database
-  if (empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)) {
+  if (empty($username_err) && empty($password_err) && empty($confirm_password_err) && 
+      empty($email_err) && empty($confirm_relationship_err) ){
 
     // Prepare an insert statement
     $sql = "INSERT INTO users (username, password, email, ip) VALUES (?, ?, ?, ?)";
@@ -185,6 +193,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <label>Confirm Password</label>
           <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
           <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+        </div>
+        <div class="form-group">
+          <label>What is your relationship to Scouting?</label>
+          <select class='form-control' name='confirm_relationship'required>
+          <option value=""></option>
+          <option value="Adult Leader">Adult Leader</option>
+          <option value="Youth">Youth</option>
+          <option value="Parent">Parent</option>
+          </select>
+
+          <!-- <input type="relationship" name="confirm_relationship" class="form-control <?php echo (!empty($confirm_relationship_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_relationship; ?>"> -->
+          <span class="invalid-feedback"><?php echo $confirm_relationship_err; ?></span>
         </div>
         <div class="form-group py-3">
           <input type="submit" class="btn btn-primary" value="Submit">
