@@ -5,6 +5,28 @@ if (!session_id()) {
   include('cGOAT.php');
   $cGOAT = cGOAT::getInstance();
 }
+/*
+!==============================================================================!
+!\                                                                            /!
+!\\                                                                          //!
+! \##########################################################################/ !
+!  #         This is Proprietary Software of Richard Hall                   #  !
+!  ##########################################################################  !
+!  #                                                                        #  !
+!  #                                                                        #  !
+!  #   Copyright 2024 - Richard Hall                                        #  !
+!  #                                                                        #  !
+!  #   The information contained herein is the property of Richard          #  !
+!  #   Hall, and shall not be copied, in whole or in part, or               #  !
+!  #   disclosed to others in any manner without the express written        #  !
+!  #   authorization of Richard Hall.                                       #  !
+!  #                                                                        #  !
+!  #                                                                        #  !
+! /##########################################################################\ !
+!//                                                                          \\!
+!/                                                                            \!
+!==============================================================================!
+*/
 ?>
 
 <!DOCTYPE html>
