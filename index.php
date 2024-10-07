@@ -2,6 +2,8 @@
 if (!session_id()) {
   session_start();
 }
+//Load Composer's autoloader
+require 'assets/vendor/autoload.php';
 /*
 !==============================================================================!
 !\                                                                            /!
