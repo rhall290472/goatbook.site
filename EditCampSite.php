@@ -117,7 +117,11 @@ if (!session_id()) {
         <div class="form-coach px-5" style="background-color: var(--scouting-lighttan);">
           <p style="text-align:Left"><b>Edit Camp Site Information</b></p>
           <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="coach-form" method="post">
-
+            <?php
+            require_once('recaptchalib.php');
+            $publickey = "your_public_key"; // you got this from the signup page
+            echo recaptcha_get_html($publickey);
+            ?>
             <div class="form-row">
               <div class="col-3">
                 <label for=element_1_1>Area</label>
