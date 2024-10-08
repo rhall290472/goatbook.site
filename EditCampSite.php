@@ -74,7 +74,7 @@ if (!session_id()) {
 
     if ($cGOAT->UpdateSite($FormData)) {
       // Record has been updated in database now create a audit trail
-      $cGOAT->CreateAudit($SiteOldData, $FormData, 'SiteOld');
+      $cGOAT->CreateAudit($SiteOldData, $FormData);
       //$cGOAT->GoToURL('./index.php');
       $cGOAT->GoToURL("./DisplayCampSite.php?Siteid=" . $FormData['IDX']);
     }
@@ -120,7 +120,7 @@ if (!session_id()) {
             <?php
             require_once('recaptchalib.php');
             $publickey = "your_public_key"; // you got this from the signup page
-            echo recaptcha_get_html($publickey);
+            //echo recaptcha_get_html($publickey);
             ?>
             <div class="form-row">
               <div class="col-3">

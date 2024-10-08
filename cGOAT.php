@@ -150,13 +150,14 @@ class cGOAT
    */
   public static function getDbConn()
   {
+    $db = new mysqli;
     try {
       $db = self::initConnection();
       return $db->dbConn;
     } catch (Exception $ex) {
       $strError = "I was unable to open a connection to the database. " . $ex->getMessage();
       error_log($strError, 0);
-      return null;
+      return $db;
     }
   }
   public static function getPDOConn()
