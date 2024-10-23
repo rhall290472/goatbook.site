@@ -39,7 +39,7 @@ $username_err = $password_err = $login_err = "";
 $enabled = false;
 
 /* Processing form data when form is submitted */
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
 
   // Check if username is empty
   if (empty(trim($_POST["username"]))) {
@@ -150,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
         <div class="form-group py-3">
-          <input type="submit" class="btn btn-primary" value="Login">
+          <input type="submit" class="btn btn-primary" name="SubmitForm" value="Login">
         </div>
         <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
       </form>

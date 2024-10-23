@@ -9,6 +9,28 @@ require 'assets/vendor/php-email-form/Exception.php';
 require 'assets/vendor/php-email-form/PHPMailer.php';
 require 'assets/vendor/php-email-form/SMTP.php';
 
+/*
+!==============================================================================!
+!\                                                                            /!
+!\\                                                                          //!
+! \##########################################################################/ !
+!  #         This is Proprietary Software of Richard Hall                   #  !
+!  ##########################################################################  !
+!  #                                                                        #  !
+!  #                                                                        #  !
+!  #   Copyright 2024 - Richard Hall                                        #  !
+!  #                                                                        #  !
+!  #   The information contained herein is the property of Richard          #  !
+!  #   Hall, and shall not be copied, in whole or in part, or               #  !
+!  #   disclosed to others in any manner without the express written        #  !
+!  #   authorization of Richard Hall.                                       #  !
+!  #                                                                        #  !
+!  #                                                                        #  !
+! /##########################################################################\ !
+!//                                                                          \\!
+!/                                                                            \!
+!==============================================================================!
+*/
 ?>
 <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
 

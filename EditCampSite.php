@@ -5,6 +5,28 @@ if (!session_id()) {
   include('cGOAT.php');
   $cGOAT = cGOAT::getInstance();
 }
+/*
+!==============================================================================!
+!\                                                                            /!
+!\\                                                                          //!
+! \##########################################################################/ !
+!  #         This is Proprietary Software of Richard Hall                   #  !
+!  ##########################################################################  !
+!  #                                                                        #  !
+!  #                                                                        #  !
+!  #   Copyright 2024 - Richard Hall                                        #  !
+!  #                                                                        #  !
+!  #   The information contained herein is the property of Richard          #  !
+!  #   Hall, and shall not be copied, in whole or in part, or               #  !
+!  #   disclosed to others in any manner without the express written        #  !
+!  #   authorization of Richard Hall.                                       #  !
+!  #                                                                        #  !
+!  #                                                                        #  !
+! /##########################################################################\ !
+!//                                                                          \\!
+!/                                                                            \!
+!==============================================================================!
+*/
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +74,7 @@ if (!session_id()) {
 
     if ($cGOAT->UpdateSite($FormData)) {
       // Record has been updated in database now create a audit trail
-      $cGOAT->CreateAudit($SiteOldData, $FormData, 'SiteOld');
+      $cGOAT->CreateAudit($SiteOldData, $FormData);
       //$cGOAT->GoToURL('./index.php');
       $cGOAT->GoToURL("./DisplayCampSite.php?Siteid=" . $FormData['IDX']);
     }
@@ -95,7 +117,11 @@ if (!session_id()) {
         <div class="form-coach px-5" style="background-color: var(--scouting-lighttan);">
           <p style="text-align:Left"><b>Edit Camp Site Information</b></p>
           <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="coach-form" method="post">
-
+            <?php
+            require_once('recaptchalib.php');
+            $publickey = "your_public_key"; // you got this from the signup page
+            //echo recaptcha_get_html($publickey);
+            ?>
             <div class="form-row">
               <div class="col-3">
                 <label for=element_1_1>Area</label>

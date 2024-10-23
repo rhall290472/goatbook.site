@@ -17,7 +17,7 @@
 
 
           <div class="col-lg-8">
-            <form action="forms/test_info.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            <form action="../forms/test_info.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
               <div class="row gy-4">
 
                 <div class="col-md-6">
