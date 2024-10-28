@@ -1,3 +1,18 @@
+# Begin IP blocking #
+Order Allow,Deny
+Deny from 154.126.211.96
+Deny from 170.245.30.104
+Deny from 186.3.6.183
+Deny from 5.57.37.87
+Deny from 154.126.211.96
+Deny from 170.245.30.104
+Deny from 182.23.11.50
+Deny from 197.156.136.246
+Deny from 185.94.91.48
+Allow from all
+# End IP blocking #
+
+
 DirectoryIndex index.php
 
 
