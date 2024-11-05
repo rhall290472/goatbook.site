@@ -15,6 +15,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="GOAT Book" />
 <meta name="author" content="Richard Hall" />
+<meta name="robots" content="noindex">
+<meta name="googlebot" content="noindex">
 <title>Guide to Outdoor Activities for Troops</title>
 <!-- Icon -->
 <link rel="icon" type="image/x-icon" href="assets/icon/goat.png" />
