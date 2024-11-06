@@ -118,8 +118,8 @@ if (!session_id()) {
           <p style="text-align:Left"><b>Edit Camp Site Information</b></p>
           <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="coach-form" method="post">
             <?php
-            require_once('recaptchalib.php');
-            $publickey = "your_public_key"; // you got this from the signup page
+            //require_once('recaptchalib.php');
+            //$publickey = "your_public_key"; // you got this from the signup page
             //echo recaptcha_get_html($publickey);
             ?>
             <div class="form-row">
