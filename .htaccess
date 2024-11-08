@@ -12,6 +12,8 @@ Deny from 197.156.136.246
 Deny from 185.94.91.48
 Deny from 185.90.171.242
 Deny from 105.27.194.22
+Deny from 36.89.227.253
+Deny from 110.34.5.40
 # End IP blocking #
 
 
