@@ -46,6 +46,9 @@
                   <li>
                     <a href="./AddActivity.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Add new Activity</span></a>
                   </li>
+                  <li>
+                    <a href="./Googlemap.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Create Google Map Sheet</span></a>
+                  </li>
                 </ul>
               </li>
             <?php } ?>

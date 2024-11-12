@@ -2,8 +2,9 @@
 if (!session_id()) {
   session_start();
 }
-//Load Composer's autoloader
-require 'assets/vendor/autoload.php';
+include('cGOAT.php');
+$cGOAT = cGOAT::getInstance();
+
 /*
 !==============================================================================!
 !\                                                                            /!
@@ -39,35 +40,58 @@ require 'assets/vendor/autoload.php';
   <?php
   include_once('header.php');
 
+
+  $csv_hdr = "WKT, Name, Area, Activity 1, Activity 2, Site Link";
+  $csv_output = "";
+?>
+  <table class='table'  style='width:1024';>
+  <tr>
+  <th>WKT</th>
+  <th>Name</th>
+  <th>Area</th>
+  <th>Activity 1</th>
+  <th>Activity 2</th>
+  <th>Site Link</th>
+  </tr>
+  <?php
+
+
+  $TodaysDate = strtotime("now");
+  $WKT = NULL;
+
+  $sql = "SELECT * FROM `site` WHERE IsDeleted <> 1";
+  $site_sresults = $cGOAT->doQuery($sql);
+
+  while ($site = $site_sresults->fetch_assoc()) {
+    $WKT = "POINT()";
+    $SiteLink = "Siteid=".$site['IDX'];
+    //$SiteURL = "<a href='https://goatbook.site/DisplayCampSite.php?".$SiteLink."'>https://goatbook.site/DisplayCampSite.php?".$SiteLink;
+
+
+        $WKT. '</td><td>' .
+        ucwords(strtolower($site['name'])). '</td><td>' .
+        $cGOAT->GetAreaText($site['area']). '</td><td>' .
+        $cGOAT->GetActivityText($site['type1']). '</td><td>' .
+        $cGOAT->GetActivityText($site['type2']). '</td><td>' .
+        $SiteLink. '<td></tr>';
+
+
+      $csv_output .= "\n";
+    }
+
+  echo "</table>";
+  
+  
   ?>
-  <div class="container-fluid">
-    <div class="row flex-nowrap">
-      <!-- Include the common side nav bar -->
-      <?php include 'navbar.php'; ?>
-      <div class="col py-3">
-        <h3>Guide to Outdoor Activities for Troops</h3>
-        <p class="lead">
-          This guide has been prepared for Scouts and Scouters in order to share campsites, hiking trails, and other activities that have been successfully tried by other units. This site is
-          designed to be used by both new Scouters and the experienced Scouter; hopefully providing new experiences and locations to better enjoy the Colorado outdoors. The site has been designed
-          to be printed on standard 8 1/2x11 paper, print outs of particular pages can be made and taken on your adventure. The GOAT Site has been grouped into chapters covering a geographic
-          region or area of the state such as the Guanella Pass Area. Chapters have one or more maps merged into the text.</p>
-        <ul class="list-unstyled">
-          <li>
-            <h5>Acknowledgement</h5>The Starting point of this web site is based on the 2000 GOAT Book which was create by then Denver Area Council, Order of the Arrow, Tahosa Loge which
-            promotes Scout camping using several different methods. One of these methods is through the G.O.A.T. Book, which provides Scouts, Scouters and campers in general a guide to campsites
-            (and activities) in Colorado.
-          </li>
-        </ul>
-
-        <iframe src="https://www.google.com/maps/d/embed?mid=1h1MwNhYsCUFLAFhf7EtC6E4GEa-lWtc&ehbc=2E312F&noprof=1" width="800" height="640"></iframe>
-
-      </div>
-    </div>
-  </div>
-  <!-- Main JS File -->
-  <script src="./assets/js/main.js"></script>
-
-  <?php include 'Footer.php'; ?>
+  <br /><br /><br />
+  <center>
+    <form name="export" action="export.php" method="post">
+      <input class='RoundButton' style="width:220px" type="submit" value="Export table to CSV">
+      <input type="hidden" value="<?php echo $csv_hdr; ?>" name="csv_hdr">
+      <input type="hidden" value="<?php echo $csv_output; ?>" name="csv_output">
+    </form>
+  </center>
+  <br />
 
 </body>
 
