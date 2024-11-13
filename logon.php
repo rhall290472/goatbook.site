@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
   // Validate credentials
   if (empty($username_err) && empty($password_err)) {
     // Prepare a select statement
-    $sql = "SELECT id, username, password, enabled, type FROM users WHERE username = ?";
+    $sql = "SELECT id, username, password, is_deleted, type FROM users WHERE username = ?";
 
     if ($stmt = mysqli_prepare($cGOAT->getDbConn(), $sql)) {
       // Bind variables to the prepared statement as parameters
@@ -75,10 +75,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
         // Check if username exists, if yes then verify password
         if (mysqli_stmt_num_rows($stmt) == 1) {
           // Bind result variables
-          mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $enabled, $type);
+          mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $is_deleted, $type);
           if (mysqli_stmt_fetch($stmt)) {
             //if (password_verify($password, $hashed_password) && $enabled == true) {
-            if (password_verify($password, $hashed_password)) {
+            if (password_verify($password, $hashed_password) && !$is_deleted) {
               // Password is correct, so start a new session
               if (!session_id()) {
                 session_start();

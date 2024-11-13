@@ -57,9 +57,12 @@ require 'assets/vendor/autoload.php';
             promotes Scout camping using several different methods. One of these methods is through the G.O.A.T. Book, which provides Scouts, Scouters and campers in general a guide to campsites
             (and activities) in Colorado.
           </li>
+          <li>
+          <iframe src="https://www.google.com/maps/d/embed?mid=1h1MwNhYsCUFLAFhf7EtC6E4GEa-lWtc&ehbc=2E312F&noprof=1" width="1080" height="640"></iframe>
+
+          </li>
         </ul>
 
-        <iframe src="https://www.google.com/maps/d/embed?mid=1h1MwNhYsCUFLAFhf7EtC6E4GEa-lWtc&ehbc=2E312F&noprof=1" width="800" height="640"></iframe>
 
       </div>
     </div>
