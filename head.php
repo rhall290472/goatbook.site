@@ -13,13 +13,17 @@
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="GOAT Book" />
+<meta name="description" content="GOAT Book - This guide has been prepared for Scouts and Scouters in order to share campsites, hiking trails, and other activities that have been successfully tried by other units." />
 <meta name="author" content="Richard Hall" />
-<meta name="robots" content="noindex">
-<meta name="googlebot" content="noindex">
+<meta name="robots" content="noindex"/>
+<meta name="googlebot" content="noindex"/>
+<meta property="og:description" content="GOAT Book - This guide has been prepared for Scouts and Scouters in order to share campsites, hiking trails, and other activities that have been successfully tried by other units."/>
+<meta property="og:url" content="https://www.goatbook.site/index.php"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="en_US" />
 <title>Guide to Outdoor Activities for Troops</title>
 <!-- Icon -->
-<link rel="icon" type="image/x-icon" href="assets/icon/goat.png" />
+<link rel=" icon" type="image/x-icon" href="./assets/icon/goat.png" />
 <!-- Bootstrap icons-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 

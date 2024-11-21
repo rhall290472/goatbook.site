@@ -63,7 +63,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 
     // Get a list of sites
     $querySite = "SELECT * FROM site ORDER BY name";
-    $queryUser = "SELECT * FROM users ORDER BY username";
+    $queryUser = "SELECT * FROM users WHERE is_deleted <> 1 ORDER BY username";
 
     $result_Site = $cGoat->doQuery($querySite);
     if (!$result_Site) {
