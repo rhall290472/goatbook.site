@@ -13787,3 +13787,13 @@ textarea.form-control-lg {
 .bi-bookmark-goat::before {
   content: "assests/icon/goat.ico";
 }
+
+.ohnohney{
+  opacity:0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  z-index: -1;
+}
