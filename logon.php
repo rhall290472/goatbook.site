@@ -100,11 +100,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
             } else {
               // Password is not valid, display a generic error message
               $login_err = "Invalid username or password or your account has not been enabled";
+              error_log($login_err, 1, "richard.hall@centennialdistrict.co");
             }
           }
         } else {
           // Username doesn't exist, display a generic error message
           $login_err = "Invalid username or password.";
+          error_log($login_err, 1, "richard.hall@centennialdistrict.co");
         }
       } else {
         echo "Oops! Something went wrong. Please try again later.";
@@ -130,13 +132,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
     <div class="wrapper-logon">
       <h2>Login</h2>
       <p>Please fill in your credentials to login.</p>
-
-
-      <?php
-      // if (!empty($login_err)) {
-        // echo '<div class="alert alert-danger">' . $login_err . '</div>';
-      // }
-      ?>
 
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
