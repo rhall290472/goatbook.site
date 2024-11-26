@@ -46,10 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // Check Honeypot field. If filled out send spammer away..
   if($_POST("phone")){
-    $cGOAT->gotoURL("https://www.fbi.gov");
     $str = sprintf("New GOAT registration, sent to FBI.GOV on %s - User: %s - Password: %s \n", Date('Y-m-d H:i:s'),
     $param_username, $param_password);
     error_log($str, 1, "richard.hall@centennialdistrict.co");
+    $cGOAT->gotoURL("https://www.fbi.gov");
     exit();
   }
   // Validate username
