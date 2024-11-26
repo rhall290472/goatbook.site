@@ -13633,9 +13633,9 @@ textarea.form-control-lg {
 .wrapper-logon {
   align-items: center;
   text-align: center;
-  margin-top: 60px;
+  margin-top: 10px;
   width: 360px;
-  padding: 20px;
+  padding: 0px;
 }
 
 /* Use to display page warnings, highlighted in yellow */
