@@ -30,8 +30,8 @@ include('cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $email = $confirm_relationship = "";
-$username_err = $password_err = $confirm_password_err = $email_err = $confirm_relationship_err = "";
+$username = $password = $confirm_password = $email = $confirm_relationship = $phone = "";
+$username_err = $password_err = $confirm_password_err = $email_err = $confirm_relationship_err = $phone_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -43,6 +43,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       ? $_SERVER['HTTP_X_FORWARDED_FOR'] 
       : $_SERVER['REMOTE_ADDR']);
 
+
+  // Check Honeypot field. If filled out send spammer away..
+  if($_POST("phone")){
+    $str = sprintf("New GOAT registration, sent to FBI.GOV on %s - User: %s - Password: %s \n", Date('Y-m-d H:i:s'),
+    $param_username, $param_password);
+    error_log($str, 1, "richard.hall@centennialdistrict.co");
+    $cGOAT->gotoURL("https://www.fbi.gov");
+    exit();
+  }
   // Validate username
   if (empty(trim($_POST["username"]))) {
     $username_err = "Please enter a username.";
@@ -141,8 +150,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // 
         $msg = "You can now log in.";
         cGOAT::function_alert($msg);
-        $str = sprintf("New GOAT registration, on %s - User: %s - Password: %s \n", Date('Y-m-d H:i:s'),
-          $param_username, $param_password);
+        $str = sprintf("New GOAT registration, on %s - User: %s - Password: %s IP: %s \n", Date('Y-m-d H:i:s'),
+          $param_username, $param_password, $ip);
         error_log($str, 1, "richard.hall@centennialdistrict.co");
         cGOAT::GotoURL("./logon.php");
       } else {
@@ -184,6 +193,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
           <span class="invalid-feedback"><?php echo $email_err; ?></span>
         </div>
+        <div class="form-group ohnohney">
+          <label>Phone</label>
+          <input type="text"  style="right: -500px;" name="phone" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $phone; ?>">
+          <span class="invalid-feedback"><?php echo $phone_err; ?></span>
+        </div>
+
         <div class="form-group">
           <label>Password</label>
           <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">

