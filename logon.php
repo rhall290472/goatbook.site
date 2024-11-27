@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
               cGOAT::GotoURL("./index.php");
             } else {
               // Password is not valid, display a generic error message
-              $login_err = "Invalid username or password or your account has not been enabled";
+              $login_err = "Invalid username or password.";
             }
           }
         } else {
