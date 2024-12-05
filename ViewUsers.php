@@ -62,7 +62,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
   <section class="py-5">
     <?php
     // Get current events in database
-    $sql = "SELECT * FROM users";
+    $sql = "SELECT * FROM users WHERE is_deleted <> 1";
     $result = $cGOAT->doQuery($sql);
     if ($result) {
       // Display the events 
