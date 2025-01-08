@@ -38,9 +38,9 @@ if (!session_id()) {
 
     // Save New data..From the user form
     $FormData = array();
-    $FormData['type2'] = $cGOAT->GetFormData('element_1_4');
+    $FormData['type2'] = $cGOAT->GetFormData('element_1_1');
 
-    //$cGOAT->InsertActity($FormData);
+    $cGOAT->InsertActity($FormData);
   }
   ?>
 
@@ -52,12 +52,12 @@ if (!session_id()) {
       <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="coach-form" method="post">
         <div class="form-row">
           <div class="col-3">
-            <label for=element_1_3>New Activity</label>
+            <label for=element_1_1>New Activity</label>
             <input type="text" name="element_1_1" class="form-control" required/>
           </div>
           <div class="col-3">
-            <label for=element_1_3>Current Activities</label>
-            <?php $cGOAT->DisplayActivityType(0, "element_1_1"); ?>
+            <label for=element_1_2>Current Activities</label>
+            <?php $cGOAT->DisplayActivityType(0, "element_1_2"); ?>
           </div>
         </div>
         <div class="form-row">
