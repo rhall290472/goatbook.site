@@ -9,7 +9,7 @@ order allow,deny
 deny from all
 </Files>
 
-# Begin EnforceSSL goatbook.site
+# Begin EnforceSSL centennialdistrict.co
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{HTTP_HOST} ^(www.)?goatbook.site$

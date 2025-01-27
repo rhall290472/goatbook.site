@@ -403,6 +403,19 @@ class cGOAT
   }
   /******************************************************************************
    **
+   ** InsertActity() - This function will add a new activity to the database 
+   **                  table
+   **
+   ******************************************************************************/
+  public static function InsertActity($FormData)
+  {
+
+    $sql = "INSERT INTO `type`(`activity_type`) VALUES ('$FormData[type2]')";
+    $Results = self::doQuery($sql);
+    return $Results;
+  }
+  /******************************************************************************
+   **
    *****************************************************************************/
   public static function UpdateSite($Site)
   {
