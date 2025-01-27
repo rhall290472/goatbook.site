@@ -24,6 +24,9 @@
                 <li>
                   <a href="./Book/GoatBook_1995_OCR.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">1995</span></a>
                 </li>
+                <li>
+                  <a href="./Book/Tahosa Lodge 383 History Booklet 1948-1988.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">Tahosa Lodge 383 History</span></a>
+                </li>
               </ul>
             </li>
             <?php if (isset($_SESSION["type"]) && $_SESSION["type"] == "Admin") { ?>
