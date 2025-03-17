@@ -1,102 +1,69 @@
-<?php
-if (!session_id()) {
-  session_start();
-}
-include('cGOAT.php');
-$cGOAT = cGOAT::getInstance();
-
-require 'assets/vendor/php-email-form/Exception.php';
-require 'assets/vendor/php-email-form/PHPMailer.php';
-require 'assets/vendor/php-email-form/SMTP.php';
-
-/*
-!==============================================================================!
-!\                                                                            /!
-!\\                                                                          //!
-! \##########################################################################/ !
-!  #         This is Proprietary Software of Richard Hall                   #  !
-!  ##########################################################################  !
-!  #                                                                        #  !
-!  #                                                                        #  !
-!  #   Copyright 2024 - Richard Hall                                        #  !
-!  #                                                                        #  !
-!  #   The information contained herein is the property of Richard          #  !
-!  #   Hall, and shall not be copied, in whole or in part, or               #  !
-!  #   disclosed to others in any manner without the express written        #  !
-!  #   authorization of Richard Hall.                                       #  !
-!  #                                                                        #  !
-!  #                                                                        #  !
-! /##########################################################################\ !
-!//                                                                          \\!
-!/                                                                            \!
-!==============================================================================!
-*/
-?>
-<!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <?php include('head.php'); ?>
+  <?php include("head.php"); ?>
 </head>
 
 <body>
-  <?php
+<?php
   include_once('header.php');
+
   ?>
 
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Contact</h2>
-    <p>The GOAT Site <a href='mailto:webmaster@goatbook.site'>Webmaster</a></p>
-  </div><!-- End Section Title -->
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+        <?php include 'navbar.php'; ?>
+        <div class="col py-3">
+          <div class="container px-md-3">
+            <div class="p-3 p-md-3 bg-light rounded-2 text-center">
+              <div class="m-3 m-lg-3">
+                <!-- <a class="btn btn-primary btn-lg" href="./advancement_index.php">Advancement Data</a> -->
+                </hr>
+                <div class="col-lg-9">
+                  <h2>Contact</h2>
+                  <p>If you have any questions or commenst please complete the form below and we will get back to you.</p>
+                  <form action="./send_email.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                    <div class="row gy-4">
 
-  <div class="container">
+                      <div class="col-md-6">
+                        <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                      </div>
 
-    <div class="row gy-4">
+                      <div class="col-md-6 ">
+                        <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                      </div>
 
+                      <div class="col-md-12">
+                        <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                      </div>
 
-      <div class="col-lg-8">
-        <form action="forms/info.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-          <div class="row gy-4">
+                      <div class="col-md-12">
+                        <textarea class="form-control" name="message" rows="10" style="height:100%;" placeholder="Message" required=""></textarea>
+                      </div>
 
-            <div class="col-md-6">
-              <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                      <div class="col-md-12 text-center">
+                        <div class="loading"></div>
+                        <div class="error-message"></div>
+                        <div class="sent-message"></div>
+                        <button type="submit" class="btn btn-primary btn-sm">Send Message</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
-
-            <div class="col-md-6 ">
-              <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-            </div>
-
-            <div class="col-md-12">
-              <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-            </div>
-
-            <div class="col-md-12">
-              <textarea class="form-control" name="message" rows="6" placeholder="Message" required="" style="height:100%;"></textarea>
-            </div>
-
-            <div class="col-md-12 text-center">
-              <!-- <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank you!</div> -->
-              <div class="loading"></div>
-              <div class="error-message"></div>
-              <div class="sent-message"></div>
-
-              <button type="submit">Send Message</button>
-            </div>
-
           </div>
-        </form>
-      </div><!-- End info Form -->
-
+        </div>
+      </div>
     </div>
+  </header>
 
-  </div>
 
-
-  <?php include('Footer.php'); ?>
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/lib/bootstrap/bootstrap.js"></script>
 
 
 
