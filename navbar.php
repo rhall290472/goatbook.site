@@ -37,17 +37,20 @@
             <li>
               <a href="./ViewErrors.php" class="nav-link px-0"> <span class="d-none d-sm-inline">View Error Log</span></a>
             </li>
-            <li>
-              <a href="./AuditSite.php" class="nav-link px-0"> <span class="d-none d-sm-inline">View Audit Log</span></a>
-            </li>
-            <li>
-              <a href="./AddArea.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Add new Area</span></a>
-            </li>
-            <li>
-              <a href="./AddActivity.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Add new Activity</span></a>
-            </li>
-            <li>
-              <a href="./Googlemap.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Create Google Map Sheet</span></a>
+            <li class="nav-item">
+              <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">The GOAT Book</span></a>
+              <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                <li class="w-100">
+                  <a href="./Book/GoatBook_2000_OCR.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">2000</span></a>
+                </li>
+                <li>
+                  <a href="./Book/GoatBook_1995_OCR.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">1995</span></a>
+                </li>
+                <li>
+                  <a href="./Book/Tahosa Lodge 383 History Booklet 1948-1988.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">Tahosa Lodge 383 History</span></a>
+                </li>
+              </ul>
             </li>
           </ul>
         </li>
