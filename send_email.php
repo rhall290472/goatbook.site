@@ -27,8 +27,8 @@ try {
 
   // Content
   $mail->isHTML(true);
-  $mail->Subject = $_POST['subject'];
-  $mail->Body    = nl2br($_POST['message']);
+  $mail->Subject = $_POST['subject'] . " - goatbook.site";
+  $mail->Body    = nl2br($_POST['email']) .'</br>'. nl2br($_POST['name']) . '</br>' . nl2br($_POST['message']);
   $mail->AltBody = $_POST['message'];
 
   $mail->send();
