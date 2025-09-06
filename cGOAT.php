@@ -90,8 +90,8 @@ class cGOAT
 
     if (!strcmp($ip, "::1")) {
       $userdata['dbhost'] = "localhost";
-      $userdata['dbuser'] = "webuser";
-      $userdata['dbpass'] = "webuser";
+      $userdata['dbuser'] = "root";
+      $userdata['dbpass'] = "";
       $userdata['db']     = "goat";
     }
     //        else if( (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)){
