@@ -33,6 +33,36 @@ $cGOAT = cGOAT::getInstance();
 
 <head>
   <?php include('head.php'); ?>
+  <!-- Adding Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet" />
+  <!-- Adding DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+  <!-- Adding DataTables Buttons CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+  <style>
+    /* Ensure DataTables buttons match SelectCampSite button style (red background, white text) */
+    .dt-buttons .btn {
+      margin-right: 5px;
+    }
+
+    .dt-buttons .btn-primary {
+      background-color: #dc3545 !important;
+      /* Red background, matching assumed styles.css */
+      border-color: #dc3545 !important;
+      color: #fff !important;
+      /* White text */
+      font-size: 0.875rem !important;
+      padding: 0.25rem 0.5rem !important;
+    }
+
+    .dt-buttons .btn-primary:hover {
+      background-color: #c82333 !important;
+      /* Darker red on hover */
+      border-color: #bd2130 !important;
+      color: #fff !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -71,65 +101,97 @@ $cGOAT = cGOAT::getInstance();
     $type = $_SESSION["campselectionActivity"];
     $sql = "SELECT * FROM `site` WHERE (`type1` = '" . $type . "' OR `type2` = '" . $type . "') AND (`IsDeleted` IS NULL OR `IsDeleted` <> '1') ORDER BY area ASC, name ASC";
   } else {
-    // This will be the default view, all the sites sorted by area
+    // This will be the default view, all the sites sorted by name
     $sql = "SELECT * FROM `site` WHERE (`IsDeleted` IS NULL OR `IsDeleted` <> '1') ORDER BY `name` ASC";
   }
 
   if (isset($sql)) {
   ?>
 
-
-
-
-
     <div class="px-3">
-      <table class="fixed_header table table-striped">
+      <table id="campSitesTable" class="table table-striped">
         <thead>
           <tr>
             <th>Area</th>
             <th>Name</th>
             <th>Primary Activity</th>
             <th>Secondary Activity</th>
-            <th>rating</th>
+            <th>Rating</th>
             <th>Last Reviewed</th>
             <th>Scout Skill Level</th>
             <th>Has Info</th>
             <th>Has Map</th>
-            <th>facilities</th>
+            <th>Facilities</th>
           </tr>
         </thead>
-      <?php
-      if (!$CampSite = $cGOAT->doQuery($sql)) {
-        $msg = "Error: doQuery()";
-        $cGOAT->function_alert($msg);
-        $cGOAT::GotoURL('./index.php');
-      }
+        <tbody>
+          <?php
+          if (!$CampSite = $cGOAT->doQuery($sql)) {
+            $msg = "Error: doQuery()";
+            $cGOAT->function_alert($msg);
+            $cGOAT::GotoURL('./index.php');
+          }
 
-      echo "<tbody>";
-      while ($row = $CampSite->fetch_assoc()) {
-        echo "<tr><td>" .
-          $cGOAT->GetAreaText($row["area"]) . "</td><td>" .
-          "<a href=./DisplayCampSite.php?Siteid=" . $row['IDX'] . ">" . ucwords(strtolower($row["name"])) . "</a> </td><td>" .
-          $cGOAT->GetActivityText($row["type1"]) . "</td><td>" .
-          $cGOAT->GetActivityText($row["type2"]) . "</td><td>" .
-          $cGOAT->GetRating($row["IDX"]) . "</td><td>" .
-          $cGOAT->GetLastReviewd($row["IDX"]) . "</td><td>" .
-          $cGOAT->GetSkillLevel($row["IDX"]) . "</td><td>" .
-          $cGOAT->HasInfo($row["map"]) . "</td><td>" .
-          $cGOAT->HasMap($row["embedmap"]) . "</td><td>" .
-          $row["facilities"] . "</td></tr>";
-      }
-      echo "</tbody>";
-      echo "</table>";
-      echo "<b>For a total of " . mysqli_num_rows($CampSite) . "</b>";
-    }
-      ?>
+          while ($row = $CampSite->fetch_assoc()) {
+            echo "<tr><td>" .
+              $cGOAT->GetAreaText($row["area"]) . "</td><td>" .
+              "<a href=./DisplayCampSite.php?Siteid=" . $row['IDX'] . ">" . ucwords(strtolower($row["name"])) . "</a> </td><td>" .
+              $cGOAT->GetActivityText($row["type1"]) . "</td><td>" .
+              $cGOAT->GetActivityText($row["type2"]) . "</td><td>" .
+              $cGOAT->GetRating($row["IDX"]) . "</td><td>" .
+              $cGOAT->GetLastReviewd($row["IDX"]) . "</td><td>" .
+              $cGOAT->GetSkillLevel($row["IDX"]) . "</td><td>" .
+              $cGOAT->HasInfo($row["map"]) . "</td><td>" .
+              $cGOAT->HasMap($row["embedmap"]) . "</td><td>" .
+              $row["facilities"] . "</td></tr>";
+          }
+          ?>
+        </tbody>
+      </table>
+      <b>For a total of <?php echo mysqli_num_rows($CampSite); ?> sites</b>
     </div>
 
+  <?php
+  }
+  ?>
 
+  <!-- Adding jQuery, DataTables, and DataTables Buttons JS -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#campSitesTable').DataTable({
+        "paging": false,
+        "pageLength": 10,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "columnDefs": [{
+          "orderable": true,
+          "targets": "_all"
+        }],
+        "dom": 'Bfrtip',
+        "buttons": [{
+            extend: 'csv',
+            text: 'Export to CSV',
+            title: 'Campsites',
+            className: 'btn btn-primary btn-sm'
+          },
+          {
+            extend: 'excel',
+            text: 'Export to Excel',
+            title: 'Campsites',
+            className: 'btn btn-primary btn-sm'
+          }
+        ]
+      });
+    });
+  </script>
 
-
-    <?php include('Footer.php'); ?>
+  <?php include('Footer.php'); ?>
 
 </body>
 
