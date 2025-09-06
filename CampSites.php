@@ -62,6 +62,24 @@ $cGOAT = cGOAT::getInstance();
       border-color: #bd2130 !important;
       color: #fff !important;
     }
+
+    /* Loading overlay styles */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .loading-overlay.hidden {
+      display: none;
+    }
   </style>
 </head>
 
@@ -107,6 +125,12 @@ $cGOAT = cGOAT::getInstance();
 
   if (isset($sql)) {
   ?>
+    <!-- Loading overlay with Bootstrap spinner -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
     <div class="px-3">
       <table id="campSitesTable" class="table table-striped">
@@ -186,7 +210,11 @@ $cGOAT = cGOAT::getInstance();
             title: 'Campsites',
             className: 'btn btn-primary btn-sm'
           }
-        ]
+        ],
+        "initComplete": function() {
+          // Hide the loading overlay when the table is fully initialized
+          $('#loadingOverlay').addClass('hidden');
+        }
       });
     });
   </script>
