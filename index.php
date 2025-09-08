@@ -2,6 +2,14 @@
 if (!session_id()) {
   session_start();
 }
+
+// Load configuration
+if (file_exists(__DIR__ . '/config/config.php')) {
+  require_once __DIR__ . '/config/config.php';
+} else {
+  echo __DIR__;
+  die('An error occurred. Please try again later.');
+}
 /*
 !==============================================================================!
 !\                                                                            /!
@@ -30,7 +38,7 @@ if (!session_id()) {
 <html lang="en">
 
 <head>
-  <?php include('head.php'); ?>
+  <?php load_template('/head.php'); ?>
   <style>
     /* Center the map iframe */
     .map-container {
@@ -64,12 +72,12 @@ if (!session_id()) {
 
 <body>
   <?php
-  include_once('header.php');
+  load_template('/navbar.php');
   ?>
   <div class="container-fluid">
     <div class="row flex-nowrap">
       <!-- Include the common side nav bar -->
-      <?php include 'navbar.php'; ?>
+      <?php include 'sidebar.php'; ?>
       <div class="col py-3">
         <h3 style="text-align: center;">Guide to Outdoor Activities for Troops</h3>
         <h4>Overview:</h4>
@@ -136,7 +144,7 @@ if (!session_id()) {
   <!-- Main JS File -->
   <script src="./assets/js/main.js"></script>
 
-  <?php include 'Footer.php'; ?>
+  <?php //include 'Footer.php'; ?>
 
 </body>
 

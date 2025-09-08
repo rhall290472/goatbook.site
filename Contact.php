@@ -7,13 +7,13 @@
 
 <body>
 <?php
-  include_once('header.php');
+  load_template('/navbar.php');
 
   ?>
 
     <div class="container-fluid">
       <div class="row flex-nowrap">
-        <?php include 'navbar.php'; ?>
+        <?php include 'sidebar.php'; ?>
         <div class="col py-3">
           <div class="container px-md-3">
             <div class="p-3 p-md-3 bg-light rounded-2 text-center">

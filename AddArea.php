@@ -23,7 +23,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 
 <body>
   <?php
-  include_once('header.php');
+  load_template('/navbar.php');
 
 
   //#####################################################################

@@ -22,7 +22,7 @@ if (!session_id()) {
 
 <body>
   <?php
-  include_once('header.php');
+  load_template('/navbar.php');
 
 
   //#####################################################################

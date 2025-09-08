@@ -40,7 +40,7 @@ ini_set("memory_limit", "90000M");
 
 <body>
   <?php
-  include_once('header.php');
+  load_template('/navbar.php');
 
 
   $csv_hdr = "WKT, Name, Area, Activity 1, Activity 2, Site Link";

@@ -40,7 +40,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 <head>
   <?php include('./head.php'); ?>
 </head>
-<?php include_once('header.php'); ?>
+<?php load_template('/navbar.php'); ?>
 
 <body class="body" style="padding:20px">
 

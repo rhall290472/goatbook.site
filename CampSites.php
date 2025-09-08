@@ -2,7 +2,17 @@
 if (!session_id()) {
   session_start();
 }
-include('cGOAT.php');
+
+  // Load configuration
+  if (file_exists(__DIR__ . '/config/config.php')) {
+    require_once __DIR__ . '/config/config.php';
+  } else {
+    echo __DIR__;
+    die('An error occurred. Please try again later.');
+  }
+
+
+  include('cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 /*
 !==============================================================================!
@@ -85,7 +95,7 @@ $cGOAT = cGOAT::getInstance();
 
 <body>
   <?php
-  include_once('header.php');
+  load_template('/navbar.php');
 
   $cGOAT->SelectCampSite();
 
@@ -219,7 +229,7 @@ $cGOAT = cGOAT::getInstance();
     });
   </script>
 
-  <?php include('Footer.php'); ?>
+  <?php //include('Footer.php'); ?>
 
 </body>
 

@@ -48,7 +48,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 
 
   <?php
-  include_once('header.php');
+  load_template('/navbar.php');
 
   // Check which type of camp view they wish to view
   if (isset($_GET['Userid'])) {

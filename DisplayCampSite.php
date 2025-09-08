@@ -38,9 +38,8 @@ $cGOAT = cGOAT::getInstance();
 
 <body>
   <?php
-  include_once('header.php');
-  //include_once('navbar.php');
-
+  load_template('/navbar.php');
+  
 
   // Check which type of camp view they wish to view
   if (isset($_GET['Siteid'])) {
@@ -60,7 +59,7 @@ $cGOAT = cGOAT::getInstance();
   <div class="container-fluid">
     <div class="row flex-nowrap">
       <!-- Include common side bar nav -->
-      <?php include 'navbar.php'; ?>
+      <?php include '
       <div class="col py-3">
         <!- Page content Here -->
         <div class="container px-3">
