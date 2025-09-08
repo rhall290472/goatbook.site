@@ -84,7 +84,7 @@ if (file_exists(__DIR__ . '/config/config.php')) {
     } else {
       // GitHub API settings
       $owner = "rhall290472";
-      $repo = "centennial";
+      $repo = "goatbook.site";
       $api_url = "https://api.github.com/repos/$owner/$repo/commits?per_page=1";
       $token = defined('GITHUB_TOKEN') ? GITHUB_TOKEN : ''; // Load token from config.php
 
