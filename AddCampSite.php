@@ -2,6 +2,14 @@
 if (!session_id()) {
   session_start();
 
+  // Load configuration
+if (file_exists(__DIR__ . '/config/config.php')) {
+  require_once __DIR__ . '/config/config.php';
+} else {
+  echo __DIR__;
+  die('An error occurred. Please try again later.');
+}
+
   include('cGOAT.php');
   $cGOAT = cGOAT::getInstance();
 }

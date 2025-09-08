@@ -15,126 +15,119 @@ if (file_exists(__DIR__ . '/config/config.php')) {
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
       <li class="nav-item">
         <a href="./CampSites.php" class="nav-link align-middle px-0">
-          <i class="fs-4 bi-eye"></i> <span class="ms-1 d-none d-sm-inline">Activites</span>
+          <i class="fs-4 bi-eye"></i> <span class="ms-1 d-none d-sm-inline">Activities</span>
         </a>
       </li>
       <li class="nav-item">
         <a href="./AddCampSite.php" class="nav-link align-middle px-0">
-          <i class="fs-4 bi-bookmark-check"></i> <span class="ms-1 d-none d-sm-inline">Add a Activites</span>
+          <i class="fs-4 bi-bookmark-check"></i> <span class="ms-1 d-none d-sm-inline">Add an Activity</span>
         </a>
       </li>
       <li class="nav-item">
-        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-          <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">The GOAT Book</span></a>
+        <a href="#" data-bs-toggle="collapse" data-bs-target="#submenu3" role="button" aria-expanded="false" aria-controls="submenu3" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">The GOAT Book</span>
+        </a>
         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
           <li class="w-100">
-            <a href="./Book/GoatBook_2000_OCR.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">2000</span></a>
+            <a href="./Book/GoatBook_2000_OCR.pdf" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">2000</span></a>
           </li>
           <li>
-            <a href="./Book/GoatBook_1995_OCR.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">1995</span></a>
+            <a href="./Book/GoatBook_1995_OCR.pdf" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">1995</span></a>
+          </li>
+          <li>
+            <a href="./Book/Tahosa Lodge 383 History Booklet 1948-1988.pdf" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">Tahosa Lodge 383 History</span></a>
           </li>
         </ul>
       </li>
       <li class="nav-item">
-        <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-          <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Scouting References</span></a>
+        <a href="#" data-bs-toggle="collapse" data-bs-target="#submenu4" role="button" aria-expanded="false" aria-controls="submenu4" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Scouting References</span>
+        </a>
         <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
           <li class="w-100">
-            <a href="https://filestore.scouting.org/filestore/HealthSafety/pdf/680-685.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">Age Appropiate Gudelines</span></a>
+            <a href="https://filestore.scouting.org/filestore/HealthSafety/pdf/680-685.pdf" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">Age Appropriate Guidelines</span></a>
           </li>
           <li>
-            <a href="https://www.scouting.org/programs/cub-scouts/activities/cub-scout-camping/" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">Camping and Outdoor Activities</span></a>
+            <a href="https://www.scouting.org/programs/cub-scouts/activities/cub-scout-camping/" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">Camping and Outdoor Activities</span></a>
           </li>
           <li>
-            <a href="https://www.scouting.org/health-and-safety/gss/gss03/" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">Guide to Safe Scouting: Camping</span></a>
+            <a href="https://www.scouting.org/health-and-safety/gss/gss03/" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">Guide to Safe Scouting: Camping</span></a>
           </li>
           <li>
-            <a href="https://www.scouting.org/trail-to-adventure-blog/cub-scout-camping-program-and-policy-updates/" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">Cub Scout Camping Program and Policy: 2024 Updates</span></a>
+            <a href="https://www.scouting.org/trail-to-adventure-blog/cub-scout-camping-program-and-policy-updates/" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">Cub Scout Camping Program and Policy: 2024 Updates</span></a>
           </li>
         </ul>
       </li>
       <?php if (isset($_SESSION["type"]) && $_SESSION["type"] == "Admin") { ?>
         <li class="nav-item">
-          <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-            <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Admin</span></a>
+          <a href="#" data-bs-toggle="collapse" data-bs-target="#submenu5" role="button" aria-expanded="false" aria-controls="submenu5" class="nav-link px-0 align-middle">
+            <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Admin</span>
+          </a>
           <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
             <li class="w-100">
-              <a href="./ViewUsers.php" class="nav-link px-0"> <span class="d-none d-sm-inline">View Users</span></a>
+              <a href="./ViewUsers.php" class="nav-link px-0"><span class="d-none d-sm-inline">View Users</span></a>
             </li>
             <li>
-              <a href="./ViewErrors.php" class="nav-link px-0"> <span class="d-none d-sm-inline">View Error Log</span></a>
+              <a href="./ViewErrors.php" class="nav-link px-0"><span class="d-none d-sm-inline">View Error Log</span></a>
             </li>
           </ul>
         </li>
       <?php } ?>
     </ul>
-  </div>
+    <!-- Optional: Restored GitHub footer (commented out if not needed) -->
+    <div class="mt-auto text-muted small">
+      <?php
+      $cache_file = 'last_updated.txt';
+      $cache_duration = 24 * 60 * 60; // 24 hours in seconds
+      $commit_date = null;
+      $http_code = 0;
 
-  <!-- Footer with GitHub repository commit date -->
-  <div class="mt-auto text-muted small">
-    <?php
-    $cache_file = 'last_updated.txt';
-    $cache_duration = 24 * 60 * 60; // 24 hours in seconds
-    $commit_date = null;
-    $http_code = 0; // Initialize to track HTTP status
+      if (file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_duration) {
+        $commit_date = file_get_contents($cache_file);
+      } else {
+        $owner = "rhall290472";
+        $repo = "goatbook.site";
+        $api_url = "https://api.github.com/repos/$owner/$repo/commits?per_page=1";
+        $token = defined('GITHUB_TOKEN') ? GITHUB_TOKEN : '';
 
-    // Check if cache exists and is recent
-    if (file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_duration) {
-      $commit_date = file_get_contents($cache_file);
-    } else {
-      // GitHub API settings
-      $owner = "rhall290472";
-      $repo = "goatbook.site";
-      $api_url = "https://api.github.com/repos/$owner/$repo/commits?per_page=1";
-      $token = defined('GITHUB_TOKEN') ? GITHUB_TOKEN : ''; // Load token from config.php
-
-      $ch = curl_init($api_url);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLOPT_USERAGENT, "PHP-App/1.0");
-      curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Accept: application/vnd.github.v3+json"
-      ]);
-      if (!empty($token)) {
+        $ch = curl_init($api_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, "PHP-App/1.0");
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
           "Accept: application/vnd.github.v3+json",
-          "Authorization: token $token"
+          !empty($token) ? "Authorization: token $token" : ""
         ]);
-      }
-      $response = curl_exec($ch);
-      $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-      curl_close($ch);
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
 
-      if ($http_code == 200 && $response) {
-        $commits = json_decode($response, true);
-        if (!empty($commits)) {
-          $commit_date = $commits[0]['commit']['committer']['date'];
-          // Save to cache
-          file_put_contents($cache_file, $commit_date);
+        if ($http_code == 200 && $response) {
+          $commits = json_decode($response, true);
+          if (!empty($commits)) {
+            $commit_date = $commits[0]['commit']['committer']['date'];
+            file_put_contents($cache_file, $commit_date);
+          }
+        } else {
+          error_log("GitHub API error: HTTP $http_code, Response: $response, URL: $api_url, Token used: " . (empty($token) ? 'none' : 'provided'));
         }
-      } else {
-        // Log error for debugging
-        error_log("GitHub API error: HTTP $http_code, Response: $response, URL: $api_url, Token used: " . (empty($token) ? 'none' : 'provided'));
       }
-    }
 
-    // Display the date
-    if ($commit_date) {
-      $formatted_date = date("F j, Y", strtotime($commit_date));
-      echo "Last updated: " . htmlspecialchars($formatted_date);
-    } else {
-      if ($http_code == 403) {
-        echo "Last updated: Unknown (token lacks permissions or organization restrictions)";
-      } elseif ($http_code == 401) {
-        echo "Last updated: Unknown (invalid or missing token)";
-      } elseif ($http_code == 404) {
-        echo "Last updated: Unknown (repository not found)";
+      if ($commit_date) {
+        $formatted_date = date("F j, Y", strtotime($commit_date));
+        echo "Last updated: " . htmlspecialchars($formatted_date);
       } else {
-        echo "Last updated: Unknown (API error)";
+        if ($http_code == 403) {
+          echo "Last updated: Unknown (token lacks permissions or organization restrictions)";
+        } elseif ($http_code == 401) {
+          echo "Last updated: Unknown (invalid or missing token)";
+        } elseif ($http_code == 404) {
+          echo "Last updated: Unknown (repository not found)";
+        } else {
+          echo "Last updated: Unknown (API error)";
+        }
       }
-    }
-    ?>
-
-    <?php echo "</br>Copyright &copy; " . date('Y') . " " . $_SERVER['HTTP_HOST']; ?>
-
+      ?>
+      <?php echo "<br>Copyright &copy; " . date('Y') . " " . $_SERVER['HTTP_HOST']; ?>
+    </div>
   </div>
 </div>
