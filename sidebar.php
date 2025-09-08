@@ -37,7 +37,7 @@ if (file_exists(__DIR__ . '/config/config.php')) {
       </li>
       <li class="nav-item">
         <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-          <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">BSA References</span></a>
+          <i class="fs-4 bi-book"></i> <span class="ms-1 d-none d-sm-inline">Scouting References</span></a>
         <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
           <li class="w-100">
             <a href="https://filestore.scouting.org/filestore/HealthSafety/pdf/680-685.pdf" target="_blank" class="nav-link px-0"> <span class="d-none d-sm-inline">Age Appropiate Gudelines</span></a>
