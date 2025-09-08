@@ -2,6 +2,15 @@
 if (!session_id()) {
   session_start();
 }
+
+// Load configuration
+if (file_exists(__DIR__ . '/config/config.php')) {
+  require_once __DIR__ . '/config/config.php';
+} else {
+  echo __DIR__;
+  die('An error occurred. Please try again later.');
+}
+
 include('cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 
@@ -59,7 +68,7 @@ $cGOAT = cGOAT::getInstance();
   <div class="container-fluid">
     <div class="row flex-nowrap">
       <!-- Include common side bar nav -->
-      <?php include '
+      <?php include 'sidebar.php'; ?>
       <div class="col py-3">
         <!- Page content Here -->
         <div class="container px-3">
