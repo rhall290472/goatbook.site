@@ -19,12 +19,6 @@ if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0755, true);
 }
 
-// Create log directory if it doesn't exist
-$logDir = BASE_PATH . '/../../shared/logs';
-if (!is_dir($logDir)) {
-    mkdir($logDir, 0755, true);
-}
-
 // Environment configuration  // development
 define('ENV', 'development'); // Set to 'production' on live server
 // Enable error reporting in development only
@@ -32,12 +26,12 @@ define('ENV', 'development'); // Set to 'production' on live server
 if (defined('ENV') && ENV === 'development') {
     ini_set('display_errors', 1);
     ini_set('log_errors', 1);
-    ini_set('error_log', BASE_PATH . '/../../shared/logs');
+    //ini_set('error_log', BASE_PATH . '/shared/logs');
     error_reporting(E_ALL);
 } else {
     ini_set('display_errors', 0);
     ini_set('log_errors', 1);
-    ini_set('error_log', 'https://shared.centennialdistrict.co/logs/error.log');
+    //ini_set('error_log', '/shared/logs/error.log');
 }
 
 
