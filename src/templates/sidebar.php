@@ -1,10 +1,10 @@
 <?php
 // Load configuration
-if (file_exists(__DIR__ . '/../../config/config.php')) {
-  require_once __DIR__ . '/../../config/config.php';
+if (file_exists(__DIR__ . '/config/config.php')) {
+  require_once __DIR__ . '/config/config.php';
 } else {
   echo __DIR__;
-  die('<br>An error occurred. Please try again later.');
+  die('An error occurred. Please try again later.');
 }
 ?>
 <div class="col-auto col-md-3 col-xl-auto px-sm-2 px-0 bg-dark">
