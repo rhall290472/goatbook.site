@@ -1,19 +1,15 @@
 <?php
-if (!session_id()) {
-  session_start();
+// Secure session start
+if (session_status() === PHP_SESSION_NONE) {
+  session_start([
+    'cookie_httponly' => true,
+    'use_strict_mode' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS'])
+  ]);
 }
 
-// Load configuration
-if (file_exists(__DIR__ . '/config/config.php')) {
-  require_once __DIR__ . '/config/config.php';
-} else {
-  echo __DIR__;
-  die('An error occurred. Please try again later.');
-}
-
-include('cGOAT.php');
+include(BASE_PATH . '/src/classes/cGOAT.php');
 $cGOAT = cGOAT::getInstance();
-
 /*
 !==============================================================================!
 !\                                                                            /!
@@ -37,18 +33,15 @@ $cGOAT = cGOAT::getInstance();
 !==============================================================================!
 */
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <?php include('head.php'); ?>
+  <?php include(BASE_PATH . '/src/templates/head.php'); ?>
 </head>
 
 <body>
   <?php
-  load_template('/navbar.php');
-  
 
   // Check which type of camp view they wish to view
   if (isset($_GET['Siteid'])) {
@@ -68,9 +61,9 @@ $cGOAT = cGOAT::getInstance();
   <div class="container-fluid">
     <div class="row flex-nowrap">
       <!-- Include common side bar nav -->
-      <?php include 'sidebar.php'; ?>
+      <?php include(BASE_PATH . '/src/templates/sidebar.php'); ?>
       <div class="col py-3">
-        <!- Page content Here -->
+        <!-- Page content Here -->
         <div class="container px-3">
           <div class="row gx-lg-3">
 
@@ -120,11 +113,12 @@ $cGOAT = cGOAT::getInstance();
             <div class="col-lg-10 col-xxl-10 mb-5">
               <h2>Reviews</h2>
               <div class="reviews"></div>
-              <script src="assets/js/reviews.js"></script>
+              <script src="<?php echo BASE_PATH . '/assets/js/reviews.js'; ?>"></script>
               <script>
                 var site_idx = <?php echo json_encode($Site['IDX'], JSON_HEX_TAG); ?>;
                 new Reviews({
                   site_idx: site_idx,
+                  php_file_url: '<?php echo htmlspecialchars(BASE_PATH . '/src/pages/reviews.php'); ?>',
                   reviews_per_pagination_page: 5,
                   current_pagination_page: 1
                 });
@@ -136,10 +130,6 @@ $cGOAT = cGOAT::getInstance();
       </div>
     </div>
   </div>
-  </div>
-
-  <?php include('Footer.php'); ?>
-
 </body>
 
 </html>

@@ -1,7 +1,15 @@
 <?php
-if (!session_id()) {
-  session_start();
+// Secure session start
+if (session_status() === PHP_SESSION_NONE) {
+  session_start([
+    'cookie_httponly' => true,
+    'use_strict_mode' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS'])
+  ]);
 }
+
+include(BASE_PATH . '/src/classes/cGOAT.php');
+$cGOAT = cGOAT::getInstance();
 /*
 !==============================================================================!
 !\                                                                            /!
@@ -26,8 +34,6 @@ if (!session_id()) {
 !==============================================================================!
 */
 
-include('cGOAT.php');
-$cGOAT = cGOAT::getInstance();
 
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $email = $confirm_relationship = $phone = "";
@@ -37,17 +43,21 @@ $username_err = $password_err = $confirm_password_err = $email_err = $confirm_re
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // Get users IP address
-  $ip = isset($_SERVER['HTTP_CLIENT_IP']) 
-    ? $_SERVER['HTTP_CLIENT_IP'] 
-    : (isset($_SERVER['HTTP_X_FORWARDED_FOR']) 
-      ? $_SERVER['HTTP_X_FORWARDED_FOR'] 
+  $ip = isset($_SERVER['HTTP_CLIENT_IP'])
+    ? $_SERVER['HTTP_CLIENT_IP']
+    : (isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+      ? $_SERVER['HTTP_X_FORWARDED_FOR']
       : $_SERVER['REMOTE_ADDR']);
 
 
   // Check Honeypot field. If filled out send spammer away..
-  if($_POST["phone"]){
-    $str = sprintf("New GOAT registration, sent to FBI.GOV on %s - User: %s - Password: %s \n", Date('Y-m-d H:i:s'),
-    $param_username, $param_password);
+  if ($_POST["phone"]) {
+    $str = sprintf(
+      "New GOAT registration, sent to FBI.GOV on %s - User: %s - Password: %s \n",
+      Date('Y-m-d H:i:s'),
+      $param_username,
+      $param_password
+    );
     error_log($str, 1, "richard.hall@centennialdistrict.co");
     $cGOAT->gotoURL("https://www.fbi.gov");
     exit();
@@ -121,16 +131,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
-    // Validate confirm relatiosnhip to Scouting
-    if (empty(trim($_POST["confirm_relationship"]))) {
-      $confirm_relationship_err = "Please enter relationship.";
-    } else {
-      $confirm_relationship = trim($_POST["confirm_relationship"]);
-      }
-  
+  // Validate confirm relatiosnhip to Scouting
+  if (empty(trim($_POST["confirm_relationship"]))) {
+    $confirm_relationship_err = "Please enter relationship.";
+  } else {
+    $confirm_relationship = trim($_POST["confirm_relationship"]);
+  }
+
   // Check input errors before inserting in database
-  if (empty($username_err) && empty($password_err) && empty($confirm_password_err) && 
-      empty($email_err) && empty($confirm_relationship_err) ){
+  if (
+    empty($username_err) && empty($password_err) && empty($confirm_password_err) &&
+    empty($email_err) && empty($confirm_relationship_err)
+  ) {
 
     // Prepare an insert statement
     $sql = "INSERT INTO users (username, password, email, ip) VALUES (?, ?, ?, ?)";
@@ -150,8 +162,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // 
         $msg = "You can now log in.";
         cGOAT::function_alert($msg);
-        $str = sprintf("New GOAT registration, on %s - User: %s - Password: %s IP: %s \n", Date('Y-m-d H:i:s'),
-          $param_username, $param_password, $ip);
+        $str = sprintf(
+          "New GOAT registration, on %s - User: %s - Password: %s IP: %s \n",
+          Date('Y-m-d H:i:s'),
+          $param_username,
+          $param_password,
+          $ip
+        );
         error_log($str, 1, "richard.hall@centennialdistrict.co");
         cGOAT::GotoURL("./logon.php");
       } else {
@@ -172,11 +189,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 
 <head>
-  <?php include('head.php'); ?>
+  <?php include(BASE_PATH . '/src/templates/head.php'); ?>
 </head>
 
 <body>
-  <?php include 'header.php'; ?>
+  <?php //include 'header.php'; 
+  ?>
   <center>
     <div class="wrapper-logon">
       <h2>Sign Up</h2>
@@ -195,7 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="form-group ohnohney">
           <label>Phone</label>
-          <input type="text"  style="right: -500px;" name="phone" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $phone; ?>">
+          <input type="text" style="right: -500px;" name="phone" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $phone; ?>">
           <span class="invalid-feedback"><?php echo $phone_err; ?></span>
         </div>
 
@@ -211,11 +229,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="form-group">
           <label>What is your relationship to Scouting?</label>
-          <select class='form-control' name='confirm_relationship'required>
-          <option value=""></option>
-          <option value="Adult Leader">Adult Leader</option>
-          <option value="Youth">Youth</option>
-          <option value="Parent">Parent</option>
+          <select class='form-control' name='confirm_relationship' required>
+            <option value=""></option>
+            <option value="Adult Leader">Adult Leader</option>
+            <option value="Youth">Youth</option>
+            <option value="Parent">Parent</option>
           </select>
 
           <!-- <input type="relationship" name="confirm_relationship" class="form-control <?php echo (!empty($confirm_relationship_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_relationship; ?>"> -->
@@ -225,13 +243,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <input type="submit" class="btn btn-primary" value="Submit">
           <input type="reset" class="btn btn-secondary ml-2" value="Reset">
         </div>
-        <p>Already have an account? <a href="logon.php">Login here</a>.</p>
+        <p>Already have an account? <a href="?page=login">Login here</a>.</p>
       </form>
     </div>
     </div>
   </center>
-
-  <?php include('Footer.php'); ?>
 </body>
 
 </html>

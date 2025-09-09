@@ -1,18 +1,14 @@
 <?php
-if (!session_id()) {
-  session_start();
+// Secure session start
+if (session_status() === PHP_SESSION_NONE) {
+  session_start([
+    'cookie_httponly' => true,
+    'use_strict_mode' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS'])
+  ]);
 }
 
-  // Load configuration
-  if (file_exists(__DIR__ . '/config/config.php')) {
-    require_once __DIR__ . '/config/config.php';
-  } else {
-    echo __DIR__;
-    die('An error occurred. Please try again later.');
-  }
-
-
-  include('cGOAT.php');
+include(BASE_PATH.'/src/classes/cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 /*
 !==============================================================================!
@@ -42,10 +38,7 @@ $cGOAT = cGOAT::getInstance();
 <html lang="en">
 
 <head>
-  <?php include('head.php'); ?>
-  <!-- Adding Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet" />
+  <?php include(BASE_PATH.'/src/templates/head.php'); ?>
   <!-- Adding DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
   <!-- Adding DataTables Buttons CSS -->
@@ -95,7 +88,7 @@ $cGOAT = cGOAT::getInstance();
 
 <body>
   <?php
-  load_template('/navbar.php');
+  load_template('/src/templates/navbar.php');
 
   $cGOAT->SelectCampSite();
 
@@ -169,7 +162,7 @@ $cGOAT = cGOAT::getInstance();
           while ($row = $CampSite->fetch_assoc()) {
             echo "<tr><td>" .
               $cGOAT->GetAreaText($row["area"]) . "</td><td>" .
-              "<a href=./DisplayCampSite.php?Siteid=" . $row['IDX'] . ">" . ucwords(strtolower($row["name"])) . "</a> </td><td>" .
+              "<a href=?page=displaycampsite&Siteid=" . $row['IDX'] . ">" . ucwords(strtolower($row["name"])) . "</a> </td><td>" .
               $cGOAT->GetActivityText($row["type1"]) . "</td><td>" .
               $cGOAT->GetActivityText($row["type2"]) . "</td><td>" .
               $cGOAT->GetRating($row["IDX"]) . "</td><td>" .
@@ -228,9 +221,6 @@ $cGOAT = cGOAT::getInstance();
       });
     });
   </script>
-
-  <?php //include('Footer.php'); ?>
-
 </body>
 
 </html>

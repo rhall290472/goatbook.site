@@ -1,18 +1,16 @@
 <?php
-if (!session_id()) {
-  session_start();
-
-  // Load configuration
-if (file_exists(__DIR__ . '/config/config.php')) {
-  require_once __DIR__ . '/config/config.php';
-} else {
-  echo __DIR__;
-  die('An error occurred. Please try again later.');
+// Secure session start
+if (session_status() === PHP_SESSION_NONE) {
+  session_start([
+    'cookie_httponly' => true,
+    'use_strict_mode' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS'])
+  ]);
 }
 
-  include('cGOAT.php');
-  $cGOAT = cGOAT::getInstance();
-}
+include(BASE_PATH . '/src/classes/cGOAT.php');
+$cGOAT = cGOAT::getInstance();
+
 /*
 !==============================================================================!
 !\                                                                            /!
@@ -41,7 +39,7 @@ if (file_exists(__DIR__ . '/config/config.php')) {
 <html lang="en">
 
 <head>
-  <?php include('head.php'); ?>
+  <?php include(BASE_PATH . '/src/templates/head.php'); ?>
   <!-- Include TinyMCE from CDN -->
   <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
   <script src="https://cdn.tiny.cloud/1/go7c0mdpiffej81ji1n8edfu4mubr4v4fnrz6dc5qzjhian8/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
@@ -62,7 +60,7 @@ if (file_exists(__DIR__ . '/config/config.php')) {
 
 <body>
   <?php
-  load_template('/navbar.php');
+  load_template('/src/templates/navbar.php');
 
   //#####################################################################
   //
@@ -95,8 +93,9 @@ if (file_exists(__DIR__ . '/config/config.php')) {
     if ((isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) !== true) {
     ?>
       <center>
-        <p>You must have an account with the GOAT website and be logged on to add a campsite.</p>
-        <a class="btn btn-primary btn-sm" href="./logon.php">Log On</a>
+        <p class="py-3">You must have an account with the GOAT website and be logged on to add a campsite.
+          Or you may sned the information via the Contact and we will enter it for you.</p>
+        <a class="btn btn-primary btn-sm" href="?page=login">Log On</a>
       </center>
     <?php
     } else {
@@ -161,9 +160,6 @@ if (file_exists(__DIR__ . '/config/config.php')) {
     }
     ?>
   </div>
-
-  <?php include('Footer.php'); ?>
-
 </body>
 
 </html>

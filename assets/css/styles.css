@@ -13788,12 +13788,40 @@ textarea.form-control-lg {
   content: "assests/icon/goat.ico";
 }
 
-.ohnohney{
-  opacity:0;
+.ohnohney {
+  opacity: 0;
   position: absolute;
   top: 0;
   left: 0;
   height: 0;
   width: 0;
   z-index: -1;
+}
+
+/* Center the map iframe */
+.map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  /* Optional: Add spacing above the map */
+}
+
+/* Ensure the iframe is responsive */
+.map-container iframe {
+  max-width: 100%;
+  /* Prevent overflow on smaller screens */
+  width: 1080px;
+  /* Maintain original width */
+  height: 640px;
+  /* Maintain original height */
+}
+
+@media (max-width: 1200px) {
+  .map-container iframe {
+    width: 100%;
+    /* Adjust width to fit smaller screens */
+    height: 400px;
+    /* Reduce height for better mobile display */
+  }
 }

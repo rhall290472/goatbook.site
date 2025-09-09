@@ -1,7 +1,16 @@
 <?php
-if (!session_id()) {
-  session_start();
+// Secure session start
+if (session_status() === PHP_SESSION_NONE) {
+  session_start([
+    'cookie_httponly' => true,
+    'use_strict_mode' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS'])
+  ]);
 }
+
+include(BASE_PATH . '/src/classes/cGOAT.php');
+$cGOAT = cGOAT::getInstance();
+
 /*
 !==============================================================================!
 !\                                                                            /!
@@ -24,8 +33,6 @@ if (!session_id()) {
 !/                                                                            \!
 !==============================================================================!
 */
-include('cGOAT.php');
-$cGOAT = cGOAT::getInstance();
 
 /* Check if the user is already logged in, if yes then redirect him to welcome page */
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
@@ -108,14 +115,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
             } else {
               // Password is not valid, display a generic error message
               $login_err = "Invalid username or password.";
-              $error_err = "Invalid username (" . $username . ") or password.(" . $password . ") from IP ".$ip." ". __FILE__ . ", " . __LINE__;
+              $error_err = "Invalid username (" . $username . ") or password.(" . $password . ") from IP " . $ip . " " . __FILE__ . ", " . __LINE__;
               error_log($error_err, 1, "richard.hall@centennialdistrict.co");
             }
           }
         } else {
           // Username doesn't exist, display a generic error message
           $login_err = "Invalid username or password.";
-          $error_err = "Invalid username (" . $username . ") or password.(" . $password . ") from IP ".$ip." ". __FILE__ . ", " . __LINE__;
+          $error_err = "Invalid username (" . $username . ") or password.(" . $password . ") from IP " . $ip . " " . __FILE__ . ", " . __LINE__;
           error_log($error_err, 1, "richard.hall@centennialdistrict.co");
         }
       } else {
@@ -133,11 +140,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
 <html lang="en">
 
 <head>
-  <?php include 'head.php'; ?>
+  <?php include(BASE_PATH . '/src/templates/head.php') ?>
 </head>
 
 <body>
-  <?php include 'header.php'; ?>
+  <?php //include 'header.php'; 
+  ?>
   <center>
     <div class="wrapper-logon">
       <h2>Login</h2>
@@ -157,12 +165,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["SubmitForm"]) {
         <div class="form-group py-3">
           <input type="submit" class="btn btn-primary" name="SubmitForm" value="Login">
         </div>
-        <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+        <p>Don't have an account? <a href="?page=register">Sign up now</a>.</p>
       </form>
     </div>
   </center>
-
-  <?php include('Footer.php'); ?>
 </body>
 
 </html>

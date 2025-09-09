@@ -4,7 +4,7 @@ class Reviews {
         let defaults = {
             site_idx: 1,
             container: document.querySelector(".reviews"),
-            php_file_url: "reviews.php"
+            php_file_url: "/src/pages/reviews.php"
         };
         this.options = Object.assign(defaults, options);
         this.fetchReviews();

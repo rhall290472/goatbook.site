@@ -1,5 +1,5 @@
 <?php
-include('cGOAT.php');
+include(BASE_PATH . '/src/classes/cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 /*
 !==============================================================================!

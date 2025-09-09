@@ -7,12 +7,12 @@
     </a>
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
       <li class="nav-item">
-        <a href="./CampSites.php" class="nav-link align-middle px-0">
+        <a href="?page=campsites" class="nav-link align-middle px-0">
           <i class="fs-4 bi-eye"></i> <span class="ms-1 d-none d-sm-inline">Activities</span>
         </a>
       </li>
       <li class="nav-item">
-        <a href="./AddCampSite.php" class="nav-link align-middle px-0">
+        <a href="?page=addcampsite" class="nav-link align-middle px-0">
           <i class="fs-4 bi-bookmark-check"></i> <span class="ms-1 d-none d-sm-inline">Add an Activity</span>
         </a>
       </li>
@@ -22,13 +22,13 @@
         </a>
         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
           <li class="w-100">
-            <a href="./Book/GoatBook_2000_OCR.pdf" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">2000</span></a>
+            <a href="?page=goatbook2000" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">2000</span></a>
           </li>
           <li>
-            <a href="./Book/GoatBook_1995_OCR.pdf" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">1995</span></a>
+            <a href="?page=goatbook1995" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">1995</span></a>
           </li>
           <li>
-            <a href="./Book/Tahosa Lodge 383 History Booklet 1948-1988.pdf" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">Tahosa Lodge 383 History</span></a>
+            <a href="?page=tahosalodge" target="_blank" class="nav-link px-0"><span class="d-none d-sm-inline">Tahosa Lodge 383 History</span></a>
           </li>
         </ul>
       </li>
