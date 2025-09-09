@@ -16,6 +16,13 @@
         "name": "Launch GOAT",
         "url": "https://localhost/goatbook.site/index.php",
         "webRoot": "${workspaceFolder}"
+      },
+      {
+        "type": "chrome",
+        "request": "launch",
+        "name": "public GOAT",
+        "url": "https://localhost/goatbook.site/public/index.php",
+        "webRoot": "${workspaceFolder}"
       }
     ]
 }

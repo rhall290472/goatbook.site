@@ -13,11 +13,6 @@ defined('BASE_PATH') or define('BASE_PATH', dirname(__DIR__));
 
 define('GITHUB_TOKEN', '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'); // Replace with your new token
 
-// Ensure upload directory exists
-$uploadDir = BASE_PATH . '/Uploads/';
-if (!is_dir($uploadDir)) {
-    mkdir($uploadDir, 0755, true);
-}
 
 // Environment configuration  // development
 define('ENV', 'development'); // Set to 'production' on live server
@@ -38,15 +33,12 @@ if (defined('ENV') && ENV === 'development') {
 // Dynamically set SITE_URL based on environment
 $is_localhost = isset($_SERVER['SERVER_NAME']) && in_array($_SERVER['SERVER_NAME'], ['localhost', '127.0.0.1']);
 $protocol = 'https'; // Simplified since it's always HTTPS in the original code
-$host = $is_localhost ? ($_SERVER['SERVER_NAME'] ?? 'localhost') : 'centennialdistrict.co';
+$host = $is_localhost ? ($_SERVER['SERVER_NAME'] ?? 'localhost/goatbook.site') : 'goatbook.site';
 $port = ($is_localhost && isset($_SERVER['SERVER_PORT']) && !in_array($_SERVER['SERVER_PORT'], ['80', '443'])) ? ':' . $_SERVER['SERVER_PORT'] : '';
 define('SITE_URL', $protocol . '://' . $host . $port);
 
-// Assets URL
-define('SHARED_URL', 'https://share.centennialdistrict.co');
-define('SHARED_ASSETS_URL', SHARED_URL . '/assets');
-define('SHARED_CLASS_URL', SHARED_URL . '/src/Classes');
-define('SHARED_PATH', __DIR__ . '/../../../shared/'); 
+// Assets URL (base path for relative asset links like "css/styles.css")
+define('ASSETS_URL', SITE_URL . '/assets/'); 
 
 // Site metadata
 define('PAGE_TITLE', 'Guide to Outdoor Activities for Troops');
@@ -59,10 +51,6 @@ define('CONTACT_EMAIL', 'richard.hall@centennialdistrict.co');
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_USERNAME', 'rhall290472@gmail.com');
 define('SMTP_PASSWORD', 'vicx cxho rywh ylok'); // Use .env in production
-
-define('ALLOWED_FILE_EXTENSIONS', ['csv']);
-define('MAX_FILE_SIZE', 4000000); // 4MB
-define('UPLOAD_DIRECTORY', __DIR__ . '/Data/');
 
 if ($is_localhost) {
     define('DB_HOST', 'localhost');
@@ -88,7 +76,7 @@ if (!function_exists('load_template')) {
             error_log("Template $file is missing.");
             if (defined('ENV') && ENV === 'development') {
                 echo 'Template ' . $path . ' is missing.</br>';
-                die('Template $file is missing.');
+                die('</br>Template $file is missing.');
             } else {
                 die('An error occurred. Please try again later.');
             }
@@ -105,7 +93,7 @@ if (!function_exists('load_class')) {
             error_log("Class $file is missing.");
             if (defined('ENV') && ENV === 'development') {
                 echo 'Template ' . $path . ' is missing.</br>';
-                die('Class $file is missing.');
+                die('</br>Class $file is missing.');
             } else
                 die('An error occurred. Please try again later.');
         }
