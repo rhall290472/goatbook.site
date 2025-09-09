@@ -1,8 +1,17 @@
+<?php
+// Load configuration
+if (file_exists(__DIR__ . '/config/config.php')) {
+  require_once __DIR__ . '/config/config.php';
+} else {
+  echo __DIR__;
+  die('An error occurred. Please try again later.');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <?php include("head.php"); ?>
+  <?php load_template('/head.php'); ?>
 </head>
 
 <body>

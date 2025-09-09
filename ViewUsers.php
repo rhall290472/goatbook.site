@@ -2,6 +2,14 @@
 if (!session_id()) {
   session_start();
 }
+// Load configuration
+if (file_exists(__DIR__ . '/config/config.php')) {
+  require_once __DIR__ . '/config/config.php';
+} else {
+  echo __DIR__;
+  die('An error occurred. Please try again later.');
+}
+
 include('cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 
@@ -46,60 +54,67 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 <?php load_template('/navbar.php'); ?>
 
 <body class="body" style="padding:20px">
-  <!-- Header-->
-  <header class="py-5">
-    <div class="container px-lg-5">
-      <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-        <div class="m-4 m-lg-5">
-          <h1 class="display-5 fw-bold">Users for the GoatBook</h1>
-          <p class="fs-4">Below is a list of Users</p>
-          <!-- <a class=" btn btn-primary btn-lg" href="./AddUsers.php">Add User</a> -->
-        </div>
+  <div class="container-fluid">
+    <div class="row flex-nowrap">
+      <!-- Include the common side nav bar -->
+      <?php include 'sidebar.php'; ?>
+      <div class="col py-3">
+        <!-- Header-->
+        <header class="py-5">
+          <div class="container px-lg-5">
+            <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+              <div class="m-4 m-lg-5">
+                <h1 class="display-5 fw-bold">Users for the GoatBook</h1>
+                <p class="fs-4">Below is a list of Users</p>
+                <!-- <a class=" btn btn-primary btn-lg" href="./AddUsers.php">Add User</a> -->
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="py-5">
+          <?php
+          // Get current events in database
+          $sql = "SELECT * FROM users WHERE is_deleted <> 1";
+          $result = $cGOAT->doQuery($sql);
+          if ($result) {
+            // Display the events 
+          ?>
+            <table class="table table-striped">
+              <tr>
+                <th>id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Enabled</th>
+                <th>Last login</th>
+                <th>Role</th>
+                <th>is_deleted</th>
+                <th>Created</th>
+                <!-- <th>Updated</th> -->
+              </tr>
+              <?php
+              while ($row = $result->fetch_assoc()) {
+                echo "<tr><td>" .
+                  "<a href=./EditUser.php?Userid=" . $row["id"] . ">" . $row["id"] . "</a>" . "</td><td>" .
+                  $row["username"] . "</td><td>" .
+                  $row["email"] . "</td><td>" .
+                  $row["enabled"] . "</td><td>" .
+                  $row["LastLogin"] . "</td><td>" .
+                  $row["Type"] . "</td><td>" .
+                  $row["is_deleted"] . "</td><td>" .
+                  $row["created_at"] . "</td><tr>";
+                // $row["updated_by"] . "</td></tr>";
+              }
+              ?>
+            </table>
+          <?php
+
+          }
+          ?>
+        </section>
       </div>
     </div>
-  </header>
-
-  <section class="py-5">
-    <?php
-    // Get current events in database
-    $sql = "SELECT * FROM users WHERE is_deleted <> 1";
-    $result = $cGOAT->doQuery($sql);
-    if ($result) {
-      // Display the events 
-    ?>
-      <table class="table table-striped">
-        <tr>
-          <th>id</th>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Enabled</th>
-          <th>Last login</th>
-          <th>Role</th>
-          <th>is_deleted</th>
-          <th>Created</th>
-          <!-- <th>Updated</th> -->
-        </tr>
-        <?php
-        while ($row = $result->fetch_assoc()) {
-          echo "<tr><td>" .
-            "<a href=./EditUser.php?Userid=".$row["id"].">" . $row["id"] . "</a>" . "</td><td>" .
-            $row["username"] . "</td><td>" .
-            $row["email"] . "</td><td>" .
-            $row["enabled"] . "</td><td>" .
-            $row["LastLogin"] . "</td><td>" .
-            $row["Type"] . "</td><td>" .
-            $row["is_deleted"] . "</td><td>" .
-            $row["created_at"] . "</td><tr>";
-          // $row["updated_by"] . "</td></tr>";
-        }
-        ?>
-      </table>
-    <?php
-
-    }
-    ?>
-  </section>
-  <?php include("./Footer.php"); ?>
+  </div>
 </body>
 
 </html>
