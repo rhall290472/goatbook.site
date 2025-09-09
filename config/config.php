@@ -38,7 +38,7 @@ $port = ($is_localhost && isset($_SERVER['SERVER_PORT']) && !in_array($_SERVER['
 define('SITE_URL', $protocol . '://' . $host . $port);
 
 // Assets URL (base path for relative asset links like "css/styles.css")
-define('ASSETS_URL', SITE_URL . '/assets/'); 
+define('ASSETS_URL', SITE_URL . '/assets'); 
 
 // Site metadata
 define('PAGE_TITLE', 'Guide to Outdoor Activities for Troops');

@@ -4,8 +4,8 @@ if (!session_id()) {
 }
 
 // Load configuration
-if (file_exists(__DIR__ . '/config/config.php')) {
-  require_once __DIR__ . '/config/config.php';
+if (file_exists(__DIR__ . '/../config/config.php')) {
+  require_once __DIR__ . '/../config/config.php';
 } else {
   echo __DIR__ ;
   die(' - </br>An error occurred. Please try again later.');
@@ -38,7 +38,7 @@ if (file_exists(__DIR__ . '/config/config.php')) {
 <html lang="en">
 
 <head>
-  <?php load_template('/head.php'); ?>
+  <?php load_template('/src/templates/head.php'); ?>
   <style>
     /* Center the map iframe */
     .map-container {
@@ -72,12 +72,12 @@ if (file_exists(__DIR__ . '/config/config.php')) {
 
 <body>
   <?php
-  load_template('/navbar.php');
+  load_template('/src/templates/navbar.php');
   ?>
   <div class="container-fluid">
     <div class="row flex-nowrap">
       <!-- Include the common side nav bar -->
-      <?php include 'sidebar.php'; ?>
+      <?php load_template('/src/templates/sidebar.php'); ?>
       <div class="col py-3">
         <h3 style="text-align: center;">Guide to Outdoor Activities for Troops</h3>
         <h4>Overview:</h4>
@@ -94,7 +94,7 @@ if (file_exists(__DIR__ . '/config/config.php')) {
     </div>
   </div>
   <!-- Main JS File -->
-  <script src="./assets/js/main.js"></script>
+  <script src="<?php echo SITE_URL . '/assets/js/main.js';?>"defer></script>
 
   <?php //include 'Footer.php'; 
   ?>

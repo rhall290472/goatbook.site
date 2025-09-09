@@ -1,11 +1,4 @@
 <?php
-// Load configuration
-if (file_exists(__DIR__ . '/config/config.php')) {
-  require_once __DIR__ . '/config/config.php';
-} else {
-  echo __DIR__;
-  die('An error occurred. Please try again later.');
-}
 ?>
 <div class="col-auto col-md-3 col-xl-auto px-sm-2 px-0 bg-dark">
   <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">

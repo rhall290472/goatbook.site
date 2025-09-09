@@ -36,8 +36,8 @@
 <!-- DataTables Buttons CSS (keep if you want export buttons later) -->
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
 
-<link href="css/reviews.css" rel="stylesheet" type="text/css">
-<link href="css/styles.css" rel="stylesheet" />
+<link href="<?php echo SITE_URL . '/Goatbook.site/assets/css/reviews.css'; ?>" rel="stylesheet" type="text/css">
+<link href="<?php echo SITE_URL . '/Goatbook.site/assets/css/styles.css'; ?>" rel="stylesheet" />
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
