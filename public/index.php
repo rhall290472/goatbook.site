@@ -7,8 +7,8 @@ if (!session_id()) {
 if (file_exists(__DIR__ . '/config/config.php')) {
   require_once __DIR__ . '/config/config.php';
 } else {
-  echo __DIR__ ;
-  die(' - </br>An error occurred. Please try again later.');
+  echo __DIR__;
+  die('An error occurred. Please try again later.');
 }
 /*
 !==============================================================================!

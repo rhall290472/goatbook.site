@@ -18,7 +18,7 @@ $cGOAT = cGOAT::getInstance();
 !\                                                                            /!
 !\\                                                                          //!
 ! \##########################################################################/ !
-!  #         This is Proprietary Software of Richard Hall                   #  !
+!  #         This is Proprietary Software of Richard Hall                   #  ! 
 !  ##########################################################################  !
 !  ##########################################################################  !
 !  #                                                                        #  !
@@ -80,33 +80,39 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
           if ($result) {
             // Display the events 
           ?>
-            <table class="table table-striped">
-              <tr>
-                <th>id</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Enabled</th>
-                <th>Last login</th>
-                <th>Role</th>
-                <th>is_deleted</th>
-                <th>Created</th>
-                <!-- <th>Updated</th> -->
-              </tr>
-              <?php
-              while ($row = $result->fetch_assoc()) {
-                echo "<tr><td>" .
-                  "<a href=./EditUser.php?Userid=" . $row["id"] . ">" . $row["id"] . "</a>" . "</td><td>" .
-                  $row["username"] . "</td><td>" .
-                  $row["email"] . "</td><td>" .
-                  $row["enabled"] . "</td><td>" .
-                  $row["LastLogin"] . "</td><td>" .
-                  $row["Type"] . "</td><td>" .
-                  $row["is_deleted"] . "</td><td>" .
-                  $row["created_at"] . "</td><tr>";
-                // $row["updated_by"] . "</td></tr>";
-              }
-              ?>
-            </table>
+            <div class="table-responsive">
+              <table id="usersTable" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Enabled</th>
+                    <th>Last login</th>
+                    <th>Role</th>
+                    <th>is_deleted</th>
+                    <th>Created</th>
+                    <!-- <th>Updated</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  while ($row = $result->fetch_assoc()) {
+                    echo "<tr><td>" .
+                      "<a href=./EditUser.php?Userid=" . $row["id"] . ">" . $row["id"] . "</a>" . "</td><td>" .
+                      $row["username"] . "</td><td>" .
+                      $row["email"] . "</td><td>" .
+                      $row["enabled"] . "</td><td>" .
+                      $row["LastLogin"] . "</td><td>" .
+                      $row["Type"] . "</td><td>" .
+                      $row["is_deleted"] . "</td><td>" .
+                      $row["created_at"] . "</td></tr>";
+                    // $row["updated_by"] . "</td></tr>";
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
           <?php
 
           }
@@ -115,6 +121,24 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
       </div>
     </div>
   </div>
+
+  <!-- DataTables Initialization Script -->
+  <script>
+    $(document).ready(function() {
+      $('#usersTable').DataTable({
+        "order": [
+          [0, "asc"]
+        ], // Sort by first column (ID) ascending by default
+        "pageLength": 25, // Show 25 rows per page (adjust as needed)
+        "lengthMenu": [
+          [10, 25, 50, -1],
+          [10, 25, 50, "All"]
+        ], // Pagination options
+        "responsive": true // Enable responsive behavior for mobile
+      });
+    });
+  </script>
+
 </body>
 
 </html>
