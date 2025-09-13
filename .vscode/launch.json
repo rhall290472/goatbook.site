@@ -14,8 +14,15 @@
         "type": "chrome",
         "request": "launch",
         "name": "GOAT Book",
-        "url": "http://dev.goatbook.site/index.php",
+        "url": "http://localhost/goatbook.site/public",
         "webRoot": "${workspaceFolder}"
-      }
+      },
+      {
+      "type": "msedge",
+      "request": "launch",
+      "name": "GOAT Book (Edge)",
+      "url": "http://localhost/goatbook.site/public",
+      "webRoot": "${workspaceFolder}"
+    }
     ]
 }

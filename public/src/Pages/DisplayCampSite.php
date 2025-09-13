@@ -101,7 +101,7 @@ if (isset($_GET['Siteid'])) {
     $cGOAT->function_alert($strErr);
     exit();
 }
-?>  ?>
+?>
 
   <div class="container-fluid">
     <div class="row flex-nowrap">
