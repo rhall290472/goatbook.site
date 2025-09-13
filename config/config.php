@@ -33,7 +33,7 @@ $protocol = 'https'; // Always HTTPS
 $host = $is_localhost ? ($_SERVER['HTTP_HOST'] ?? 'localhost') : 'goatbook.site';
 $port = ($is_localhost && isset($_SERVER['SERVER_PORT']) && !in_array($_SERVER['SERVER_PORT'], ['80', '443'])) ? ':' . $_SERVER['SERVER_PORT'] : '';
 if ($is_localhost) {
-  $base_path = '/public';
+  $base_path = '/goatbook.site/public';
 } else {
   $base_path = '';
 }
