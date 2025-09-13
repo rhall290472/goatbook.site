@@ -1,20 +1,35 @@
-DirectoryIndex index.php
-
-
-Options +FollowSymLinks -Indexes
-
-
-<Files .htaccess>
-order allow,deny
-deny from all
-</Files>
-
-# Begin EnforceSSL centennialdistrict.co
 <IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^(www.)?goatbook.site$
-RewriteCond %{HTTPS} !=on
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L]
-</IfModule>
-# End EnforceSSL
+    RewriteEngine On
 
+    # Redirect to HTTPS
+    RewriteCond %{HTTP_HOST} ^(www\.)?goatbook.site$
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Protect .htaccess file
+    <Files ".htaccess">
+        Require all denied
+    </Files>
+
+    # Restrict access to phpinfo.php
+    <Files "phpinfo.php">
+        Require all denied
+        # Require ip 127.0.0.1 YOUR_IP_ADDRESS
+    </Files>
+
+    # Allow access to common file types
+    <FilesMatch "\.(?i:php|txt|html|css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot|pdf|doc|docx)$">
+        Require all granted
+    </FilesMatch>
+
+    # Secure uploads directory (disable PHP execution)
+    <FilesMatch "^uploads/.*\.php$">
+        Require all denied
+    </FilesMatch>
+
+    # Prevent directory listing
+    Options -Indexes
+
+    # Set default index file
+    DirectoryIndex index.php
+</IfModule>

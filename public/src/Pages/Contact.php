@@ -1,0 +1,85 @@
+<?php
+// Secure session start
+if (session_status() === PHP_SESSION_NONE) {
+  session_start([
+    'cookie_httponly' => true,
+    'use_strict_mode' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS'])
+  ]);
+}
+
+// Generate CSRF token if not set
+if (empty($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// Check for feedback in session
+$message = '';
+if (isset($_SESSION['feedback'])) {
+  $status = $_SESSION['feedback']['status'];
+  $feedback = $_SESSION['feedback']['message'];
+  $message = "<div class=\"alert alert-$status\">$feedback</div>";
+  unset($_SESSION['feedback']); // Clear feedback after display
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+
+  <div class="container-fluid">
+    <div class="row flex-nowrap">
+      <div class="col py-3">
+        <div class="container px-md-3">
+          <div class="p-3 p-md-3 bg-light rounded-2 text-center">
+            <div class="m-3 m-lg-3">
+              <div class="col-lg-9 mx-auto">
+                <h2>Contact</h2>
+                <p>If you have any questions or comments, please complete the form below and we will get back to you.</p>
+                <?php if ($message): ?>
+                  <?php echo $message; ?>
+                <?php endif; ?>
+                <form action="index.php?page=sendemail" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                  <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+                  <div class="row gy-4">
+                    <div class="col-md-6">
+                      <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                    <div class="col-md-12">
+                      <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+                    </div>
+                    <div class="col-md-12">
+                      <textarea class="form-control" style="height:auto" name="message" rows="10" placeholder="Message" required></textarea>
+                    </div>
+                    <div class="col-md-12 text-center">
+                      <div class="loading" style="display: none">Sending...</div>
+                      <button type="submit" class="btn btn-primary btn-sm">Send Message</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('.php-email-form');
+      const loading = form.querySelector('.loading');
+      form.addEventListener('submit', function() {
+        loading.style.display = 'block'; // Show loading indicator
+      });
+    });
+  </script>
+</body>
+</html>
