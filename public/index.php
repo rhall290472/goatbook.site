@@ -4,7 +4,10 @@
  * Handles routing, form submissions, and includes views based on the 'page' GET parameter.
  */
 
-// Secure session start
+/**
+ * Initializes a secure session with HTTP-only cookies and strict mode.
+ * Sets cookie_secure based on HTTPS availability.
+ */
 if (session_status() === PHP_SESSION_NONE) {
   session_start([
     'cookie_httponly' => true,
@@ -13,7 +16,10 @@ if (session_status() === PHP_SESSION_NONE) {
   ]);
 }
 
-// Load configuration
+/**
+ * Loads the configuration file.
+ * Terminates execution if the config file is missing.
+ */
 if (file_exists(__DIR__ . '/../config/config.php')) {
   require_once __DIR__ . '/../config/config.php';
 } else {
@@ -21,27 +27,36 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
   die('An error occurred. Please try again later.');
 }
 
-// Define SITE_URL fallback if not set
-// if (!defined('SITE_URL')) {
-  // define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']);
-// }
-
-// Include cGOAT class
+/**
+ * Includes the cGOAT class and initializes a singleton instance.
+ * 
+ * @var cGOAT $cGOAT The singleton instance of the cGOAT class
+ */
 include(BASE_PATH . '/public/src/Classes/cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 
-// Handle login logic before any output
+/**
+ * Determines the requested page from the 'page' GET parameter.
+ * Defaults to 'home' if not provided or invalid.
+ * 
+ * @var string $page The sanitized page name
+ */
 $page = filter_input(INPUT_GET, 'page') ?? 'home';
 $page = strtolower(trim($page));
 
-// Check if the user is already logged in
+/**
+ * Handles login form submission and redirects if already logged in.
+ */
 if ($page === 'login' && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
   $_SESSION['feedback'] = ['type' => 'success', 'message' => 'You are already logged in.'];
   header("Location: index.php?page=home");
   exit;
 }
 
-// Process login form submission
+/**
+ * Processes login form submission.
+ * Validates credentials using prepared statements and sets session variables on success.
+ */
 if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
   $username = trim($_POST['username']);
   $password = trim($_POST['password']);
@@ -98,7 +113,11 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
   exit;
 }
 
-// Simple routing for other pages
+/**
+ * Defines valid page routes.
+ * 
+ * @var array $valid_pages Array of allowed page names
+ */
 $valid_pages = [
   'home',
   'campsites',
@@ -122,20 +141,32 @@ $valid_pages = [
   'logout',
   'register'
 ];
+
+/**
+ * Validates the requested page and defaults to 'home' if invalid.
+ */
 if (!in_array($page, $valid_pages)) {
-  $page = 'home'; // Default to home if page is invalid
+  $page = 'home';
 }
 
-// Store form feedback
+/**
+ * Stores feedback messages from session for display.
+ * 
+ * @var array $feedback Feedback message array with type and message
+ */
 $feedback = isset($_SESSION['feedback']) ? $_SESSION['feedback'] : [];
 unset($_SESSION['feedback']);
 
-// Set CSRF token if not set
+/**
+ * Sets a CSRF token in the session if not already present.
+ */
 if (!isset($_SESSION['csrf_token'])) {
   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-// Start output buffering to capture HTML
+/**
+ * Starts output buffering to capture HTML output.
+ */
 ob_start();
 ?>
 
@@ -143,19 +174,37 @@ ob_start();
 <html lang="en">
 
 <head>
-  <?php load_template("/public/src/Templates/head.php"); ?>
+  <?php
+  /**
+   * Loads the head template for consistent HTML head content.
+   */
+  load_template("/public/src/Templates/head.php");
+  ?>
 </head>
 
 <body>
   <!-- Navbar -->
-  <?php load_template("/public/src/Templates/navbar.php", ['page' => $page]); ?>
+  <?php
+  /**
+   * Loads the navbar template.
+   * 
+   * @param array $params Parameters including the current page
+   */
+  load_template("/public/src/Templates/navbar.php", ['page' => $page]);
+  ?>
 
   <!-- Sidebar -->
-  <?php load_template("/public/src/Templates/sidebar.php", ['page' => $page]); ?>
+  <?php
+  /**
+   * Loads the sidebar template.
+   * 
+   * @param array $params Parameters including the current page
+   */
+  load_template("/public/src/Templates/sidebar.php", ['page' => $page]);
+  ?>
 
   <!-- Main Content -->
   <main class="main-content">
-    
     <div class="container-fluid mt-5 pt-3">
       <!-- Display Feedback -->
       <?php if (!empty($feedback)): ?>
@@ -166,12 +215,14 @@ ob_start();
       <?php endif; ?>
 
       <?php
+      /**
+       * Routes to the appropriate page based on the $page variable.
+       */
       switch ($page) {
         case 'home':
       ?>
           <div class="container-fluid">
             <div class="row flex-nowrap">
-              
               <!-- Include the common side nav bar -->
               <div class="col py-3">
                 <h3 style="text-align: center;">Guide to Outdoor Activities for Troops</h3>
@@ -189,53 +240,100 @@ ob_start();
       <?php
           break;
         case 'campsites':
+          /**
+           * Includes the campsites page.
+           */
           include('src/Pages/CampSites.php');
           break;
         case 'displaycampsite':
+          /**
+           * Includes the display campsite page.
+           */
           include('src/Pages/DisplayCampSite.php');
           break;
         case 'addcampsite':
+          /**
+           * Includes the add campsite page.
+           */
           include('src/Pages/AddCampSite.php');
           break;
         case 'editcampsites':
+          /**
+           * Includes the edit campsites page.
+           */
           include('src/Pages/EditCampSite.php');
           break;
         case 'viewusers':
+          /**
+           * Includes the view users page.
+           */
           include('src/Pages/ViewUsers.php');
           break;
         case 'edituser':
+          /**
+           * Includes the edit user page.
+           */
           include('src/Pages/EditUser.php');
           break;
         case 'viewlog':
-          include('src/Pages/ViewErrors.php'); 
+          /**
+           * Includes the view logs page.
+           */
+          include('src/Pages/ViewErrors.php');
           break;
         case 'login':
-          include('src/Pages/logon.php'); // Now only includes the form
+          /**
+           * Includes the login page.
+           */
+          include('src/Pages/logon.php');
           break;
         case 'about':
+          /**
+           * Includes the about page.
+           */
           include('src/Pages/About.php');
           break;
-        case 'contact';
+        case 'contact':
+          /**
+           * Includes the contact page.
+           */
           include('src/Pages/Contact.php');
           break;
         case 'sendemail':
+          /**
+           * Includes the send email page.
+           */
           include('src/Pages/send_email.php');
           break;
         case 'logout':
+          /**
+           * Includes the logout page.
+           */
           include('src/Pages/logoff.php');
           break;
         case 'register':
+          /**
+           * Includes the register page.
+           */
           include('src/Pages/register.php');
           break;
         default:
+          /**
+           * Displays a 404 error for invalid pages.
+           */
           echo '<h1>404</h1><p>Page not found.</p>';
       }
       ?>
     </div>
   </main>
 
-<!-- Bootstrap JS (single instance, bundle includes Popper.js) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  <script>
+  <!-- Bootstrap JS (single instance, bundle includes Popper.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script>
+    /**
+     * Handles sidebar collapsing for responsive design.
+     * Collapses sidebar on small screens and adjusts on window resize.
+     */
     document.addEventListener('DOMContentLoaded', function() {
       const sidebar = document.getElementById('sidebar');
       if (window.innerWidth < 992) {
@@ -250,12 +348,14 @@ ob_start();
       });
     });
   </script>
-  
+
 </body>
 
 </html>
 
 <?php
-// Flush output buffer
+/**
+ * Flushes the output buffer to send HTML to the client.
+ */
 ob_end_flush();
 ?>
