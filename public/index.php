@@ -89,14 +89,17 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
               $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
               $_SESSION['feedback'] = ['type' => 'success', 'message' => 'Login successful.'];
               header("Location: index.php?page=home");
+              exit;
             } else {
               $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Invalid username or password or your account is not enabled.'];
               header("Location: index.php?page=login");
+              exit;
             }
           }
         } else {
           $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Invalid username or password.'];
           header("Location: index.php?page=login");
+          exit;
         }
       } else {
         throw new Exception("Database query failed: " . mysqli_error($cGOAT->getDbConn()));
@@ -110,6 +113,7 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
     error_log($strErrror , 0);
     $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'An error occurred during login. Please try again later.'];
     header("Location: index.php?page=login");
+    exit;
   }
   exit;
 }
