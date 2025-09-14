@@ -24,7 +24,7 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
   require_once __DIR__ . '/../config/config.php';
 } else {
   error_log("Unable to find file config.php @ " . __FILE__ . ' ' . __LINE__);
-  die('An error occurred. Please try again later.');
+  die('Unable to find required file. Please try again later.');
 }
 
 /**
@@ -106,7 +106,8 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       throw new Exception("Failed to prepare statement: " . mysqli_error($cGOAT->getDbConn()));
     }
   } catch (Exception $e) {
-    error_log("index.php - Login error: " . $e->getMessage(), 0);
+    $strErrror = "index.php - Login error: ". $e->getMessage() . __FILE__ .' '.__LINE__;
+    error_log($strErrror , 0);
     $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'An error occurred during login. Please try again later.'];
     header("Location: index.php?page=login");
   }
@@ -321,6 +322,8 @@ ob_start();
           /**
            * Displays a 404 error for invalid pages.
            */
+          $strErrror = "index.php - page error: page = " . $page . __FILE__ . ' ' . __LINE__;
+          error_log($strErrror, 0);
           echo '<h1>404</h1><p>Page not found.</p>';
       }
       ?>
