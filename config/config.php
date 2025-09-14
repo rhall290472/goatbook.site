@@ -55,6 +55,14 @@ define('SMTP_PASSWORD', 'vicx cxho rywh ylok'); // Use .env in production
 $pageHome = SITE_URL . '/public/index.php';
 $pageContact = SITE_URL . '/src/contact.php';
 
+$mailConfig = [
+  'host' => $config['smtp_host'] ?? 'smtp.gmail.com',
+  'username' => $config['smtp_username'] ?? 'rhall290472@gmail.com',
+  'password' => $config['smtp_password'] ?? 'vicx cxho rywh ylok',
+  'recipient' => $config['smtp_recipient'] ?? 'richard.hall@centennialdistrict.co'
+];
+
+
 if ($is_localhost) {
   define('DB_HOST', 'localhost');
   define('DB_USER', 'root');

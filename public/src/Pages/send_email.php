@@ -23,15 +23,17 @@ if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_tok
 
 // Load PHPMailer
 require BASE_PATH . '/public/assets/vendor/autoload.php';
-
-// Load configuration (move credentials to a config file)
-$config = include 'config.php'; // Create this file if it doesn't exist
-$mailConfig = [
-  'host' => $config['smtp_host'] ?? 'smtp.gmail.com',
-  'username' => $config['smtp_username'] ?? 'rhall290472@gmail.com',
-  'password' => $config['smtp_password'] ?? 'vicx cxho rywh ylok',
-  'recipient' => $config['smtp_recipient'] ?? 'richard.hall@centennialdistrict.co'
-];
+/**
+ * Loads the configuration file.
+ * Terminates execution if the config file is missing.
+ */
+if (file_exists(__DIR__ . '/../../../config/config.php')) {
+  require_once __DIR__ . '/../../../config/config.php';
+} else {
+  echo __DIR__ . '/../../config/config.php</br>';
+  error_log("Unable to find file config.php " . __DIR__ . "/../config/config.php @ " . __FILE__ . ' ' . __LINE__);
+  die('Unable to find required file. Please try again later.');
+}
 
 $mail = new PHPMailer(true);
 
@@ -69,7 +71,7 @@ try {
     'type' => 'error',
     'message' => 'Failed to send email: ' . htmlspecialchars($e->getMessage())
   ];
-  header("Location: ../../index.php?page=home");
+  header("Location: index.php?page=home");
 }
 exit;
 ?>
