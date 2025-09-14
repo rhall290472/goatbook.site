@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Contact.php - Renders a secure contact form with CSRF protection and session-based feedback.
+ * Dependencies: PHP 7.4+, Bootstrap 5.3.3, AOS (optional for animations).
+ * Form submits to index.php?page=sendemail for processing.
+ */
 // Secure session start
 if (session_status() === PHP_SESSION_NONE) {
   session_start([
@@ -9,10 +15,15 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Generate CSRF token if not set
-if (empty($_SESSION['csrf_token'])) {
-  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+try {
+  if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+  }
+} catch (Exception $e) {
+  // Log error and set a fallback token or redirect to an error page
+  error_log('CSRF token generation failed: ' . $e->getMessage() . " " . __FILE__ . " " . __LINE__);
+  $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(32));
 }
-
 // Check for feedback in session
 $message = '';
 if (isset($_SESSION['feedback'])) {
@@ -25,10 +36,14 @@ if (isset($_SESSION['feedback'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-</head>
-<body>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+</head>
+
+<body>
   <div class="container-fluid">
     <div class="row flex-nowrap">
       <div class="col py-3">
@@ -75,11 +90,14 @@ if (isset($_SESSION['feedback'])) {
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const form = document.querySelector('.php-email-form');
-      const loading = form.querySelector('.loading');
-      form.addEventListener('submit', function() {
-        loading.style.display = 'block'; // Show loading indicator
-      });
+      const loading = form?.querySelector('.loading');
+      if (form && loading) {
+        form.addEventListener('submit', function() {
+          loading.style.display = 'block';
+        });
+      }
     });
   </script>
 </body>
+
 </html>
