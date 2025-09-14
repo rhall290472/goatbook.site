@@ -57,14 +57,14 @@ $pageContact = SITE_URL . '/src/contact.php';
 
 if ($is_localhost) {
   define('DB_HOST', 'localhost');
-  define('DB_USER', 'mbcuser');
-  define('DB_PASS', 'ZCSCA?yrW7}L');
-  define('DB_NAME', 'meritbadges');
+  define('DB_USER', 'root');
+  define('DB_PASS', '');
+  define('DB_NAME', 'goat');
 } else {
   define('DB_HOST', 'rhall29047217205.ipagemysql.com');
-  define('DB_USER', 'mbcuser');
-  define('DB_PASS', 'ZCSCA?yrW7}L');
-  define('DB_NAME', 'meritbadges');
+  define('DB_USER', 'webuser1');
+  define('DB_PASS', 'webuser1?yrW7}L');
+  define('DB_NAME', 'goat');
 }
 
 // Template loader function
