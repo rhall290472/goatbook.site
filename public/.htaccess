@@ -1,9 +1,11 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Redirect to HTTPS
+    # Redirect to HTTPS (exclude localhost and 127.0.0.1)
     RewriteCond %{HTTP_HOST} ^(www\.)?goatbook.site$
     RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP_HOST} !^localhost$ [NC]
+    RewriteCond %{REMOTE_ADDR} !^127\.0\.0\.1$ [NC]
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Protect .htaccess file
@@ -11,16 +13,10 @@
         Require all denied
     </Files>
 
-    # Restrict access to phpinfo.php
+    # Restrict access to phpinfo.php (optional)
     <Files "phpinfo.php">
         Require all denied
-        # Require ip 127.0.0.1 YOUR_IP_ADDRESS
     </Files>
-
-    # Allow access to common file types
-    <FilesMatch "\.(?i:php|txt|html|css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot|pdf|doc|docx)$">
-        Require all granted
-    </FilesMatch>
 
     # Secure uploads directory (disable PHP execution)
     <FilesMatch "^uploads/.*\.php$">
