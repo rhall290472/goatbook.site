@@ -36,8 +36,6 @@ $cGOAT = cGOAT::getInstance();
 <html lang="en">
 
 <head>
-  <?php //include(BASE_PATH . '/src/templates/head.php'); 
-  ?>
 </head>
 
 <body>
@@ -157,6 +155,7 @@ if (isset($_GET['Siteid'])) {
             <div class="col-lg-10 col-xxl-10 mb-5">
               <h2>Reviews</h2>
               <div class="reviews"></div>
+              <!-- <script src="<?php //echo htmlspecialchars(SITE_URL . '/assets/js/reviews.js'); ?>"></script> -->
               <script src="<?php echo htmlspecialchars(SITE_URL . '/assets/js/reviews.js'); ?>"></script>
               <script>
                 var site_idx = <?php echo json_encode($Site['IDX'], JSON_HEX_TAG); ?>;

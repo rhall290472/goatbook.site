@@ -8,6 +8,12 @@
     RewriteCond %{REMOTE_ADDR} !^127\.0\.0\.1$ [NC]
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+    <FilesMatch "\.php$">
+        Header set Access-Control-Allow-Origin "*"
+        Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+        Header set Access-Control-Allow-Headers "Content-Type"
+    </FilesMatch>
+
     # Protect .htaccess file
     <Files ".htaccess">
         Require all denied

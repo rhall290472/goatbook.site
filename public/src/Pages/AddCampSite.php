@@ -61,14 +61,15 @@ $cGOAT = cGOAT::getInstance();
 <body>
   <?php
   if (isset($_POST['SubmitForm'])) {
-    if ($_POST['SubmitForm'] === "Cancel") {
-      $cGOAT->GotoURL('./index.php');
+    // Remove the Cancel check
+    // Verify CSRF token
+    if(isset($_POST['SubmitForm']) && $_POST['SubmitForm'] === 'Cancel') {
+      header("Location: index.php?page=home");
       exit;
     }
-
-    // Verify CSRF token
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-      $cGOAT->function_alert("Invalid CSRF token");
+      $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Invalid CSRF token'];
+      header("Location: index.php?page=home");
       exit;
     }
 
@@ -86,7 +87,8 @@ $cGOAT = cGOAT::getInstance();
 
     // Basic validation
     if (empty($FormData['name']) || empty($FormData['area'])) {
-      $cGOAT->function_alert("Name and Area are required fields");
+      $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Name and Area are required fields'];
+      header("Location: index.php?page=addcampsite");
       exit;
     }
 
@@ -94,9 +96,16 @@ $cGOAT = cGOAT::getInstance();
     $result = $cGOAT->InsertSite($FormData);
     if ($result) {
       $cGOAT->function_alert("Campsite added successfully!");
-      $cGOAT->GotoURL('./index.php?page=campsite&Siteid=' . $result); // Assume InsertSite returns new ID
+      $_SESSION['feedback'] = ['type' => 'sucess', 'message' => 'FCampsite added successfully!'];
+      header('Location: index.php?page=campsite&Siteid=' . $result);
+
+      //$cGOAT->GotoURL('./index.php?page=campsite&Siteid=' . $result); // Assume InsertSite returns new ID
     } else {
-      $cGOAT->function_alert("Failed to add campsite. Please try again.");
+      $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Failed to add campsite. Please try again'];
+      header("Location: index.php?page=home");
+      exit;
+
+      //$cGOAT->function_alert("Failed to add campsite. Please try again.");
     }
   }
 
@@ -121,6 +130,10 @@ $cGOAT = cGOAT::getInstance();
       $cGOAT->function_alert("No campsites found in the database.");
     }
   } else {
+    $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Database error: Unable to prepare query'];
+    header("Location: index.php?page=home");
+    exit;
+
     $cGOAT->function_alert("Database error: Unable to prepare query.");
   }
 
@@ -135,7 +148,7 @@ $cGOAT = cGOAT::getInstance();
     <?php } else { ?>
       <div class="form-coach px-5" style="background-color: var(--scouting-lighttan);">
         <p style="text-align:left"><b>Add Campsite Information</b></p>
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" id="coach-form" method="post">
+        <form action="index.php?page=addcampsite" id="campsite-form" method="post">
           <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
           <div class="form-row">
             <div class="col-3">
@@ -144,7 +157,7 @@ $cGOAT = cGOAT::getInstance();
             </div>
             <div class="col-2">
               <label for="element_1_2">Name</label>
-              <input type="text" name="element_1_2" class="form-control" required />
+              <input type="text" name="element_1_2" class="form-control" />
             </div>
             <div class="col-3">
               <label for="element_1_3">Primary Activity</label>
@@ -179,6 +192,7 @@ $cGOAT = cGOAT::getInstance();
           </div>
           <div class="form-row">
             <div class="col-10 py-5">
+              <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
               <input id="saveForm3" class="btn btn-primary btn-sm" type="submit" name="SubmitForm" value="Save" />
               <input id="saveForm4" class="btn btn-primary btn-sm" type="submit" name="SubmitForm" value="Cancel" />
             </div>
