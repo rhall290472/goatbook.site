@@ -1,6 +1,11 @@
 <?php
-if (!session_id()) {
-  session_start();
+// Secure session start
+if (session_status() === PHP_SESSION_NONE) {
+  session_start([
+    'cookie_httponly' => true,
+    'use_strict_mode' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS'])
+  ]);
 }
 include('cGOAT.php');
 $cGOAT = cGOAT::getInstance();
@@ -68,11 +73,11 @@ ini_set("memory_limit", "90000M");
 
       $first_token  = strpos($site['embedmap'], "!2d");
       $second_token = strpos($site['embedmap'], '!2m');
-      if(!$second_token)
+      if (!$second_token)
         $second_token = strpos($site['embedmap'], '!3m');
-      $Point = substr($site['embedmap'], $first_token + 3, $second_token- ($first_token+3));
+      $Point = substr($site['embedmap'], $first_token + 3, $second_token - ($first_token + 3));
       $point = str_replace("!3d", " ", $Point);
-      $WKT = "POINT(".$point.")";
+      $WKT = "POINT(" . $point . ")";
       $SiteLink = "Siteid=" . $site['IDX'];
       $SiteURL = "https://goatbook.site/DisplayCampSite.php?" . $SiteLink;
 
@@ -86,12 +91,12 @@ ini_set("memory_limit", "90000M");
         $SiteURL . '<td></tr>';
 
 
-      $csv_output .= $WKT. ",";
+      $csv_output .= $WKT . ",";
       $csv_output .= ucwords(strtolower($site['name'])) . ",";
       $csv_output .= $cGOAT->GetAreaText($site['area']) . ",";
       $csv_output .= $cGOAT->GetActivityText($site['type1']) . ",";
       $csv_output .= $cGOAT->GetActivityText($site['type2']) . ",";
-      $csv_output .= $SiteURL ."\n";
+      $csv_output .= $SiteURL . "\n";
     }
 
     echo "</table>";

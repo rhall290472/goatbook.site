@@ -1,9 +1,14 @@
 <?php
-if (!session_id()) {
-  session_start();
-}
+  // Secure session start
+  if (session_status() === PHP_SESSION_NONE) {
+    session_start([
+      'cookie_httponly' => true,
+      'use_strict_mode' => true,
+      'cookie_secure' => isset($_SERVER['HTTPS'])
+    ]);
+  }
 
-require_once 'cGOAT.php';
+  require_once 'cGOAT.php';
 $cGoat = cGOAT::getInstance();
 
 // This code stops anyone for seeing this page unless they have logged in and

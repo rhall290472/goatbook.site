@@ -18,11 +18,6 @@
             <i class="fs-4 bi bi-list"></i> Activities
           </a>
         </li>
-        <!-- <li class="nav-item"> -->
-          <!-- <a class="nav-link <?php //echo $page === 'addcampsite' ? 'active' : ''; ?>" href="?page=addcampsite"> -->
-            <!-- <i class="fs-4 bi bi-plus-circle"></i> Add an Activity -->
-          <!-- </a> -->
-        <!-- </li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fs-4 bi-book"></i> Goat Book</span>

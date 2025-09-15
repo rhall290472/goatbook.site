@@ -1,4 +1,13 @@
 <?php
+// Secure session start
+if (session_status() === PHP_SESSION_NONE) {
+  session_start([
+    'cookie_httponly' => true,
+    'use_strict_mode' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS'])
+  ]);
+}
+
 // Load configuration
 if (file_exists(__DIR__ . '/../../../config/config.php')) {
   require_once __DIR__ . '/../../../config/config.php';
