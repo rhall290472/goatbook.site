@@ -68,7 +68,7 @@ try {
   header("Location: ../../index.php?page=home");
 } catch (Exception $e) {
   $_SESSION['feedback'] = [
-    'type' => 'error',
+    'type' => 'danger',
     'message' => 'Failed to send email: ' . htmlspecialchars($e->getMessage())
   ];
   header("Location: index.php?page=home");
