@@ -13,7 +13,7 @@
       {
         "type": "chrome",
         "request": "launch",
-        "name": "GOAT Book",
+        "name": "GOAT Book (Chrome)",
         "url": "http://localhost/goatbook.site/public",
         "webRoot": "${workspaceFolder}"
       },
