@@ -142,6 +142,10 @@ $valid_pages = [
   'about',
   'contact',
   'sendemail',
+  'addacitivity',
+  'addarea',
+  'auditSite',
+  'edituser',
   'login',
   'logout',
   'register'
