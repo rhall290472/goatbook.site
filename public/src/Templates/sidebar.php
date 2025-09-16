@@ -57,6 +57,9 @@
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="?page=viewusers">View Users</a></li>
           <li><a class="dropdown-item" href="?page=viewlog">View Error Log</a></li>
+          <li><a class="dropdown-item" href="?page=addarea">Add Area</a></li>
+          <li><a class="dropdown-item" href="?page=addacitivity">Add Activity</a></li>
+          <li><a class="dropdown-item" href="?page=auditsite">Audit Site</a></li>
         </ul>
       </li>
     <?php endif; ?>

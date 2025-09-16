@@ -8,7 +8,7 @@
     ]);
   }
 
-  require_once 'cGOAT.php';
+  //require_once 'cGOAT.php';
 $cGoat = cGOAT::getInstance();
 
 // This code stops anyone for seeing this page unless they have logged in and
@@ -47,15 +47,14 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 <html lang="en">
 
 <head>
-  <?php include 'head.php'; ?>
 </head>
 
 <body>
-  <?php include 'header.php'; ?>
-
   <!-- If user is not logged in, then they can see nonething and do nonething. -->
   <?php
-  if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+  if (!isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    header("Location: index.php?page=home");
+    exit;
     //include('navmenu.php');
   ?>
 
@@ -73,13 +72,15 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
     $result_Site = $cGoat->doQuery($querySite);
     if (!$result_Site) {
       // Error should be reported by doQuery
-      $cGOAT->GotoURL('./index.php');
+      header("Location: index.php?page=home");
+      exit;
     }
 
     $result_User = $cGoat->doQuery($queryUser);
     if (!$result_User) {
       // Error should be reported by doQuery
-      $cGOAT->GotoURL('./index.php');
+      header("Location: index.php?page=home");
+      exit;
     }
 
     ?>
@@ -185,6 +186,5 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
       </div>
   </center>
   </div>
-  <?php include('Footer.php'); ?>
 </body>
 </header>

@@ -146,6 +146,7 @@ $valid_pages = [
   'addarea',
   'auditSite',
   'edituser',
+  'auditsite',
   'login',
   'logout',
   'register'
@@ -314,6 +315,18 @@ ob_start();
            */
           include('src/Pages/send_email.php');
           break;
+        case   'addacitivity':
+          /**
+           * Includes the add activity page.
+           */
+          include('src/Pages/AddActivity.php');
+          break;
+        case 'addarea':
+          /**
+           * Includes the add area page.
+           */
+          include('src/Pages/addarea.php');
+          break;
         case 'logout':
           /**
            * Includes the logout page.
@@ -325,6 +338,12 @@ ob_start();
            * Includes the register page.
            */
           include('src/Pages/register.php');
+          break;
+        case 'auditsite':
+          /**
+           * Includes the audit site page.
+           */
+          include('src/Pages/AuditSite.php');
           break;
         default:
           /**

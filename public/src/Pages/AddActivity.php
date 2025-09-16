@@ -1,21 +1,20 @@
 <?php
-  // Secure session start
-  if (session_status() === PHP_SESSION_NONE) {
-    session_start([
-      'cookie_httponly' => true,
-      'use_strict_mode' => true,
-      'cookie_secure' => isset($_SERVER['HTTPS'])
-    ]);
-  }
+// Secure session start
+if (session_status() === PHP_SESSION_NONE) {
+  session_start([
+    'cookie_httponly' => true,
+    'use_strict_mode' => true,
+    'cookie_secure' => isset($_SERVER['HTTPS'])
+  ]);
+}
 
-  include('cGOAT.php');
-  $cGOAT = cGOAT::getInstance();
+//include('cGOAT.php');
+$cGOAT = cGOAT::getInstance();
 
-  /* Check if the user is already logged in, if yes then redirect him to welcome page */
-  if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
-    header("HTTP/1.0 403 Forbidden");
-    exit;
-  }
+/* Check if the user is already logged in, if yes then redirect him to welcome page */
+if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
+  header("HTTP/1.0 403 Forbidden");
+  exit;
 }
 ?>
 
@@ -23,14 +22,10 @@
 <html lang="en">
 
 <head>
-  <?php include('head.php'); ?>
 </head>
 
 <body>
   <?php
-  load_template('/navbar.php');
-
-
   //#####################################################################
   //
   // Check to see if user as Submitted the form. If so, save the data..
@@ -47,6 +42,10 @@
     $FormData['type2'] = $cGOAT->GetFormData('element_1_1');
 
     $cGOAT->InsertActity($FormData);
+
+    $_SESSION['feedback'] = ['type' => 'success', 'message' => 'New Activity Added.'];
+    header("Location: index.php?page=home");
+    exit;
   }
   ?>
 
@@ -55,11 +54,12 @@
   <div class="row flex-wrap">
     <div class="form-coach px-5" style="background-color: var(--scouting-lighttan);">
       <p style="text-align:Left"><b>Add New Activity</b></p>
-      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="coach-form" method="post">
+      <form action="index.php?page=addactivity" id="coach-form" method="post">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? bin2hex(random_bytes(32))); ?>">
         <div class="form-row">
           <div class="col-3">
             <label for=element_1_1>New Activity</label>
-            <input type="text" name="element_1_1" class="form-control" required/>
+            <input type="text" name="element_1_1" class="form-control" required />
           </div>
           <div class="col-3">
             <label for=element_1_2>Current Activities</label>
@@ -79,11 +79,6 @@
     </div>
   </div>
   </div>
-
-
-
-  <?php include('Footer.php'); ?>
-
 </body>
 
 </html>
