@@ -1,13 +1,13 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4T41W61XBF"></script>
 <script>
-	window.dataLayer = window.dataLayer || [];
+  window.dataLayer = window.dataLayer || [];
 
-	function gtag() {
-		dataLayer.push(arguments);
-	}
-	gtag('js', new Date());
-	gtag('config', 'G-4T41W61XBF');
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'G-4T41W61XBF');
 </script>
 
 <meta charset="utf-8" />
@@ -25,38 +25,38 @@
 <link rel="icon" type="image/x-icon" href="./assets/icon/goat.png" />
 
 <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- DataTables CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
-  <!-- Custom CSS -->
-  <link href="<?php echo SITE_URL. '/assets/css/reviews.css'; ?>" rel="stylesheet" type="text/css">
-  <link href="<?php echo SITE_URL .'/assets/css/styles.css'; ?>" rel="stylesheet">
-  <!-- jQuery (single instance) -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <!-- jQuery UI (if needed; remove if unused) -->
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-  <!-- Moment.js (if needed for DataTables or other features) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  <!-- DataTables JS -->
-  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
-  <!-- TinyMCE (single instance, use cdnjs for reliability) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/8.0.2/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tinymce/8.0.2/skins/ui/oxide/skin.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tinymce/8.0.2/skins/ui/oxide/content.min.css">
-
-  <!-- TinyMCE Oxide Skin CSS (ensures toolbar buttons and icons are visible) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+<!-- Custom CSS -->
+<link href="<?php echo SITE_URL . '/assets/css/reviews.css'; ?>" rel="stylesheet" type="text/css">
+<link href="<?php echo SITE_URL . '/assets/css/styles.css'; ?>" rel="stylesheet" type="text/css">
+<!-- jQuery (single instance) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<!-- jQuery UI (if needed; remove if unused) -->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+<!-- Moment.js (if needed for DataTables or other features) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+<!-- TinyMCE (single instance, use cdnjs for reliability) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/8.0.2/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tinymce/8.0.2/skins/ui/oxide/skin.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tinymce/8.0.2/skins/ui/oxide/content.min.css">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/8.0.2/icons/default/icons.min.js"></script>
+<!-- TinyMCE Oxide Skin CSS (ensures toolbar buttons and icons are visible) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tinymce/8.0.2/skins/ui/oxide/skin.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tinymce/8.0.2/skins/ui/oxide/content.min.css">
 
-  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/8.0.2/icons/default/icons.min.js"></script>
+
+
 <!-- Bootstrap icons-->
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" /> -->
 <!-- Bootstrap 5 CSS -->
@@ -130,27 +130,26 @@
 <!-- ... (keep Bootstrap JS and custom JS at the end) -->
 
 <script>
-	jQuery.noConflict();
-	jQuery(function($) {
-		tinymce.init({
-			selector: 'textarea.tinymce', // Use a class instead of ID for reusability
-			plugins: 'lists link image table code',
-			toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-			menubar: false,
-			height: 300,
-			content_style: 'body { font-family: Arial, sans-serif; font-size: 14px }',
-			statusbar: true,
-			toolbar_mode: 'floating',
-			toolbar_location: 'top',
-			setup: function(editor) {
-				editor.on('init', function() {
-					console.log('TinyMCE initialized for', editor.id);
-				});
-				editor.on('error', function(e) {
-					console.error('TinyMCE error:', e.message);
-				});
-			}
-		});
-	});
+  jQuery.noConflict();
+  jQuery(function($) {
+    tinymce.init({
+      selector: 'textarea.tinymce', // Use a class instead of ID for reusability
+      plugins: 'lists link image table code',
+      toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+      menubar: false,
+      height: 300,
+      content_style: 'body { font-family: Arial, sans-serif; font-size: 14px }',
+      statusbar: true,
+      toolbar_mode: 'floating',
+      toolbar_location: 'top',
+      setup: function(editor) {
+        editor.on('init', function() {
+          console.log('TinyMCE initialized for', editor.id);
+        });
+        editor.on('error', function(e) {
+          console.error('TinyMCE error:', e.message);
+        });
+      }
+    });
+  });
 </script>
-
