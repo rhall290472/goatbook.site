@@ -325,7 +325,7 @@ ob_start();
           /**
            * Includes the add area page.
            */
-          include('src/Pages/addarea.php');
+          include('src/Pages/AddArea.php');
           break;
         case 'logout':
           /**
