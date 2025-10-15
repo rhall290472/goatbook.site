@@ -291,7 +291,7 @@ class cGOAT
   public static function &GetFormData($data)
   {
     if (isset($_POST[$data])) {
-      $return = addslashes($_POST[$data]);
+      $return = $_POST[$data];
     } else {
       $return = "0";
     }
