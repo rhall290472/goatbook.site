@@ -81,7 +81,7 @@ $cGOAT = cGOAT::getInstance();
       'type2' => filter_var($cGOAT->GetFormData('element_1_4'), FILTER_VALIDATE_INT) ?: 0,
       'map' => filter_var($cGOAT->GetFormData('element_2_1'), FILTER_SANITIZE_URL),
       'facilities' => filter_var($cGOAT->GetFormData('element_2_2'), FILTER_SANITIZE_STRING),
-      'embedmap' => filter_var($cGOAT->GetFormData('element_3_1'), FILTER_SANITIZE_STRING),
+      'embedmap' => $cGOAT->GetFormData('element_3_1'),
       'directions' => $cGOAT->GetFormData('Notes') // TinyMCE handles HTML; sanitize on display
     ];
 
