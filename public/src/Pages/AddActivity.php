@@ -20,10 +20,6 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-</head>
-
 <body>
   <?php
   //#####################################################################
@@ -33,7 +29,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
   //#####################################################################
   if (isset($_POST['SubmitForm'])) {
     if ($_POST['SubmitForm'] == "Cancel") {
-      $cGOAT::GotoURL('./index.php');
+      header("Location: index.php?page=home");
       exit;
     }
 
@@ -41,9 +37,11 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
     $FormData = array();
     $FormData['type2'] = $cGOAT->GetFormData('element_1_1');
 
-    $cGOAT->InsertActity($FormData);
+    if ($cGOAT->InsertActity($FormData))
+      $_SESSION['feedback'] = ['type' => 'success', 'message' => 'New Activity Added.'];
+    else
+      $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Add New Activity Failed.'];
 
-    $_SESSION['feedback'] = ['type' => 'success', 'message' => 'New Activity Added.'];
     header("Location: index.php?page=home");
     exit;
   }
@@ -54,7 +52,7 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
   <div class="row flex-wrap">
     <div class="form-coach px-5" style="background-color: var(--scouting-lighttan);">
       <p style="text-align:Left"><b>Add New Activity</b></p>
-      <form action="index.php?page=addactivity" id="coach-form" method="post">
+      <form action="index.php?page=addacitivity" id="coach-form" method="post">
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? bin2hex(random_bytes(32))); ?>">
         <div class="form-row">
           <div class="col-3">
@@ -77,7 +75,6 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
         </div>
       </form>
     </div>
-  </div>
   </div>
 </body>
 
