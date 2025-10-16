@@ -77,7 +77,7 @@ ini_set("memory_limit", "90000M");
             <thead>
                 <tr>
                     <th>WKT</th>
-                    <th>Name</th>
+                    <th>name</th>
                     <th>Area</th>
                     <th>Activity 1</th>
                     <th>Activity 2</th>
