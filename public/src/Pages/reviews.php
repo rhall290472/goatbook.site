@@ -21,15 +21,6 @@ if (file_exists(__DIR__ . '/../../../config/config.php')) {
 include(BASE_PATH . '/public/src/Classes/cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 
-// Initialize session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-  session_start([
-    'cookie_httponly' => true,
-    'use_strict_mode' => true,
-    'cookie_secure' => isset($_SERVER['HTTPS'])
-  ]);
-}
-
 /*
 !==============================================================================!
 !\                                                                            /!
@@ -158,8 +149,8 @@ try {
 </style>
 
 <div class="overall_rating">
-  <span class="num"><?= number_format($reviews_info['overall_rating'], 1) ?></span>
-  <span class="stars"><?= str_repeat('&#9733;', round($reviews_info['overall_rating'])) ?></span>
+  <span class="num"><?= number_format($reviews_info['overall_rating'] ?? 0.0, 1) ?></span>
+  <span class="stars"><?= str_repeat('&#9733;', round($reviews_info['overall_rating'] ?? 0.0)) ?></span>
   <span class="total"><?= $reviews_info['total_reviews'] ?> reviews</span>
 </div>
 

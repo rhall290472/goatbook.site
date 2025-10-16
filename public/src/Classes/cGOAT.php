@@ -174,20 +174,34 @@ class cGOAT
   public static function getPDOConn()
   {
     $connConf = self::getConfigData();
+
+    if (!in_array('mysql', PDO::getAvailableDrivers())) {
+      error_log("PDO MySQL driver not available. Available drivers: " .
+        implode(', ', PDO::getAvailableDrivers()));
+      exit('PDO MySQL driver not installed. Please install php-mysql extension.');
+    }
+
+    $dsn = 'mysql:host=' . $connConf['dbhost'] .
+      ';dbname=' . $connConf['db'] .
+      ';charset=utf8mb4';
+
+    $options = [
+      PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+      PDO::ATTR_EMULATE_PREPARES => false,
+    ];
+
     try {
-      $pdo = new PDO(
-        'mysql:host=' . $connConf['dbhost'] . ';dbname=' . $connConf['db'] . ';charset=utf8',
-        $connConf['dbuser'],
-        $connConf['dbpass']
-      );
+      $pdo = new PDO($dsn, $connConf['dbuser'], $connConf['dbpass'], $options);
+      return $pdo;
     } catch (PDOException $exception) {
-      $strError = "Failed to connect to database! " . $exception->getMessage() . __FILE__ . " " . __LINE__;
+      $strError = "Failed to connect to database! " .
+        $exception->getMessage() .
+        " in " . __FILE__ . " at line " . __LINE__;
       error_log($strError, 0);
       exit('Failed to connect to database!');
     }
-    return $pdo;
   }
-
   /**
    * Executes a MySQLi query with prepared statements.
    *
