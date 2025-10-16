@@ -379,7 +379,7 @@ class cGOAT
             ?>
           </select>
         </div>
-        <div class="col-auto py-45">
+        <div class="col-auto py-4">
           <input class='btn btn-primary btn-sm' type='submit' name='SubmitArea' placeholder='Area' value='Sort By Area' />
         </div>
         <div class="col-auto">
@@ -393,7 +393,7 @@ class cGOAT
             ?>
           </select>
         </div>
-        <div class="col-auto py-45">
+        <div class="col-auto py-4">
           <input class='btn btn-primary btn-sm' type='submit' name='SubmitActivityType' placeholder='Type' value='Sort By Activity Type' />
         </div>
       </div>

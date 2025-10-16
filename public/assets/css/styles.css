@@ -13940,14 +13940,37 @@ footer {
 
 .tox-toolbar,
 .tox-toolbar__primary {
-  background-color: #f8f9fa !important; /* Your light gray – keeps it visible */
-  color: #333 !important; /* Dark text color for buttons/labels */
+  background-color: #f8f9fa !important;
+  /* Your light gray – keeps it visible */
+  color: #333 !important;
+  /* Dark text color for buttons/labels */
 }
 
 .tox-toolbar .tox-tbtn svg {
-  fill: #333 !important; /* Ensures SVG icons are dark/visible */
+  fill: #333 !important;
+  /* Ensures SVG icons are dark/visible */
 }
 
 .tox-toolbar .tox-tbtn:hover svg {
-  fill: #000 !important; /* Darker on hover for better UX */
+  fill: #000 !important;
+  /* Darker on hover for better UX */
+}
+
+
+/* Loading overlay styles */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-overlay.hidden {
+  display: none;
 }

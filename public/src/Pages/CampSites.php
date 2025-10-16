@@ -8,12 +8,11 @@ if (session_status() === PHP_SESSION_NONE) {
   ]);
 }
 
-//include(BASE_PATH.'/src/Classes/cGOAT.php');
 $cGOAT = cGOAT::getInstance();
 /*
 !==============================================================================!
 !\                                                                            /!
-!\\                                                                          //!
+!\\                                                                          \\!
 ! \##########################################################################/ !
 !  #         This is Proprietary Software of Richard Hall                   #  !
 !  ##########################################################################  !
@@ -38,52 +37,10 @@ $cGOAT = cGOAT::getInstance();
 <html lang="en">
 
 <head>
-  <?php //include(BASE_PATH.'/src/Templates/head.php'); ?>
+  <?php //include(BASE_PATH.'/src/Templates/head.php'); 
+  ?>
   <!-- Adding DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-  <!-- Adding DataTables Buttons CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
-  <style>
-    /* Ensure DataTables buttons match SelectCampSite button style (red background, white text) */
-    .dt-buttons .btn {
-      margin-right: 5px;
-    }
-
-    .dt-buttons .btn-primary {
-      background-color: #dc3545 !important;
-      /* Red background, matching assumed styles.css */
-      border-color: #dc3545 !important;
-      color: #fff !important;
-      /* White text */
-      font-size: 0.875rem !important;
-      padding: 0.25rem 0.5rem !important;
-    }
-
-    .dt-buttons .btn-primary:hover {
-      background-color: #c82333 !important;
-      /* Darker red on hover */
-      border-color: #bd2130 !important;
-      color: #fff !important;
-    }
-
-    /* Loading overlay styles */
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .loading-overlay.hidden {
-      display: none;
-    }
-  </style>
 </head>
 
 <body>
@@ -173,19 +130,21 @@ $cGOAT = cGOAT::getInstance();
           ?>
         </tbody>
       </table>
-      <b>For a total of <?php echo mysqli_num_rows($CampSite); ?> sites</b>
     </div>
 
   <?php
   }
   ?>
 
-  <!-- Adding jQuery, DataTables, and DataTables Buttons JS -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<!-- Adding jQuery, DataTables, DataTables Buttons, and PDF dependencies -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
   <script>
     $(document).ready(function() {
       $('#campSitesTable').DataTable({
@@ -199,7 +158,8 @@ $cGOAT = cGOAT::getInstance();
           "targets": "_all"
         }],
         "dom": 'Bfrtip',
-        "buttons": [{
+        "buttons": [
+          {
             extend: 'csv',
             text: 'Export to CSV',
             title: 'Campsites',
@@ -210,6 +170,36 @@ $cGOAT = cGOAT::getInstance();
             text: 'Export to Excel',
             title: 'Campsites',
             className: 'btn btn-primary btn-sm'
+          },
+          {
+            extend: 'pdf',
+            text: 'Export to PDF',
+            title: 'Campsites',
+            className: 'btn btn-primary btn-sm',
+            orientation: 'landscape', // Better for wide tables
+            pageSize: 'letter',
+            exportOptions: {
+              columns: [0, 1, 2, 3, 5, 9]
+            },
+            customize: function(doc) {
+              // Use '*' for automatic column widths to fit page
+              doc.content[1].table.widths = Array(doc.content[1].table.body[0].length).fill('*');
+              // Adjust page margins to maximize table width
+              doc.pageMargins = [20, 20, 20, 20]; // [left, top, right, bottom]
+              // Font sizes for readability
+              doc.styles.tableHeader.fontSize = 10;
+              doc.styles.tableBodyEven.fontSize = 9;
+              doc.styles.tableBodyOdd.fontSize = 9;
+              // Ensure table uses full width
+              doc.content[1].table.layout = {
+                hLineWidth: function(i, node) { return 0.5; },
+                vLineWidth: function(i, node) { return 0.5; },
+                paddingLeft: function(i, node) { return 4; },
+                paddingRight: function(i, node) { return 4; },
+                paddingTop: function(i, node) { return 2; },
+                paddingBottom: function(i, node) { return 2; }
+              };
+            }
           }
         ],
         "initComplete": function() {

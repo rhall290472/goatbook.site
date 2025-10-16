@@ -29,7 +29,7 @@ if (defined('ENV') && ENV === 'development') {
 
 // Dynamically set SITE_URL based on environment
 $is_localhost = isset($_SERVER['SERVER_NAME']) && in_array($_SERVER['SERVER_NAME'], ['localhost', '127.0.0.1']);
-$protocol = 'https'; // Always HTTPS
+$protocol = $is_localhost ? 'http' : 'https'; // Always HTTPS
 //$host = $is_localhost ? ($_SERVER['HTTP_HOST'] ?? 'localhost') : 'goatbook.site';
 $host = $is_localhost ? ($_SERVER['HTTP_HOST'] ?? 'goatbook.site.local') : 'goatbook.site';
 $port = ($is_localhost && isset($_SERVER['SERVER_PORT']) && !in_array($_SERVER['SERVER_PORT'], ['80', '443'])) ? ':' . $_SERVER['SERVER_PORT'] : '';

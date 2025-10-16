@@ -130,7 +130,6 @@ if (isset($_GET['Siteid'])) {
 
               <?php if (isset($Site['embedmap'])) {
                 echo stripslashes($Site['embedmap']);
-                //echo htmlspecialchars_decode('<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3198.830166525641!2d-105.23833394049939!3d39.25315366783766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDE1JzExLjUiTiAxMDXCsDE0JzEwLjUiVw!5e1!3m2!1sen!2sus!4v1760472798852!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>');
               }
 
               if (isset($Site['created'])) {
