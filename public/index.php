@@ -147,6 +147,7 @@ $valid_pages = [
   'auditSite',
   'edituser',
   'auditsite',
+  'googlemap',
   'login',
   'logout',
   'register'
@@ -344,6 +345,12 @@ ob_start();
            * Includes the audit site page.
            */
           include('src/Pages/AuditSite.php');
+          break;
+        case 'googlemap':
+          /**
+           * Includes the Google Map site
+           */
+          include('src/Pages/Googlemap.php');
           break;
         default:
           /**

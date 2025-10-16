@@ -60,6 +60,7 @@
           <li><a class="dropdown-item" href="?page=addarea">Add Area</a></li>
           <li><a class="dropdown-item" href="?page=addacitivity">Add Activity</a></li>
           <li><a class="dropdown-item" href="?page=auditsite">Audit Site</a></li>
+          <li><a class="dropdown-item" href="?page=Googlemap">Update Google map</a></li>
         </ul>
       </li>
     <?php endif; ?>
