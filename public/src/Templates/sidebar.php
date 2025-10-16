@@ -6,14 +6,14 @@
   <hr>
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-      <a class="nav-link align-middle"
+      <a class="nav-link align-middle link-dark"
         <?php echo $page === 'campsites' ? 'active' : ''; ?> href="?page=campsites">
         <i class="fs-4 bi bi-list"></i> <span class="ms-1 d-none d-sm-inline">Activities</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link align-middle"
+      <a class="nav-link align-middle link-dark"
         <?php echo $page === 'addcampsite' ? 'active' : ''; ?> href="?page=addcampsite">
         <i class="fs-4 bi bi-plus-circle"></i> <span class="ms-1 d-none d-sm-inline">Add an Activity</span>
       </a>
@@ -21,7 +21,7 @@
 
 
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <a class="nav-link dropdown-toggle  link-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fs-4 bi-book"></i><span class="ms-1 d-none d-sm-inline">Goat Book</span>
       </a>
       <ul class="dropdown-menu">
@@ -31,7 +31,7 @@
       </ul>
     </li>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <a class="nav-link dropdown-toggle  link-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fs-4 bi bi-link"></i><span class="ms-1 d-none d-sm-inline">Scouting References</span>
       </a>
       <ul class="dropdown-menu">
@@ -42,11 +42,11 @@
       </ul>
     </li> <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true): ?>
       <li class=" nav-item">
-        <a class="nav-link" href="?page=logout"><i class="fs-4 bi bi-person"></i>Logout</a>
+        <a class="nav-link link-dark" href="?page=logout"><i class="fs-4 bi bi-person"></i>Logout</a>
       </li>
     <?php else: ?>
       <li class="nav-item">
-        <a class="nav-link <?php echo $page === 'login' ? 'active' : ''; ?>" href="?page=login"><i class="fs-4 bi bi-person"></i>Login</a>
+        <a class="nav-link  link-dark <?php echo $page === 'login' ? 'active' : ''; ?>" href="?page=login"><i class="fs-4 bi bi-person"></i>Login</a>
       </li>
     <?php endif; ?>
     <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true): ?>

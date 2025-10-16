@@ -150,6 +150,10 @@ class cGOAT
    */
   public static function getDbConn()
   {
+    if (!extension_loaded('mysqli')) {
+      echo 'MySQLi extension is not loaded!';
+    }
+
     $db = new mysqli;
     try {
       $db = self::initConnection();
