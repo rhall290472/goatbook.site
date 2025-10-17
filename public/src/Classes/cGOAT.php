@@ -178,9 +178,10 @@ class cGOAT
     if (!in_array('mysql', PDO::getAvailableDrivers())) {
       error_log("PDO MySQL driver not available. Available drivers: " .
         implode(', ', PDO::getAvailableDrivers()));
+        phpinfo();
       exit('PDO MySQL driver not installed. Please install php-mysql extension.');
     }
-
+phpinfo();
     $dsn = 'mysql:host=' . $connConf['dbhost'] .
       ';dbname=' . $connConf['db'] .
       ';charset=utf8mb4';
