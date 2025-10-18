@@ -147,7 +147,6 @@ ini_set("memory_limit", "90000M");
                     {
                         extend: 'excel',
                         text: 'Export to Excel',
-                        title: 'Sites',
                         className: 'btn btn-primary btn-sm'
                     },
                     {
