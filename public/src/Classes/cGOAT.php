@@ -181,7 +181,7 @@ class cGOAT
         phpinfo();
       exit('PDO MySQL driver not installed. Please install php-mysql extension.');
     }
-phpinfo();
+
     $dsn = 'mysql:host=' . $connConf['dbhost'] .
       ';dbname=' . $connConf['db'] .
       ';charset=utf8mb4';
