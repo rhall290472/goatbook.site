@@ -71,8 +71,8 @@ if ($is_localhost) {
   define('DB_NAME', 'goat');
 } else {
   define('DB_HOST', 'rhall29047217205.ipagemysql.com');
-  define('DB_USER', 'webuser1');
-  define('DB_PASS', 'webuser1?yrW7}L');
+  define('DB_USER', 'goatbookuser');
+  define('DB_PASS', '8-@Gnyqndt');
   define('DB_NAME', 'goat');
 }
 

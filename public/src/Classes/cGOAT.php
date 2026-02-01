@@ -84,33 +84,7 @@ class cGOAT
    *
    * @return array Database configuration array with keys: dbhost, dbuser, dbpass, db
    */
-  public static function getConfigData()
-  {
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-      $ip = $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    } else {
-      $ip = $_SERVER['REMOTE_ADDR'];
-    }
-
-    $userdata = [];
-
-    if (!strcmp($ip, "::1") || !strcmp($ip, "127.0.0.1")) {
-      $userdata['dbhost'] = "localhost";
-      $userdata['dbuser'] = "root";
-      $userdata['dbpass'] = "";
-      $userdata['db'] = "goat";
-    } else {
-      $userdata['dbhost'] = "rhall29047217205.ipagemysql.com";
-      $userdata['dbuser'] = "webuser1";
-      $userdata['dbpass'] = "webuser1";
-      $userdata['db'] = "goat";
-    }
-
-    return $userdata;
-  }
-
+  
   /**
    * Gets the Singleton instance of the class.
    *
@@ -136,8 +110,8 @@ class cGOAT
   private static function initConnection()
   {
     $db = self::getInstance();
-    $connConf = self::getConfigData();
-    $db->dbConn = new mysqli($connConf['dbhost'], $connConf['dbuser'], $connConf['dbpass'], $connConf['db']);
+    //$connConf = self::getConfigData();
+    $db->dbConn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     $db->dbConn->set_charset('utf8');
     return $db;
   }
