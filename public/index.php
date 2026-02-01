@@ -82,6 +82,17 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
           mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $enabled);
           if (mysqli_stmt_fetch($stmt)) {
             if (password_verify($password, $hashed_password) && $enabled) {
+
+              // Update lastlogged in
+              $updateSql = "UPDATE users SET LastLogin = NOW() WHERE Userid = ?";
+              if ($updateStmt = mysqli_prepare($CEagle->getDbConn(), $updateSql)) {
+                mysqli_stmt_bind_param($updateStmt, "i", $id);
+                mysqli_stmt_execute($updateStmt);
+                mysqli_stmt_close($updateStmt);
+                // You can silently ignore failure here — logging in is more important
+              } else {
+                error_log("Failed to prepare LastLogin update: " . mysqli_error($CEagle->getDbConn()));
+              }
               $_SESSION["loggedin"] = true;
               $_SESSION["id"] = $id;
               $_SESSION["username"] = $username;
@@ -109,8 +120,8 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
       throw new Exception("Failed to prepare statement: " . mysqli_error($cGOAT->getDbConn()));
     }
   } catch (Exception $e) {
-    $strErrror = "index.php - Login error: ". $e->getMessage() . __FILE__ .' '.__LINE__;
-    error_log($strErrror , 0);
+    $strErrror = "index.php - Login error: " . $e->getMessage() . __FILE__ . ' ' . __LINE__;
+    error_log($strErrror, 0);
     $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'An error occurred during login. Please try again later.'];
     header("Location: index.php?page=login");
     exit;
