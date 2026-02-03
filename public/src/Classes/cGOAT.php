@@ -147,8 +147,9 @@ class cGOAT
    */
   public static function getPDOConn()
   {
-    $connConf = self::getConfigData();
+    //$connConf = self::getConfigData();
 
+    
     if (!in_array('mysql', PDO::getAvailableDrivers())) {
       error_log("PDO MySQL driver not available. Available drivers: " .
         implode(', ', PDO::getAvailableDrivers()));
@@ -156,8 +157,8 @@ class cGOAT
       exit('PDO MySQL driver not installed. Please install php-mysql extension.');
     }
 
-    $dsn = 'mysql:host=' . $connConf['dbhost'] .
-      ';dbname=' . $connConf['db'] .
+    $dsn = 'mysql:host=' . DB_HOST .
+      ';dbname=' . DB_NAME .
       ';charset=utf8mb4';
 
     $options = [
@@ -167,7 +168,7 @@ class cGOAT
     ];
 
     try {
-      $pdo = new PDO($dsn, $connConf['dbuser'], $connConf['dbpass'], $options);
+      $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
       return $pdo;
     } catch (PDOException $exception) {
       $strError = "Failed to connect to database! " .
