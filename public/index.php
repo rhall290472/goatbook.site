@@ -84,7 +84,7 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
             if (password_verify($password, $hashed_password) && $enabled) {
 
               // Update lastlogged in
-              $updateSql = "UPDATE users SET LastLogin = NOW() WHERE Userid = ?";
+              $updateSql = "UPDATE users SET LastLogin = NOW() WHERE id = ?";
               if ($updateStmt = mysqli_prepare($cGOAT->getDbConn(), $updateSql)) {
                 mysqli_stmt_bind_param($updateStmt, "i", $id);
                 mysqli_stmt_execute($updateStmt);

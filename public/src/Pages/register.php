@@ -1,67 +1,33 @@
 <?php
-// Secure session start
-if (session_status() === PHP_SESSION_NONE) {
-  session_start([
-    'cookie_httponly' => true,
-    'use_strict_mode' => true,
-    'cookie_secure' => isset($_SERVER['HTTPS'])
-  ]);
-}
-
-//include(BASE_PATH . '/src/classes/cGOAT.php');
+ob_start();
+load_class(BASE_PATH . '/public/src/Classes/cGOAT.php');
 $cGOAT = cGOAT::getInstance();
-/*
-!==============================================================================!
-!\                                                                            /!
-!\\                                                                          //!
-! \##########################################################################/ !
-!  #         This is Proprietary Software of Richard Hall                   #  !
-!  ##########################################################################  !
-!  ##########################################################################  !
-!  #                                                                        #  !
-!  #                                                                        #  !
-!  #   Copyright 2024 - Richard Hall                                        #  !
-!  #                                                                        #  !
-!  #   The information contained herein is the property of Richard          #  !
-!  #   Hall, and shall not be copied, in whole or in part, or               #  !
-!  #   disclosed to others in any manner without the express written        #  !
-!  #   authorization of Richard Hall.                                       #  !
-!  #                                                                        #  !
-!  #                                                                        #  !
-! /##########################################################################\ !
-!//                                                                          \\!
-!/                                                                            \!
-!==============================================================================!
-*/
-
+load_class(BASE_PATH . '/public/src/Classes/CEmail.php');
+$CEmail = CEmail::getInstance();
 
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $email = $confirm_relationship = $phone = "";
-$username_err = $password_err = $confirm_password_err = $email_err = $confirm_relationship_err = $phone_err = "";
+$username = $password = $confirm_password = "";
+$username_err = $password_err = $confirm_password_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-  // Get users IP address
-  $ip = isset($_SERVER['HTTP_CLIENT_IP'])
-    ? $_SERVER['HTTP_CLIENT_IP']
-    : (isset($_SERVER['HTTP_X_FORWARDED_FOR'])
-      ? $_SERVER['HTTP_X_FORWARDED_FOR']
-      : $_SERVER['REMOTE_ADDR']);
-
-
-  // Check Honeypot field. If filled out send spammer away..
-  if ($_POST["phone"]) {
-    $str = sprintf(
-      "New GOAT registration, sent to FBI.GOV on %s - User: %s - Password: %s \n",
-      Date('Y-m-d H:i:s'),
-      $param_username,
-      $param_password
-    );
-    error_log($str, 1, "richard.hall@centennialdistrict.co");
-    $cGOAT->gotoURL("https://www.fbi.gov");
-    exit();
+  if (!empty($_POST['website']) || !empty($_POST['fax_number'])) {
+    // Bot detected – silently fail or log
+    $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Invalid submission. Please try again.'];
+    header("Location: index.php?page=register");
+    exit;
   }
+  $min_seconds = 6; // adjust 5–12 seconds
+  if (isset($_POST['form_start_time'])) {
+    $time_taken = time() - (int)$_POST['form_start_time'];
+    if ($time_taken < $min_seconds) {
+      // Too fast → bot
+      $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Please fill the form more carefully.'];
+      header("Location: index.php?page=register");
+      exit;
+    }
+  }
+
   // Validate username
   if (empty(trim($_POST["username"]))) {
     $username_err = "Please enter a username.";
@@ -94,28 +60,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       // Close statement
       mysqli_stmt_close($stmt);
-    } else {
-      $strErr = "ERROR: mysqli_prepare() failed - " . $sql . " " . __FILE__ . ", " . __LINE__;
-      error_log($strErr);
-      $cGOAT::function_alert("Internal Error, this has been reported.");
-      header("Location: index.php?page=home");
-      exit();
     }
-  }
-
-  // Validate email
-  if (empty(trim($_POST["email"]))) {
-    $email_err = "Please enter a email.";
-  } elseif (strlen(trim($_POST["email"])) < 6) {
-    $email_err = "email must have atleast 6 characters.";
-  } else {
-    $email = trim($_POST["email"]);
   }
 
   // Validate password
   if (empty(trim($_POST["password"]))) {
     $password_err = "Please enter a password.";
   } elseif (strlen(trim($_POST["password"])) < 6) {
+    $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Password must have atleast 6 characters.'];
     $password_err = "Password must have atleast 6 characters.";
   } else {
     $password = trim($_POST["password"]);
@@ -131,88 +83,112 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
-  // Validate confirm relatiosnhip to Scouting
-  if (empty(trim($_POST["confirm_relationship"]))) {
-    $confirm_relationship_err = "Please enter relationship.";
-  } else {
-    $confirm_relationship = trim($_POST["confirm_relationship"]);
-  }
-
   // Check input errors before inserting in database
-  if (
-    empty($username_err) && empty($password_err) && empty($confirm_password_err) &&
-    empty($email_err) && empty($confirm_relationship_err)
-  ) {
+  if (empty($username_err) && empty($password_err) && empty($confirm_password_err)) {
 
     // Prepare an insert statement
-    $sql = "INSERT INTO users (username, password, email, ip) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
 
     if ($stmt = mysqli_prepare($cGOAT->getDbConn(), $sql)) {
       // Bind variables to the prepared statement as parameters
-      mysqli_stmt_bind_param($stmt, "ssss", $param_username, $param_password, $param_email, $param_ip);
+      mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
 
       // Set parameters
       $param_username = $username;
-      $param_email = $email;
       $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-      $param_ip = $ip;
 
       // Attempt to execute the prepared statement
       if (mysqli_stmt_execute($stmt)) {
         // 
-        $msg = "You can now log in.";
-        cGOAT::function_alert($msg);
-        $str = sprintf(
-          "New GOAT registration, on %s - User: %s - Password: %s IP: %s \n",
-          Date('Y-m-d H:i:s'),
-          $param_username,
-          $param_password,
-          $ip
+        $_SESSION['feedback'] = [
+          'type'    => 'success',
+          'message' => 'Your account request has been received. An administrator will review it shortly.'
+        ];
+        // $msg = "Your account request has been received. An administrator will review it shortly.";
+        // $cGOAT->function_alert($msg);
+
+        // Prepare admin notification email
+        $subject    = "New Goat Account Request - " . htmlspecialchars($username);
+        $adminEmail = "richard.hall@centennialdistrict.co";
+        $bodyHtml = "
+    <h2 style=\"color: #006400;\">New Registration Request</h2>
+    <p>A new user has submitted an account request:</p>
+    <table style=\"border-collapse: collapse; width: 100%; max-width: 600px;\">
+        <tr><th style=\"text-align: left; padding: 8px; border-bottom: 1px solid #ddd;\">Field</th>
+            <th style=\"text-align: left; padding: 8px; border-bottom: 1px solid #ddd;\">Value</th></tr>
+        <tr><td style=\"padding: 8px;\">Username</td>
+            <td style=\"padding: 8px;\"><strong>" . htmlspecialchars($username) . "</strong></td></tr>
+        <tr><td style=\"padding: 8px;\">Requested at</td>
+            <td style=\"padding: 8px;\">" . date('Y-m-d H:i:s') . "</td></tr>
+        <tr><td style=\"padding: 8px;\">IP address</td>
+            <td style=\"padding: 8px;\">" . $_SERVER['REMOTE_ADDR'] . "</td></tr>
+    </table>
+    <p style=\"margin-top: 20px;\">
+        <a href=\"" . SITE_URL . "/index.php?page=home\" style=\"background:#006400;color:white;padding:10px 20px;text-decoration:none;border-radius:5px;\">Review Accounts</a>
+    </p>
+    <hr style=\"border: 0; border-top: 1px solid #eee; margin: 20px 0;\">
+    <small style=\"color: #777;\">This is an automated message from the Centennial District Eagle system.</small>";
+
+        $sendResult = $CEmail->send(
+          $adminEmail,               // to
+          $subject,                  // subject
+          $bodyHtml,                 // html body
+          strip_tags($bodyHtml)      // plain text fallback (optional but recommended)
         );
-        error_log($str, 1, "richard.hall@centennialdistrict.co");
-        header("Location: index.php?page=login");
+
+        // Optional: log if sending failed (so you know something went wrong)
+        if ($sendResult !== true) {
+          error_log("Failed to send admin notification email for new registration '$username': " . $sendResult);
+        }
+
+        // Redirect to a clean landing page
+        $cGOAT->GotoURL("index.php");
+        header("Location: index.php?page=index");
+        exit;
       } else {
-        echo "Oops! Something went wrong. Please try again later.";
+        // Better error handling: use session feedback instead of raw echo
+        $_SESSION['feedback'] = [
+          'type'    => 'danger',
+          'message' => 'Oops! Something went wrong during registration. Please try again or contact support.'
+        ];
+        header("Location: index.php?page=register");
+        exit;
       }
+      // Send the email
+
+      //   $str = sprintf("New Eagle registration, at %s\n", Date('Y-m-d H:i:s'));
+      //   error_log($str, 1, "richard.hall@centennialdistrict.co");
+      //   header("Location: index.php?page=index");
+      // } else {
+      //   echo "Oops! Something went wrong. Please try again later.";
+      // }
 
       // Close statement
       mysqli_stmt_close($stmt);
     }
   }
-
-  // Close connection
-  mysqli_close($cGOAT->getDbConn());
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
+
 <body>
-  <?php //include 'header.php'; 
-  ?>
   <center>
     <div class="wrapper-logon">
       <h2>Sign Up</h2>
       <p>Please fill this form to create an account.</p>
-      </br>
-      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+      <p>Acounts are reserved for those involved in the administration of the District advancment program. If you are not directly involved with
+        the District advancement program please don't submit an account request becuase it will be denied.</p>
+      <form action="index.php?page=register" method="post">
+        <input type="hidden" name="form_start_time" value="<?php echo time(); ?>">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? bin2hex(random_bytes(32))); ?>">
         <div class="form-group">
           <label>Username</label>
           <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
           <span class="invalid-feedback"><?php echo $username_err; ?></span>
         </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-          <span class="invalid-feedback"><?php echo $email_err; ?></span>
-        </div>
-        <div class="form-group ohnohney">
-          <label>Phone</label>
-          <input type="text" style="right: -500px;" name="phone" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $phone; ?>">
-          <span class="invalid-feedback"><?php echo $phone_err; ?></span>
-        </div>
-
         <div class="form-group">
           <label>Password</label>
           <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
@@ -223,27 +199,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
           <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
         </div>
-        <div class="form-group">
-          <label>What is your relationship to Scouting?</label>
-          <select class='form-control' name='confirm_relationship' required>
-            <option value=""></option>
-            <option value="Adult Leader">Adult Leader</option>
-            <option value="Youth">Youth</option>
-            <option value="Parent">Parent</option>
-          </select>
 
-          <!-- <input type="relationship" name="confirm_relationship" class="form-control <?php echo (!empty($confirm_relationship_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_relationship; ?>"> -->
-          <span class="invalid-feedback"><?php echo $confirm_relationship_err; ?></span>
+        <!-- Honeypot fields – humans should never see/fill these -->
+        <div style="display:none;">
+          <label for="website">Website (leave empty)</label>
+          <input type="text" name="website" id="website" value="" tabindex="-1" autocomplete="off">
         </div>
-        <div class="form-group py-3">
+
+        <!-- Optional second one with misleading name -->
+        <div style="position:absolute; left:-9999px;">
+          <input type="text" name="fax_number" value="" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form-group py-4">
           <input type="submit" class="btn btn-primary" value="Submit">
           <input type="reset" class="btn btn-secondary ml-2" value="Reset">
         </div>
-        <p>Already have an account? <a href="?page=login">Login here</a>.</p>
+
+        <p>Already have an account? <a href="index.php?page=logon">Login here</a>.</p>
       </form>
-    </div>
     </div>
   </center>
 </body>
-
+<?php ob_end_flush(); ?>
 </html>

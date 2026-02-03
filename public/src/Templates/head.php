@@ -58,8 +58,8 @@
 
 
 <!-- Custom CSS -->
-<link href="<?php echo ASSETS_URL . '/css/reviews.css'; ?>" rel="stylesheet" type="text/css">
-<link href="<?php echo ASSETS_URL . '/css/styles.css'; ?>" rel="stylesheet" />
+<link href="<?php echo SHARED_ASSETS_URL . '/css/reviews.css'; ?>" rel="stylesheet" type="text/css">
+<link href="<?php echo SHARED_ASSETS_URL . '/css/styles.css'; ?>" rel="stylesheet" />
 
 
 <script>
