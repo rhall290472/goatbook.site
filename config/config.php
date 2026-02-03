@@ -26,12 +26,8 @@ if ($is_localhost) {
   $base_path = '';
 }
 define('SITE_URL', $protocol . '://' . $host . $port . $base_path);
+define('ASSETS_URL', SITE_URL . '/assets');
 
-// Assets URL
-// https: //shared.centennialdistrict.co/assets/styles.css
-define('SHARED_ASSETS_URL', SITE_URL . '/centennial/shared/assets');
-define('SHARED_CLASS_URL', SITE_URL . '/centennial/shared/src/Classes');
-define('SHARED_PATH', __DIR__ . '/../../../shared/');
 
 // Site metadata
 define('PAGE_TITLE', 'Guide to Outdoor Activities for Troops');
@@ -49,12 +45,6 @@ define('SMTP_PORT', '587');
 $pageHome = SITE_URL . '/public/index.php';
 $pageContact = SITE_URL . '/src/contact.php';
 
-// $mailConfig = [
-//   'host' => $config['smtp_host'] ?? 'smtp.gmail.com',
-//   'username' => $config['smtp_username'] ?? 'rhall290472@gmail.com',
-//   'password' => $config['smtp_password'] ?? 'vicx cxho rywh ylok',
-//   'recipient' => $config['smtp_recipient'] ?? 'richard.hall@centennialdistrict.co'
-// ];
 // Environment configuration
 define('ENV', 'development'); // Set to 'production' on live server
 
@@ -62,13 +52,13 @@ define('ENV', 'development'); // Set to 'production' on live server
 if (defined('ENV') && ENV === 'development') {
   ini_set('display_errors', 1);
   ini_set('log_errors', 1);
-  ini_set('error_log', SHARED_PATH . '/shared/logs/php_errors.log');
-  $pgLog = SHARED_PATH . '/shared/logs';
+//  ini_set('error_log', SHARED_PATH . '/shared/logs/php_errors.log');
+//  $pgLog = SHARED_PATH . '/shared/logs';
   error_reporting(E_ALL);
 } else {
   ini_set('display_errors', 0);
   ini_set('log_errors', 1);
-  ini_set('error_log', 'https://shared.centennialdistrict.co/logs/error.log');
+//  ini_set('error_log', 'https://shared.centennialdistrict.co/logs/error.log');
 }
 
 

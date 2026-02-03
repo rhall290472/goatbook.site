@@ -53,7 +53,7 @@ class CEmail
       // $mail->SMTPDebug = SMTP::DEBUG_SERVER; // 2 = client+server, 1 = client
 
       // === SENDER ===
-      $mail->setFrom('no-reply@centennialdistrict.org', 'Centennial District Eagle');
+      $mail->setFrom('no-reply@centennialdistrict.org', 'GoatBook');
       $mail->addReplyTo('richard.hall@centennialdistrict.co', 'Richard Hall');
 
       // === RECIPIENTS ===
