@@ -85,13 +85,13 @@ if ($page === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['
 
               // Update lastlogged in
               $updateSql = "UPDATE users SET LastLogin = NOW() WHERE Userid = ?";
-              if ($updateStmt = mysqli_prepare($CEagle->getDbConn(), $updateSql)) {
+              if ($updateStmt = mysqli_prepare($cGOAT->getDbConn(), $updateSql)) {
                 mysqli_stmt_bind_param($updateStmt, "i", $id);
                 mysqli_stmt_execute($updateStmt);
                 mysqli_stmt_close($updateStmt);
                 // You can silently ignore failure here — logging in is more important
               } else {
-                error_log("Failed to prepare LastLogin update: " . mysqli_error($CEagle->getDbConn()));
+                error_log("Failed to prepare LastLogin update: " . mysqli_error($cGOAT->getDbConn()));
               }
               $_SESSION["loggedin"] = true;
               $_SESSION["id"] = $id;
