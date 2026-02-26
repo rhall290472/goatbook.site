@@ -12,9 +12,6 @@ defined('IN_APP') or define('IN_APP', true);
 // Base path, only set once
 defined('BASE_PATH') or define('BASE_PATH', dirname(__DIR__));
 
-define('GITHUB_TOKEN', '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');
-
-
 // Dynamically set SITE_URL based on environment
 $is_localhost = isset($_SERVER['SERVER_NAME']) && in_array($_SERVER['SERVER_NAME'], ['localhost', '127.0.0.1']);
 $protocol = $is_localhost ? 'http' : 'https'; // Always HTTPS

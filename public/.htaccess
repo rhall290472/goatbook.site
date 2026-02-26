@@ -35,3 +35,5 @@
     # Set default index file
     DirectoryIndex index.php
 </IfModule>
+
+SetEnv GITHUB_TOKEN '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'
