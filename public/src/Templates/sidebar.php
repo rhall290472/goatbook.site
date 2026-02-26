@@ -40,6 +40,15 @@
         <li><a class="dropdown-item" href="https://www.scouting.org/health-and-safety/gss/gss03/" target="_blank">Safe Scouting: Camping</a></li>
         <li><a class="dropdown-item" href="https://www.scouting.org/trail-to-adventure-blog/cub-scout-camping-program-and-policy-updates/" target="_blank">Cub Scout Camping Program</a></li>
       </ul>
+    <li class="nav-item">
+      <a class="nav-link link-dark <?php echo $page === 'about' ? 'active' : ''; ?>" href="?page=about">
+        <i class="fs-4 bi bi-file-person"></i>About</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link link-dark <?php echo $page === 'contact' ? 'active' : ''; ?>" href="?page=contact">
+        <i class="fs-4 bi bi-person-lines-fill"></i>Contact</a>
+    </li>
+
     </li> <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true): ?>
       <li class=" nav-item">
         <a class="nav-link link-dark" href="?page=logout"><i class="fs-4 bi bi-person"></i>Logout</a>
@@ -71,34 +80,39 @@
 
 
   <p class="text-muted small" id="versionInfo">
-  <em>Loading version...</em>
-</p>
+    <em>Loading version...</em>
+  </p>
 
-<script>
-  fetch('./src/Templates/version.php')  // ← your own server endpoint
-    .then(r => r.ok ? r.json() : Promise.reject('Failed'))
-    .then(data => {
-      if (data.error) throw new Error(data.error);
+  <script>
+    fetch('./src/Templates/version.php') // ← your own server endpoint
+      .then(r => r.ok ? r.json() : Promise.reject('Failed'))
+      .then(data => {
+        if (data.error) throw new Error(data.error);
 
-      const { version, shortSha, commitUrl, date } = data;
+        const {
+          version,
+          shortSha,
+          commitUrl,
+          date
+        } = data;
 
-      document.getElementById('versionInfo').innerHTML = `
+        document.getElementById('versionInfo').innerHTML = `
         <em>
           <strong>Version:</strong>
           <a href="${commitUrl}" target="_blank" class="text-decoration-none">${version}</a>
           <code class="text-muted">(${shortSha})</code>
           | <strong>Last Updated:</strong> ${date}
         </em>`;
-    })
-    .catch(err => {
-      console.error(err);
-      document.getElementById('versionInfo').innerHTML = '<em>Version info unavailable</em>';
-    });
-</script>
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('versionInfo').innerHTML = '<em>Version info unavailable</em>';
+      });
+  </script>
 
-<?php
+  <?php
   echo '<em class="text-muted">Copyright &copy; ' . date('Y') . ' ' . htmlspecialchars($_SERVER['HTTP_HOST']) . '</em>';
   ?>
 
-  </div>
+</div>
 </div>
