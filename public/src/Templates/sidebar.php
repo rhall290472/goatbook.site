@@ -96,6 +96,9 @@
     });
 </script>
 
+<?php
+  echo '<em class="text-muted">Copyright &copy; ' . date('Y') . ' ' . htmlspecialchars($_SERVER['HTTP_HOST']) . '</em>';
+  ?>
 
   </div>
 </div>

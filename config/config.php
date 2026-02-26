@@ -30,32 +30,56 @@ define('ASSETS_URL', SITE_URL . '/assets');
 define('PAGE_TITLE', 'Guide to Outdoor Activities for Troops');
 define('PAGE_DESCRIPTION', 'GOAT Book');
 
-// Contact email
-define('CONTACT_EMAIL', 'richard.hall@centennialdistrict.co');
 
 // SMTP settings
-define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_USER', 'richard.hall@centennialdistrict.co');
-define('SMTP_PASS', 'wmksqamucgzvlsil'); 
-define('SMTP_PORT', '587');
+define('SMTP_HOST', 'smtp.ipage.com');
+define('SMTP_USER', 'webmaster@goatbook.site');
+define('SMTP_PASS', 'Td*MrGWpGD4T*3RBBEh@');
+define('SMTP_PORT', '465');
+define('SMTP_ENCRYPT',  'ssl');
+
+define('CONTACT_EMAIL', 'webmaster@goatbook.site');
 
 $pageHome = SITE_URL . '/public/index.php';
 $pageContact = SITE_URL . '/src/contact.php';
+
+$logDir  = BASE_PATH . '/logs';
+$logFile = $logDir . '/php_errors.log';
+
+if (!is_dir($logDir)) {
+  @mkdir($logDir, 0755, true);
+}
+
+if (is_dir($logDir) && is_writable($logDir)) {
+  ini_set('log_errors', '1');
+  ini_set('error_log', $logFile);
+  ini_set('display_errors', ENV === 'development' ? '1' : '0');
+} else {
+  // Fallback: use system default log
+  ini_set('log_errors', '1');
+  // No custom error_log → goes to server default (often /logs/error_log or similar)
+}
 
 // Environment configuration
 define('ENV', 'development'); // Set to 'production' on live server
 
 // Enable error reporting in development only
 if (defined('ENV') && ENV === 'development') {
-  ini_set('display_errors', 1);
-  ini_set('log_errors', 1);
-//  ini_set('error_log', SHARED_PATH . '/shared/logs/php_errors.log');
-//  $pgLog = SHARED_PATH . '/shared/logs';
-  error_reporting(E_ALL);
+  if (is_dir($logDir) && is_writable($logDir)) {
+    ini_set('display_errors', 1);
+    ini_set('log_errors', 1);
+    $logPath = BASE_PATH . '/logs/php_errors.log';
+    ini_set('error_log', $logPath);
+    error_reporting(E_ALL);
+  } else {
+    // Fallback: use system default log
+    ini_set('log_errors', '1');
+    // No custom error_log → goes to server default (often /logs/error_log or similar)
+  }
 } else {
   ini_set('display_errors', 0);
   ini_set('log_errors', 1);
-//  ini_set('error_log', 'https://shared.centennialdistrict.co/logs/error.log');
+  //  ini_set('error_log', 'https://shared.centennialdistrict.co/logs/error.log');
 }
 
 

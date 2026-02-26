@@ -1,77 +1,117 @@
 <?php
+/**
+ * send_email.php - Secure contact form processor using PHPMailer + Gmail SMTP
+ */
+
+session_start([
+    'cookie_httponly' => true,
+    'use_strict_mode' => true,
+    'cookie_secure'   => isset($_SERVER['HTTPS'])
+]);
+
+// Load config (defines SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_PORT, CONTACT_EMAIL)
+$pathToConfig = dirname(__DIR__, 3) . '/config/config.php'; // Adjust if folder structure differs
+if (file_exists($pathToConfig)) {
+    require_once $pathToConfig;
+} else {
+    error_log("Config not found: $pathToConfig");
+    die('Server configuration error. Please contact admin.');
+}
+
+// Load PHPMailer (Composer preferred)
+$autoloadPath = BASE_PATH . '/vendor/autoload.php';
+if (file_exists($autoloadPath)) {
+    require $autoloadPath;
+} else {
+    // Fallback: manual includes (if no Composer)
+    require BASE_PATH . '/public/assets/vendor/PHPMailer/src/PHPMailer.php';
+    require BASE_PATH . '/public/assets/vendor/PHPMailer/src/SMTP.php';
+    require BASE_PATH . '/public/assets/vendor/PHPMailer/src/Exception.php';
+}
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Secure session start
-if (session_status() === PHP_SESSION_NONE) {
-  session_start([
-    'cookie_httponly' => true,
-    'use_strict_mode' => true,
-    'cookie_secure' => isset($_SERVER['HTTPS'])
-  ]);
+// Only allow POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Invalid request.'];
+    header("Location: index.php?page=contact");
+    exit;
 }
 
-// Validate CSRF token
-if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-  $_SESSION['feedback'] = [
-    'type' => 'error',
-    'message' => 'index.php?status=error&message=' . urlencode('Invalid CSRF token')
-  ];
-  header('Location: index.php?status=error&message=' . urlencode('Invalid CSRF token'));
-  exit;
+// CSRF check
+if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
+    $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Security check failed. Please try again.'];
+    header("Location: index.php?page=contact");
+    exit;
 }
 
-// Load PHPMailer
-require BASE_PATH . '/public/assets/vendor/autoload.php';
-/**
- * Loads the configuration file.
- * Terminates execution if the config file is missing.
- */
-if (file_exists(__DIR__ . '/../../../config/config.php')) {
-  require_once __DIR__ . '/../../../config/config.php';
-} else {
-  echo __DIR__ . '/../../config/config.php</br>';
-  error_log("Unable to find file config.php " . __DIR__ . "/../config/config.php @ " . __FILE__ . ' ' . __LINE__);
-  die('Unable to find required file. Please try again later.');
+// Sanitize inputs
+$name    = trim(preg_replace('/[\x00-\x1F\x7F]/u', '', $_POST['name'] ?? ''));     // remove control chars
+$subject = trim(preg_replace('/[\x00-\x1F\x7F]/u', '', $_POST['subject'] ?? ''));
+$message = trim(preg_replace('/[\x00-\x1F\x7F]/u', '', $_POST['message'] ?? ''));
+
+// For email — use proper validation instead of sanitization
+$email   = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL) ?? '');
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    // handle invalid email
+}
+if (empty($name) || empty($email) || empty($subject) || empty($message) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Please fill all fields correctly.'];
+    header("Location: index.php?page=contact");
+    exit;
 }
 
 $mail = new PHPMailer(true);
 
 try {
-  // Server settings
-  $mail->isSMTP();
-  $mail->Host = $mailConfig['host'];
-  $mail->SMTPAuth = true;
-  $mail->Username = $mailConfig['username'];
-  $mail->Password = $mailConfig['password'];
-  $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-  $mail->Port = 587;
+    // Enable debug for testing (remove or set to 0 in production)
+    $mail->SMTPDebug = 2;               // 2 = verbose output (shows SMTP conversation)
+    $mail->Debugoutput = 'html';        // Nice formatting in browser during test
 
-  // Recipients
-  $mail->setFrom($mailConfig['username'], $_POST['name']); // Use your SMTP username to avoid spoofing issues
-  $mail->addReplyTo($_POST['email'], $_POST['name']); // Allow replies to user’s email
-  $mail->addAddress($mailConfig['recipient']);
+    // Server settings
+    $mail->isSMTP();
+    $mail->Host       = SMTP_HOST;      // 'smtp.gmail.com'
+    $mail->SMTPAuth   = true;
+    $mail->Username   = SMTP_USER;      // richard.hall@centennialdistrict.co
+    $mail->Password   = SMTP_PASS;      // MUST be Gmail App Password (16 chars, no spaces)
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port       = (int) SMTP_PORT; // 587
 
-  // Content
-  $mail->isHTML(true);
-  $mail->Subject = htmlspecialchars($_POST['subject']) . " - goatbook.site";
-  $mail->Body = '<p><strong>From:</strong> ' . htmlspecialchars($_POST['name']) . ' (' . htmlspecialchars($_POST['email']) . ')</p>' .
-                '<p><strong>Subject:</strong> ' . htmlspecialchars($_POST['subject']) . '</p>' .
-                '<p><strong>Message:</strong><br>' . nl2br(htmlspecialchars($_POST['message'])) . '</p>';
-  $mail->AltBody = "From: {$_POST['name']} ({$_POST['email']})\nSubject: {$_POST['subject']}\n\n{$_POST['message']}";
+    // Recipients
+    $mail->setFrom(SMTP_USER, 'GOAT Book Contact Form'); // Use your Gmail to avoid blocks
+    $mail->addReplyTo($email, $name);                    // Replies go to visitor
+    $mail->addAddress(CONTACT_EMAIL);                    // You receive it here
 
-  $mail->send();
-  $_SESSION['feedback'] = [
-    'type' => 'success',
-    'message' => 'Your message has been sent. Thank you!'
-  ];
-  header("Location: ../../index.php?page=home");
+    // Content
+    $mail->isHTML(true);
+    $mail->Subject = htmlspecialchars($subject) . ' - goatbook.site Contact';
+    $mail->Body    = '
+        <h3>New Message from Contact Form</h3>
+        <p><strong>Name:</strong> ' . htmlspecialchars($name) . '</p>
+        <p><strong>Email:</strong> ' . htmlspecialchars($email) . '</p>
+        <p><strong>Subject:</strong> ' . htmlspecialchars($subject) . '</p>
+        <hr>
+        <p><strong>Message:</strong><br>' . nl2br(htmlspecialchars($message)) . '</p>
+    ';
+    $mail->AltBody = "Name: $name\nEmail: $email\nSubject: $subject\n\n$message";
+
+    $mail->send();
+
+    $_SESSION['feedback'] = [
+        'type'    => 'success',
+        'message' => 'Thank you! Your message has been sent successfully.'
+    ];
+    header("Location: index.php?page=contact"); // Redirect back to form (better UX)
+
 } catch (Exception $e) {
-  $_SESSION['feedback'] = [
-    'type' => 'danger',
-    'message' => 'Failed to send email: ' . htmlspecialchars($e->getMessage())
-  ];
-  header("Location: index.php?page=home");
+    error_log("PHPMailer Error: " . $mail->ErrorInfo . " | File: " . __FILE__);
+    $_SESSION['feedback'] = [
+        'type'    => 'danger',
+        'message' => 'Sorry, we couldn\'t send your message. Error: ' . htmlspecialchars($mail->ErrorInfo)
+    ];
+    header("Location: index.php?page=contact");
 }
+
 exit;
-?>
