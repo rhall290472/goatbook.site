@@ -1,0 +1,10 @@
+[26-Feb-2026 04:01:48 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "ENV" in C:\xampp\htdocs\goatbook.site\config\config.php:56
+Stack trace:
+#0 C:\xampp\htdocs\goatbook.site\public\index.php(24): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\goatbook.site\config\config.php on line 56
+[26-Feb-2026 04:01:58 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "ENV" in C:\xampp\htdocs\goatbook.site\config\config.php:56
+Stack trace:
+#0 C:\xampp\htdocs\goatbook.site\public\index.php(24): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\goatbook.site\config\config.php on line 56

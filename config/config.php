@@ -53,7 +53,7 @@ if (!is_dir($logDir)) {
 if (is_dir($logDir) && is_writable($logDir)) {
   ini_set('log_errors', '1');
   ini_set('error_log', $logFile);
-  ini_set('display_errors', ENV === 'development' ? '1' : '0');
+ ini_set('display_errors', 1);
 } else {
   // Fallback: use system default log
   ini_set('log_errors', '1');
