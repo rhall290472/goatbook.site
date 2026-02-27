@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /*
  * Main entry point for the GOAT book website.
  * Handles routing, form submissions, and includes views based on the 'page' GET parameter.
@@ -15,6 +16,8 @@ if (session_status() === PHP_SESSION_NONE) {
     'cookie_secure' => isset($_SERVER['HTTPS'])
   ]);
 }
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Loads the configuration file.

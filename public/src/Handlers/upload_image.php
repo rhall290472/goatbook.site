@@ -1,4 +1,6 @@
 <?php
+
+
 if (session_status() === PHP_SESSION_NONE) {
   session_start([
     'cookie_httponly' => true,
@@ -6,6 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
     'cookie_secure' => isset($_SERVER['HTTPS'])
   ]);
 }
+
 
 require_once __DIR__ . '/../../../config/config.php';
 include_once __DIR__ . '/../Classes/cGOAT.php';
