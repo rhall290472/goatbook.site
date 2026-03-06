@@ -9,7 +9,7 @@ session_start([
     'cookie_secure'   => isset($_SERVER['HTTPS'])
 ]);
 
-require_once __DIR__ . '/vendor/autoload.php';  // if using Composer autoload
+require_once BASE_PATH .'/vendor/autoload.php';  // if using Composer autoload
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();

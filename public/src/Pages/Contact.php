@@ -14,9 +14,9 @@ if (session_status() === PHP_SESSION_NONE) {
   ]);
 }
 
-require_once __DIR__ . '/vendor/autoload.php';  // if using Composer autoload
+require_once BASE_PATH .'/vendor/autoload.php';  // if using Composer autoload
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH . '/public');
 $dotenv->load();
 
 $siteKey   = $_ENV['RECAPTCHA_SITE_KEY']   ?? '';  // fallback empty
