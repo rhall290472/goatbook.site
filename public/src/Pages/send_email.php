@@ -9,6 +9,15 @@ session_start([
     'cookie_secure'   => isset($_SERVER['HTTPS'])
 ]);
 
+require_once __DIR__ . '/vendor/autoload.php';  // if using Composer autoload
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$siteKey   = $_ENV['RECAPTCHA_SITE_KEY']   ?? '';  // fallback empty
+$secretKey = $_ENV['RECAPTCHA_SECRET_KEY'] ?? '';
+
+
 // Load config (defines SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_PORT, CONTACT_EMAIL)
 $pathToConfig = dirname(__DIR__, 3) . '/config/config.php'; // Adjust if folder structure differs
 if (file_exists($pathToConfig)) {
@@ -62,6 +71,31 @@ if (empty($name) || empty($email) || empty($subject) || empty($message) || !filt
     header("Location: index.php?page=contact");
     exit;
 }
+
+$secret = '6Lf2HoIsAAAAAC9xlOtNKMaCr4Qt_HLe1hEnngTz';
+$response = $_POST['g-recaptcha-response'];
+$verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
+$captcha_success = json_decode($verify);
+
+if ($captcha_success->success == false || $captcha_success->score < 0.4) {  // 0.0 = bot, 1.0 = human — tune threshold
+    $_SESSION['feedback'] = ['status' => 'danger', 'message' => 'Verification failed. Please try again.'];
+    header("Location: index.php?page=contact");
+    exit;
+}
+// Honeypot check (should be empty)
+if (!empty($_POST['website_url'])) {
+    // bot → silently reject or log
+    die();   // or set error and redirect
+}
+
+if (isset($_POST['form_start_time'])) {
+    $time_taken = time() - (int)$_POST['form_start_time'];
+    if ($time_taken < 6) {   // adjust 6–12 seconds
+        // bot → reject
+      die();
+    }
+}
+
 
 $mail = new PHPMailer(true);
 
