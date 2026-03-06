@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
   ]);
 }
 
-require_once BASE_PATH .'/vendor/autoload.php';  // if using Composer autoload
+require_once BASE_PATH . '/vendor/autoload.php';  // if using Composer autoload
 
 $dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH . '/public');
 $dotenv->load();
@@ -115,18 +115,27 @@ if (isset($_SESSION['feedback'])) {
     });
 
     document.querySelector('.php-email-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    grecaptcha.ready(function() {
-        grecaptcha.execute('6Lf2HoIsAAAAAIgggIZ3mt11vT0HpznBUuLvNs9V', {action: 'contact_form'}).then(function(token) {
+      e.preventDefault();
+
+      grecaptcha.ready(function() {
+        grecaptcha.execute('<?php echo htmlspecialchars($siteKey); ?>', {
+            action: 'contact_form'
+          })
+          .then(function(token) {
             document.getElementById('recaptchaResponse').value = token;
             // now really submit the form
             e.target.submit();
-        });
+          })
+          .catch(function(error) {
+            console.error('reCAPTCHA error:', error);
+            // optional: alert user or fallback
+            e.target.submit(); // or prevent submission
+          });
+      });
     });
-  });
   </script>
 
-  
+
 </body>
 
 </html>
