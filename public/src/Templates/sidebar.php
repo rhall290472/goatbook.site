@@ -83,30 +83,56 @@
     <em>Loading version...</em>
   </p>
 
+  <!-- Your script (with fixes – see notes below) -->
   <script>
-    fetch('./src/Templates/version.php') // ← your own server endpoint
-      .then(r => r.ok ? r.json() : Promise.reject('Failed'))
+    const repo = 'rhall290472/goatbook.site';
+    const ref = 'main';
+    const versionInfo = document.getElementById('versionInfo');
+
+    fetch(`https://api.github.com/repos/${repo}/git/ref/heads/${ref}`)
+      .then(r => {
+        if (!r.ok) throw new Error('Failed to fetch ref');
+        return r.json();
+      })
       .then(data => {
-        if (data.error) throw new Error(data.error);
+        const sha = data.object.sha;
+        const shortSha = sha.slice(0, 7);
 
-        const {
-          version,
-          shortSha,
-          commitUrl,
-          date
-        } = data;
+        return fetch(`https://api.github.com/repos/${repo}/tags?per_page=100`)
+          .then(r => r.ok ? r.json() : [])
+          .then(tags => {
+            const matchingTag = tags.find(t => t.commit.sha === sha);
+            return {
+              sha,
+              shortSha,
+              tag: matchingTag?.name ?? null
+            };
+          });
+      })
+      .then(({
+        sha,
+        shortSha,
+        tag
+      }) => {
+        const version = tag || shortSha;
+        const link = `https://github.com/${repo}/commit/${sha}`;
+        const date = new Date().toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
 
-        document.getElementById('versionInfo').innerHTML = `
+        versionInfo.innerHTML = `
         <em>
           <strong>Version:</strong>
-          <a href="${commitUrl}" target="_blank" class="text-decoration-none">${version}</a>
+          <a href="${link}" target="_blank" class="text-decoration-none">${version}</a>
           <code class="text-muted">(${shortSha})</code>
           | <strong>Last Updated:</strong> ${date}
         </em>`;
       })
       .catch(err => {
         console.error(err);
-        document.getElementById('versionInfo').innerHTML = '<em>Version info unavailable</em>';
+        versionInfo.innerHTML = '<em>Version info unavailable</em>';
       });
   </script>
 
