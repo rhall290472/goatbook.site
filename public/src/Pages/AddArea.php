@@ -43,9 +43,12 @@ if (!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)) {
     // Save New data..From the user form
     $FormData = array();
     $FormData['area'] = $cGOAT->GetFormData('element_1_1');
-    //$cGOAT->InsertArea($FormData);
 
-    $_SESSION['feedback'] = ['type' => 'success', 'message' => 'New Area Added.'];
+    if ($cGOAT->InsertArea($FormData))
+      $_SESSION['feedback'] = ['type' => 'success', 'message' => 'New Area Added.'];
+    else
+      $_SESSION['feedback'] = ['type' => 'danger', 'message' => 'Add New Area Failed.'];
+
     header("Location: index.php?page=home");
     exit;
   }

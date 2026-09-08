@@ -84,7 +84,7 @@ class cGOAT
    *
    * @return array Database configuration array with keys: dbhost, dbuser, dbpass, db
    */
-  
+
   /**
    * Gets the Singleton instance of the class.
    *
@@ -149,11 +149,11 @@ class cGOAT
   {
     //$connConf = self::getConfigData();
 
-    
+
     if (!in_array('mysql', PDO::getAvailableDrivers())) {
       error_log("PDO MySQL driver not available. Available drivers: " .
         implode(', ', PDO::getAvailableDrivers()));
-        phpinfo();
+      phpinfo();
       exit('PDO MySQL driver not installed. Please install php-mysql extension.');
     }
 
@@ -429,6 +429,18 @@ class cGOAT
   {
     $sql = "INSERT INTO `type` (`activity_type`) VALUES (?)";
     return self::doQuery($sql, [$FormData['type2']]);
+  }
+
+  /**
+   * Inserts a new area into the database.
+   *
+   * @param array $FormData Array containing the area name (area)
+   * @return mysqli_result|null The query result or null on failure
+   */
+  public static function InsertArea($FormData)
+  {
+    $sql = "INSERT INTO `area` (`name`) VALUES (?)";
+    return self::doQuery($sql, [$FormData['area']]);
   }
 
   /**
